@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.titulo }} - Meu Blog{% endblock %}
+
+{% block content %}
+    <h1>{{ post.titulo }}</h1>
+    <p><strong>Por:</strong> {{ post.autor.username }}</p>
+    <p><strong>Categoria:</strong> {{ post.categoria.nome }}</p>
+    <p>{{ post.conteudo }}</p>
+    <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
+
+    {% if user == post.autor %}
+        <p>
+            <a href="{% url 'editar_post' post.id %}">✏️ Editar</a> |
+            <a href="{% url 'deletar_post' post.id %}">🗑️ Excluir</a>
+        </p>
+    {% endif %}
+
+    <hr>
+
+    <h3>Comentários</h3>
+
+    {% for comentario in comentarios %}
+        <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd;">
+            <p><strong>{{ comentario.autor.username }}</strong> comentou:</p>
+            <p>{{ comentario.conteudo }}</p>
+            <small>{{ comentario.criado_em|date:"d/m/Y H:i" }}</small>
+        </div>
+    {% empty %}
+        <p>Seja o primeiro a comentar!</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <hr>
+        <h4>Adicionar Comentário</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Comentar</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Faça login para comentar</a></p>
+    {% endif %}
+
+    <p><a href="{% url 'home' %}">← Voltar</a></p>
+{% endblock %}

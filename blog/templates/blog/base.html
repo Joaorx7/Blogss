@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Meu Blog{% endblock %}</title>
+</head>
+<body>
+    <header style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 20px;">
+        <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
+
+        {% if user.is_authenticated %}
+            <p>Olá, {{ user.username }} |
+                <a href="{% url 'novo_post' %}">Novo Post</a> |
+                <a href="{% url 'logout' %}">Sair</a>
+            </p>
+        {% else %}
+            <p>
+                <a href="{% url 'login' %}">Login</a> |
+                <a href="{% url 'cadastro' %}">Cadastro</a>
+            </p>
+        {% endif %}
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

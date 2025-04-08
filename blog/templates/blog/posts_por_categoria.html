@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ categoria.nome }} - Meu Blog{% endblock %}
+
+{% block content %}
+    <h2>Posts na categoria "{{ categoria.nome }}"</h2>
+    {% for post in posts %}
+        <div style="border: 1px solid #ccc; margin-bottom: 20px; padding: 10px;">
+            <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
+            <p><strong>Por:</strong> {{ post.autor.username }}</p>
+            <p>{{ post.conteudo|truncatechars:200 }}</p>
+            <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
+        </div>
+    {% empty %}
+        <p>Nenhum post encontrado nessa categoria.</p>
+    {% endfor %}
+
+    <p><a href="{% url 'home' %}">← Voltar para todos os posts</a></p>
+{% endblock %}

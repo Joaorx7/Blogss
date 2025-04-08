@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Início - Meu Blog{% endblock %}
+
+<nav style="margin-bottom: 20px;">
+    <h3>Categorias</h3>
+    <ul>
+        {% for categoria in categorias %}
+            <li>
+                <a href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a>
+            </li>
+        {% empty %}
+            <li>Nenhuma categoria disponível</li>
+        {% endfor %}
+    </ul>
+</nav>
+
+{% block content %}
+    {% for post in posts %}
+        <div style="border: 1px solid #ccc; margin-bottom: 20px; padding: 10px;">
+            <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
+            <p><strong>Por:</strong> {{ post.autor.username }}</p>
+            <p>
+                <strong>Categoria:</strong> 
+                <a href="{% url 'posts_por_categoria' post.categoria.id %}">
+                    {{ post.categoria.nome }}
+                </a>
+            </p>
+            <p>{{ post.conteudo|truncatechars:200 }}</p>
+            <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
+        </div>
+    {% empty %}
+        <p>Nenhum post encontrado.</p>
+    {% endfor %}
+
+    <!-- Paginação -->
+    <div style="margin-top: 20px; text-align: center;">
+        <span>
+            Página {{ posts.number }} de {{ posts.paginator.num_pages }}
+        </span><br>
+
+        {% if posts.has_previous %}
+            <a href="?page=1">Primeira</a>
+            <a href="?page={{ posts.previous_page_number }}">Anterior</a>
+        {% endif %}
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">Próxima</a>
+            <a href="?page={{ posts.paginator.num_pages }}">Última</a>
+        {% endif %}
+    </div>
+{% endblock %}
