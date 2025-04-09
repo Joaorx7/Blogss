@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Caixa de Entrada{% endblock %}
+
+{% block content %}
+  <h2>📬 Mensagens Recebidas</h2>
+
+  {% if mensagens %}
+    <ul>
+      {% for mensagem in mensagens %}
+        <li>
+          <strong>De:</strong> 
+          <a href="{% url 'perfil_usuario' mensagem.remetente.username %}">
+            {{ mensagem.remetente.username }}
+          </a><br>
+          <strong>Assunto:</strong> {{ mensagem.assunto }}<br>
+          <strong>Mensagem:</strong> {{ mensagem.conteudo }}<br>
+          <small>Enviada em {{ mensagem.enviada_em|date:"d/m/Y H:i" }}</small>
+        </li>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Você ainda não recebeu mensagens.</p>
+  {% endif %}
+
+  <p><a href="{% url 'home' %}">← Voltar</a></p>
+{% endblock %}

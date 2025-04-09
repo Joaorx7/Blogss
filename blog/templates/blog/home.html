@@ -1,31 +1,38 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 
 {% block title %}Início - Meu Blog{% endblock %}
 
-<nav style="margin-bottom: 20px;">
-    <h3>Categorias</h3>
-    <ul>
-        {% for categoria in categorias %}
-            <li>
-                <a href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a>
-            </li>
-        {% empty %}
-            <li>Nenhuma categoria disponível</li>
-        {% endfor %}
-    </ul>
-</nav>
-
 {% block content %}
+    <nav class="categorias-nav">
+        <h3>Categorias</h3>
+        <ul>
+            {% for categoria in categorias %}
+                <li>
+                    <a href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a>
+                </li>
+            {% empty %}
+                <li>Nenhuma categoria disponível</li>
+            {% endfor %}
+        </ul>
+    </nav>
+
     {% for post in posts %}
-        <div style="border: 1px solid #ccc; margin-bottom: 20px; padding: 10px;">
+        <div class="post-resumo">
             <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
             <p><strong>Por:</strong> {{ post.autor.username }}</p>
-            <p>
-                <strong>Categoria:</strong> 
-                <a href="{% url 'posts_por_categoria' post.categoria.id %}">
-                    {{ post.categoria.nome }}
-                </a>
-            </p>
+
+            {% if post.categoria %}
+                <p>
+                    <strong>Categoria:</strong> 
+                    <a href="{% url 'posts_por_categoria' post.categoria.id %}">
+                        {{ post.categoria.nome }}
+                    </a>
+                </p>
+            {% else %}
+                <p><strong>Categoria:</strong> Nenhuma</p>
+            {% endif %}
+
             <p>{{ post.conteudo|truncatechars:200 }}</p>
             <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
         </div>
@@ -33,8 +40,7 @@
         <p>Nenhum post encontrado.</p>
     {% endfor %}
 
-    <!-- Paginação -->
-    <div style="margin-top: 20px; text-align: center;">
+    <div class="paginacao">
         <span>
             Página {{ posts.number }} de {{ posts.paginator.num_pages }}
         </span><br>

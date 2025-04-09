@@ -1,0 +1,39 @@
+/* Referente à página: categoria.html */
+.categorias-nav {
+    margin-bottom: 20px;
+}
+
+.post-resumo {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+/* Referente à página: home.html */
+.categorias-nav {
+    margin-bottom: 20px;
+}
+
+.post-resumo {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.paginacao {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Referente à página: detalhes_post.html */
+.comentario {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.imagem-post {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+}

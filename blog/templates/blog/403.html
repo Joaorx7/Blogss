@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Acesso negado - 403{% endblock %}
+
+{% block content %}
+    <h2>🚫 Acesso negado (403)</h2>
+    <p>Você não tem permissão para acessar esta página.</p>
+    <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
+{% endblock %}

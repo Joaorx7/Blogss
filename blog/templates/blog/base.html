@@ -1,22 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Meu Blog{% endblock %}</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
 </head>
 <body>
     <header style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 20px;">
-        <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
+        <form method="get" action="{% url 'home' %}" style="margin-bottom: 20px;">
+            <input type="text" name="q" placeholder="Buscar posts..." value="{{ termo_busca }}">
+            <button type="submit">Buscar</button>
+        </form>
 
         {% if user.is_authenticated %}
-            <p>Olá, {{ user.username }} |
+              <a href="{% url 'caixa_de_entrada' %}">📨 Mensagens</a>
+        {% endif %}
+
+        <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
+
+        <a href="{% url 'buscar_usuarios' %}">Buscar Usuários</a>
+        <a href="{% url 'feed' %}">Feed</a> |
+
+        {% if user.is_authenticated %}
+        <p>Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> | ...</p>
                 <a href="{% url 'novo_post' %}">Novo Post</a> |
-                <a href="{% url 'logout' %}">Sair</a>
+                <a href="{% url 'logout' %}">Sair</a>|
+                <a href="{% url 'sobre' %}">Sobre</a>
             </p>
         {% else %}
             <p>
                 <a href="{% url 'login' %}">Login</a> |
                 <a href="{% url 'cadastro' %}">Cadastro</a>
+                <a href="{% url 'sobre' %}">Sobre</a>
             </p>
         {% endif %}
     </header>
@@ -25,5 +42,7 @@
         {% block content %}
         {% endblock %}
     </main>
+
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

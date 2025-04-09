@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Perfil de {{ usuario.username }}{% endblock %}
+
+{% block content %}
+    <h2>Perfil de {{ usuario.username }}</h2>
+
+    {% if user.is_authenticated and user != usuario %}
+        {% if user in usuario.perfil.seguidores.all %}
+            <form method="post" action="{% url 'deixar_de_seguir_usuario' usuario.username %}">
+                {% csrf_token %}
+                <button type="submit">Deixar de seguir</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'seguir_usuario' usuario.username %}">
+                {% csrf_token %}
+                <button type="submit">Seguir</button>
+            </form>
+        {% endif %}
+        <p><strong>{{ usuario.perfil.seguidores.count }}</strong> seguidores</p>
+    {% endif %}
+
+    <a href="{% url 'enviar_mensagem' usuario.username %}">Enviar mensagem</a>
+
+    <h3>Posts publicados:</h3>
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a>
+                    <small>em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Este usuário ainda não publicou nenhum post.</p>
+    {% endif %}
+{% endblock %}

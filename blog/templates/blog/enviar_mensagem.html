@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Enviar mensagem{% endblock %}
+
+{% block content %}
+  <h2>Enviar mensagem para {{ destinatario.username }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enviar</button>
+  </form>
+
+  <p><a href="{% url 'perfil_usuario' destinatario.username %}">← Voltar ao perfil</a></p>
+{% endblock %}
