@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Meu Blog{% endblock %}</title>
-    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
 </head>
 <body>
@@ -13,39 +12,37 @@
             <input type="text" name="q" placeholder="Buscar posts..." value="{{ termo_busca }}">
             <button type="submit">Buscar</button>
         </form>
-        <li class="nav-item">
-            <a href="{% url 'notificacoes' %}" class="nav-link">
-                🔔 Notificações 
-                {% if user.is_authenticated and notificacoes_nao_lidas > 0 %}
-                <span class="badge badge-danger">{{ notificacoes_nao_lidas }}</span>
-            {% endif %}
-            </a>
-        </li>
-
-        <a href="{% url 'estatisticas' %}">📊 Estatísticas</a>
 
         {% if user.is_authenticated %}
-              <a href="{% url 'caixa_de_entrada' %}">📨 Mensagens</a>
-        {% endif %}
-
-        <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
-
-        <a href="{% url 'buscar_usuarios' %}">Buscar Usuários</a>
-        <a href="{% url 'feed' %}">Feed</a> |
-
-        {% if user.is_authenticated %}
-        <p>Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> | ...</p>
+            <p>
+                Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
                 <a href="{% url 'novo_post' %}">Novo Post</a> |
-                <a href="{% url 'logout' %}">Sair</a>|
+                <a href="{% url 'logout' %}">Sair</a> |
                 <a href="{% url 'sobre' %}">Sobre</a>
             </p>
         {% else %}
             <p>
                 <a href="{% url 'login' %}">Login</a> |
-                <a href="{% url 'cadastro' %}">Cadastro</a>
+                <a href="{% url 'cadastro' %}">Cadastro</a> |
                 <a href="{% url 'sobre' %}">Sobre</a>
             </p>
         {% endif %}
+
+        <nav>
+            {% if user.is_authenticated %}
+                <a href="{% url 'caixa_entrada' %}">📨 Mensagens</a> |
+            {% endif %}
+            <a href="{% url 'notificacoes' %}">🔔 Notificações 
+                {% if user.is_authenticated and notificacoes_nao_lidas > 0 %}
+                    <span class="badge badge-danger">{{ notificacoes_nao_lidas }}</span>
+                {% endif %}
+            </a> |
+            <a href="{% url 'estatisticas' %}">📊 Estatísticas</a> |
+            <a href="{% url 'buscar_usuarios' %}">Buscar Usuários</a> |
+            <a href="{% url 'feed' %}">Feed</a>
+        </nav>
+
+        <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
     </header>
 
     <main>

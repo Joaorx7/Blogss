@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Chat com {{ outro_usuario.username }}{% endblock %}
+
+{% block content %}
+<h2>Chat com {{ outro_usuario.username }}</h2>
+
+<div id="chat-box" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+    {% for msg in mensagens %}
+        <div style="text-align: {% if msg.remetente == user %}right{% else %}left{% endif %};">
+            <strong>{{ msg.remetente.username }}:</strong> {{ msg.conteudo }}<br>
+            <small>{{ msg.enviada_em|date:"H:i d/m/Y" }}</small>
+        </div>
+        <hr>
+    {% endfor %}
+</div>
+
+<form id="mensagem-form">
+    <textarea id="mensagem" rows="3" style="width: 100%;" placeholder="Digite sua mensagem..."></textarea>
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+    document.getElementById('mensagem-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const mensagem = document.getElementById('mensagem').value;
+        fetch("{% url 'enviar_mensagem' outro_usuario.username %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ 'mensagem': mensagem })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                location.reload();  // pode ser substituído por inserir dinamicamente
+            }
+        });
+    });
+</script>
+
+{% endblock %}

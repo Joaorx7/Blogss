@@ -5,16 +5,7 @@
 {% block content %}
     <h1>Posts na categoria: {{ categoria.nome }}</h1>
 
-    <nav class="categorias-nav">
-        <h3>Categorias</h3>
-        <ul>
-            {% for categoria in categorias %}
-                <li><a href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a></li>
-            {% empty %}
-                <li>Nenhuma categoria disponível</li>
-            {% endfor %}
-        </ul>
-    </nav>
+    
 
     {% for post in posts %}
         <div class="post-resumo">

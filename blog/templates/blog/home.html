@@ -4,18 +4,7 @@
 {% block title %}Início - Meu Blog{% endblock %}
 
 {% block content %}
-    <nav class="categorias-nav">
-        <h3>Categorias</h3>
-        <ul>
-            {% for categoria in categorias %}
-                <li>
-                    <a href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a>
-                </li>
-            {% empty %}
-                <li>Nenhuma categoria disponível</li>
-            {% endfor %}
-        </ul>
-    </nav>
+   
     <form method="get">
         <select name="categoria">
           <option value="">Todas as categorias</option>

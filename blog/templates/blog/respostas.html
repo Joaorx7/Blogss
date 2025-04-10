@@ -1,0 +1,32 @@
+{% for resposta in respostas %}
+    <div class="resposta" style="margin-left: {{ nivel|add:"20" }}px; background-color: #f9f9f9; padding: 10px; margin-top: 10px;">
+        <p>
+            <strong><a href="{% url 'perfil_usuario' resposta.autor.username %}">{{ resposta.autor.username }}</a></strong> respondeu:
+        </p>
+        <p>{{ resposta.conteudo }}</p>
+        <small>{{ resposta.criado_em|date:"d/m/Y H:i" }}</small>
+
+        {% if user == resposta.autor %}
+            <p>
+                <a href="{% url 'editar_comentario' resposta.id %}">✏️ Editar</a> |
+                <a href="{% url 'deletar_comentario' resposta.id %}">🗑️ Excluir</a>
+            </p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <p><a href="#" onclick="mostrarFormResposta({{ resposta.id }}); return false;">💬 Responder</a></p>
+
+            <div id="resposta-form-{{ resposta.id }}" style="display: none; margin-left: 20px;">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="hidden" name="resposta_a" value="{{ resposta.id }}">
+                    <button type="submit">Enviar resposta</button>
+                </form>
+            </div>
+        {% endif %}
+
+        {# chamadas recursivas para respostas das respostas #}
+        {% include "blog/respostas.html" with respostas=resposta.respostas.all nivel=nivel|add:"20" form=form %}
+    </div>
+{% endfor %}

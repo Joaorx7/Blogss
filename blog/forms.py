@@ -1,12 +1,8 @@
 from django import forms
-from .models import Post, Comentario, Categoria, Mensagem, Perfil  # ← Certifique-se de importar Categoria
-from django import forms
+from .models import Post, Comentario, Categoria, Mensagem, Perfil
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 class CadastroForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
@@ -18,11 +14,12 @@ class CadastroForm(UserCreationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['titulo', 'conteudo', 'categoria', 'imagem']  # ← Adicionado 'imagem'
+        fields = ['titulo', 'conteudo', 'categoria', 'imagem']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
             'conteudo': forms.Textarea(attrs={'class': 'form-control'}),
             'categoria': forms.Select(attrs={'class': 'form-control'}),
+            'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
 class ComentarioForm(forms.ModelForm):
@@ -34,13 +31,17 @@ class ComentarioForm(forms.ModelForm):
             'resposta_a': forms.HiddenInput()
         }
 
-
 class MensagemForm(forms.ModelForm):
     class Meta:
         model = Mensagem
-        fields = ['conteudo']
+        fields = ['destinatario', 'conteudo']
         widgets = {
-            'conteudo': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Escreva sua mensagem...'})
+            'destinatario': forms.Select(attrs={'class': 'form-control'}),
+            'conteudo': forms.Textarea(attrs={
+                'rows': 3,
+                'placeholder': 'Escreva sua mensagem...',
+                'class': 'form-control'
+            }),
         }
 
 class EditarPerfilForm(forms.ModelForm):
@@ -48,11 +49,11 @@ class EditarPerfilForm(forms.ModelForm):
         model = Perfil
         fields = ['bio']
         widgets = {
-            'bio': forms.Textarea(attrs={'rows': 4}),
+            'bio': forms.Textarea(attrs={'rows': 4, 'class': 'form-control'}),
         }
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User

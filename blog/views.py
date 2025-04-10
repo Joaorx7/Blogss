@@ -22,7 +22,6 @@ from django.views.decorators.http import require_POST
 from django.db.models import Count, Sum
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
@@ -113,10 +112,12 @@ from .models import Categoria
 
 def detalhes_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    comentarios = post.comentarios.filter(resposta_a__isnull=True).order_by('-criado_em')
     categorias = Categoria.objects.all()
+    
+    # Comentários principais (sem pai)
+    comentarios = Comentario.objects.filter(post=post, resposta_a__isnull=True).order_by('-criado_em')
 
-    # Markdown
+    # Markdown do conteúdo do post
     post_conteudo_html = markdown.markdown(post.conteudo)
 
     if request.method == 'POST':
@@ -130,14 +131,11 @@ def detalhes_post(request, post_id):
                 # Verifica se é resposta a outro comentário
                 resposta_a_id = request.POST.get('resposta_a')
                 if resposta_a_id:
-                    try:
-                        comentario.resposta_a = Comentario.objects.get(id=resposta_a_id)
-                    except Comentario.DoesNotExist:
-                        pass  # ignora se o comentário pai não existir
+                    comentario.resposta_a = Comentario.objects.get(id=resposta_a_id)
 
                 comentario.save()
 
-                # Notifica o autor do post
+                # Cria notificação para o autor do post
                 if post.autor != request.user:
                     Notificacao.objects.create(
                         usuario=post.autor,
@@ -158,7 +156,6 @@ def detalhes_post(request, post_id):
         'categorias': categorias,
         'post_conteudo_html': post_conteudo_html,
     })
-
 
 def cadastro(request):
     categorias = Categoria.objects.all()
@@ -288,24 +285,23 @@ def deixar_de_seguir_usuario(request, username):
 
 @login_required
 def caixa_entrada(request):
-    mensagens = request.user.mensagens_recebidas.order_by('-enviada_em')
-    return render(request, 'blog/caixa_entrada.html', {'mensagens': mensagens})
+    mensagens = Mensagem.objects.filter(destinatario=request.user).order_by('-enviada_em')
+    return render(request, 'blog/caixa_de_entrada.html', {'mensagens': mensagens})
 
 @login_required
 def enviar_mensagem(request, username):
-    destinatario = get_object_or_404(User, username=username)
     if request.method == 'POST':
-        form = MensagemForm(request.POST)
-        if form.is_valid():
-            mensagem = form.save(commit=False)
-            mensagem.remetente = request.user
-            mensagem.destinatario = destinatario
-            mensagem.save()
-            return redirect('perfil_usuario', username=username)
-    else:
-        form = MensagemForm()
-    return render(request, 'blog/enviar_mensagem.html', {'form': form, 'destinatario': destinatario})
+        data = json.loads(request.body)
+        conteudo = data.get('mensagem')
+        destinatario = get_object_or_404(User, username=username)
 
+        mensagem = Mensagem.objects.create(
+            remetente=request.user,
+            destinatario=destinatario,
+            conteudo=conteudo
+        )
+
+        return JsonResponse({'status': 'ok'})
 @login_required
 def caixa_de_entrada(request):
     mensagens = Mensagem.objects.filter(destinatario=request.user).order_by('-enviada_em')
@@ -458,3 +454,35 @@ def cadastro(request):
 
 def termos_uso(request):
     return render(request, 'blog/termos_uso.html')
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from .models import Mensagem  # ou User, depende de como você nomeou
+
+@login_required
+def responder_mensagem(request, mensagem_id):
+    mensagem_original = get_object_or_404(Mensagem, id=mensagem_id)
+
+    if request.method == 'POST':
+        conteudo = request.POST.get('conteudo')
+        if conteudo:
+            nova_mensagem = Mensagem.objects.create(
+                remetente=request.user,
+                destinatario=mensagem_original.remetente,
+                conteudo=conteudo
+            )
+            return redirect('caixa_entrada')  # ou o nome da sua view
+    return redirect('caixa_entrada')
+
+@login_required
+def chat(request, username):
+    outro_usuario = get_object_or_404(User, username=username)
+    mensagens = Mensagem.objects.filter(
+        Q(remetente=request.user, destinatario=outro_usuario) |
+        Q(remetente=outro_usuario, destinatario=request.user)
+    ).order_by('enviada_em')
+
+    return render(request, 'blog/chat.html', {
+        'mensagens': mensagens,
+        'outro_usuario': outro_usuario
+    })

@@ -63,14 +63,8 @@
             </div>
         {% endif %}
 
-        {# Respostas encadeadas #}
-        {% for resposta in comentario.respostas.all %}
-            <div class="resposta" style="margin-left: 20px; background-color: #f9f9f9; padding: 10px; margin-top: 10px;">
-                <p><strong><a href="{% url 'perfil_usuario' resposta.autor.username %}">{{ resposta.autor.username }}</a></strong> respondeu:</p>
-                <p>{{ resposta.conteudo }}</p>
-                <small>{{ resposta.criado_em|date:"d/m/Y H:i" }}</small>
-            </div>
-        {% endfor %}
+        {# Respostas recursivas #}
+        {% include "blog/respostas.html" with respostas=comentario.respostas.all nivel=1 form=form %}
     </div>
 {% empty %}
     <p>Seja o primeiro a comentar!</p>
