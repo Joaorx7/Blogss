@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h2>Caixa de Entrada</h2>
+
+<ul>
+    {% for msg in mensagens %}
+        <li>
+            <strong>De:</strong> {{ msg.remetente.username }} <br>
+            <strong>Data:</strong> {{ msg.enviada_em|date:"d/m/Y H:i" }} <br>
+            <strong>Mensagem:</strong> {{ msg.conteudo }}
+        </li>
+        <hr>
+    {% empty %}
+        <li>Você não recebeu nenhuma mensagem ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

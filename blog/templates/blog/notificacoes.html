@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>Notificações</h2>
+  {% if notificacoes %}
+    <ul>
+      {% for notificacao in notificacoes %}
+        <li>
+          {% if notificacao.link %}
+            <a href="{{ notificacao.link }}">{{ notificacao.texto }}</a>
+          {% else %}
+            {{ notificacao.texto }}
+          {% endif %}
+          {% if not notificacao.lida %}
+            <strong>(Nova)</strong>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Você não tem notificações.</p>
+  {% endif %}
+{% endblock %}

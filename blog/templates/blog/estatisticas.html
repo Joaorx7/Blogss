@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h2>📊 Minhas Estatísticas</h2>
+<ul>
+    <li><strong>Posts publicados:</strong> {{ total_posts }}</li>
+    <li><strong>Comentários feitos:</strong> {{ total_comentarios }}</li>
+    <li><strong>Total de curtidas recebidas:</strong> {{ total_curtidas }}</li>
+    <li><strong>Seguidores:</strong> {{ seguidores }}</li>
+    <li><strong>Seguindo:</strong> {{ seguindo }}</li>
+    <li><strong>Mensagens enviadas:</strong> {{ mensagens_enviadas }}</li>
+    <li><strong>Mensagens recebidas:</strong> {{ mensagens_recebidas }}</li>
+    <li><strong>Notificações não lidas:</strong> {{ notificacoes_nao_lidas }}</li>
+</ul>
+{% endblock %}

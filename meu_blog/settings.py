@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'blog.context_processors.categorias_disponiveis', 
+                'blog.context_processors.notificacoes_nao_lidas',
             ],
         },
     },
@@ -108,8 +109,22 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'seuemail@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'sua_senha_de_aplicativo'
 
 DEBUG = True
 

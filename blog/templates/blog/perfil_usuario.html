@@ -1,39 +1,54 @@
 {% extends 'blog/base.html' %}
-{% load static %}
-
-{% block title %}Perfil de {{ usuario.username }}{% endblock %}
 
 {% block content %}
-    <h2>Perfil de {{ usuario.username }}</h2>
+<h1>Perfil de {{ usuario.username }}</h1>
 
-    {% if user.is_authenticated and user != usuario %}
-        {% if user in usuario.perfil.seguidores.all %}
-            <form method="post" action="{% url 'deixar_de_seguir_usuario' usuario.username %}">
-                {% csrf_token %}
-                <button type="submit">Deixar de seguir</button>
-            </form>
-        {% else %}
-            <form method="post" action="{% url 'seguir_usuario' usuario.username %}">
-                {% csrf_token %}
-                <button type="submit">Seguir</button>
-            </form>
-        {% endif %}
-        <p><strong>{{ usuario.perfil.seguidores.count }}</strong> seguidores</p>
-    {% endif %}
+{% if perfil.foto %}
+  <img src="{{ perfil.foto.url }}" width="150" style="border-radius: 50%;" alt="Foto de perfil"><br>
+{% else %}
+  <p>🙈 Sem foto de perfil ainda</p>
+{% endif %}
 
-    <a href="{% url 'enviar_mensagem' usuario.username %}">Enviar mensagem</a>
+{% if request.user != usuario %}
+  <a href="{% url 'enviar_mensagem' usuario.username %}">📩 Enviar mensagem</a>
+{% endif %}
 
-    <h3>Posts publicados:</h3>
-    {% if posts %}
-        <ul>
-            {% for post in posts %}
-                <li>
-                    <a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a>
-                    <small>em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Este usuário ainda não publicou nenhum post.</p>
-    {% endif %}
+<!-- Bio do usuário -->
+<p><strong>Bio:</strong> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
+
+<!-- Contagem de seguidores e seguindo -->
+<p><strong>Seguidores:</strong> {{ seguidores.count }}</p>
+<p><strong>Seguindo:</strong> {{ seguindo.count }}</p>
+
+<!-- Botão de editar bio (só para o dono do perfil) -->
+{% if request.user == usuario %}
+  <a href="{% url 'editar_perfil' %}">✏️ Editar Bio</a>
+{% endif %}
+
+<!-- Botão de seguir/deixar de seguir (só para outros usuários) -->
+{% if request.user != usuario %}
+    <form method="post" action="{% if request.user in seguidores %}{% url 'deixar_de_seguir_usuario' usuario.username %}{% else %}{% url 'seguir_usuario' usuario.username %}{% endif %}">
+        {% csrf_token %}
+        <button type="submit">
+            {% if request.user in seguidores %}
+                Deixar de seguir
+            {% else %}
+                Seguir
+            {% endif %}
+        </button>
+    </form>
+{% endif %}
+
+<hr>
+
+<!-- Lista de posts do usuário -->
+<h2>Posts de {{ usuario.username }}</h2>
+<ul>
+    {% for post in posts %}
+        <li><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></li>
+    {% empty %}
+        <li>Este usuário ainda não publicou nada.</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

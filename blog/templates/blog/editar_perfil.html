@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h2>Editar Perfil</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="bio">Bio:</label><br>
+    <textarea name="bio" rows="4" cols="50">{{ perfil.bio }}</textarea><br><br>
+
+    <label for="foto">Foto de perfil:</label><br>
+    {% if perfil.foto %}
+        <img src="{{ perfil.foto.url }}" width="100" alt="Foto atual"><br>
+    {% endif %}
+    <input type="file" name="foto"><br><br>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="{% url 'perfil_usuario' request.user.username %}">← Voltar ao perfil</a>
+{% endblock %}

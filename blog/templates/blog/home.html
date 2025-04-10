@@ -16,6 +16,21 @@
             {% endfor %}
         </ul>
     </nav>
+    <form method="get">
+        <select name="categoria">
+          <option value="">Todas as categorias</option>
+          {% for cat in categorias %}
+            <option value="{{ cat.nome }}">{{ cat.nome }}</option>
+          {% endfor %}
+        </select>
+      
+        <select name="ordenar">
+          <option value="data">Mais recentes</option>
+          <option value="likes">Mais curtidos</option>
+        </select>
+      
+        <button type="submit">Filtrar</button>
+      </form>
 
     {% for post in posts %}
         <div class="post-resumo">

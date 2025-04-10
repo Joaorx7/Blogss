@@ -1,7 +1,10 @@
 from django.contrib import admin
-from .models import Post, Comentario, Categoria  # certifique-se de importar Categoria
+from .models import Post, Categoria, Comentario, Mensagem, Notificacao, Perfil, Tag  # adicione Tag
 
-# Registra os modelos no admin
 admin.site.register(Post)
-admin.site.register(Comentario)
 admin.site.register(Categoria)
+admin.site.register(Comentario)
+admin.site.register(Mensagem)
+admin.site.register(Notificacao)
+admin.site.register(Perfil)
+admin.site.register(Tag)  # aqui

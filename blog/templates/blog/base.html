@@ -13,6 +13,16 @@
             <input type="text" name="q" placeholder="Buscar posts..." value="{{ termo_busca }}">
             <button type="submit">Buscar</button>
         </form>
+        <li class="nav-item">
+            <a href="{% url 'notificacoes' %}" class="nav-link">
+                🔔 Notificações 
+                {% if user.is_authenticated and notificacoes_nao_lidas > 0 %}
+                <span class="badge badge-danger">{{ notificacoes_nao_lidas }}</span>
+            {% endif %}
+            </a>
+        </li>
+
+        <a href="{% url 'estatisticas' %}">📊 Estatísticas</a>
 
         {% if user.is_authenticated %}
               <a href="{% url 'caixa_de_entrada' %}">📨 Mensagens</a>
