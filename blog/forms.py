@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Comentario, Categoria, Mensagem, Perfil
+from .models import Post, Comentario, Categoria, Perfil
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -31,18 +31,6 @@ class ComentarioForm(forms.ModelForm):
             'resposta_a': forms.HiddenInput()
         }
 
-class MensagemForm(forms.ModelForm):
-    class Meta:
-        model = Mensagem
-        fields = ['destinatario', 'conteudo']
-        widgets = {
-            'destinatario': forms.Select(attrs={'class': 'form-control'}),
-            'conteudo': forms.Textarea(attrs={
-                'rows': 3,
-                'placeholder': 'Escreva sua mensagem...',
-                'class': 'form-control'
-            }),
-        }
 
 class EditarPerfilForm(forms.ModelForm):
     class Meta:

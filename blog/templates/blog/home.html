@@ -4,59 +4,76 @@
 {% block title %}Início - Meu Blog{% endblock %}
 
 {% block content %}
-   
-    <form method="get">
-        <select name="categoria">
-          <option value="">Todas as categorias</option>
-          {% for cat in categorias %}
-            <option value="{{ cat.nome }}">{{ cat.nome }}</option>
-          {% endfor %}
-        </select>
-      
-        <select name="ordenar">
-          <option value="data">Mais recentes</option>
-          <option value="likes">Mais curtidos</option>
-        </select>
-      
-        <button type="submit">Filtrar</button>
-      </form>
+<form method="get">
+    <select name="categoria">
+        <option value="">Todas as categorias</option>
+        {% for cat in categorias %}
+            <option value="{{ cat.id }}" {% if cat.id == categoria_id %}selected{% endif %}>
+                {{ cat.nome }}
+            </option>
+        {% endfor %}
+    </select>
 
-    {% for post in posts %}
-        <div class="post-resumo">
-            <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
-            <p><strong>Por:</strong> {{ post.autor.username }}</p>
+    <select name="ordenar">
+        <option value="recentes" {% if ordenar == "recentes" %}selected{% endif %}>Mais recentes</option>
+        <option value="curtidos" {% if ordenar == "curtidos" %}selected{% endif %}>Mais curtidos</option>
+    </select>
 
-            {% if post.categoria %}
-                <p>
-                    <strong>Categoria:</strong> 
-                    <a href="{% url 'posts_por_categoria' post.categoria.id %}">
-                        {{ post.categoria.nome }}
-                    </a>
-                </p>
-            {% else %}
-                <p><strong>Categoria:</strong> Nenhuma</p>
-            {% endif %}
+    <button type="submit">Filtrar</button>
+</form>
 
-            <p>{{ post.conteudo|truncatechars:200 }}</p>
-            <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
-        </div>
-    {% empty %}
-        <p>Nenhum post encontrado.</p>
-    {% endfor %}
+<div id="posts-container">
+    {% include 'blog/post_resumo.html' with posts=posts %}
+</div>
 
-    <div class="paginacao">
-        <span>
-            Página {{ posts.number }} de {{ posts.paginator.num_pages }}
-        </span><br>
+<div id="loader" style="text-align: center; display: none; margin-top: 20px;">
+    <p>🔄 Carregando mais posts...</p>
+</div>
+{% endblock %}
 
-        {% if posts.has_previous %}
-            <a href="?page=1">Primeira</a>
-            <a href="?page={{ posts.previous_page_number }}">Anterior</a>
-        {% endif %}
+{% block scripts %}
+<script>
+let paginaAtual = 2;
+let carregando = false;
+let temMais = true;
 
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">Próxima</a>
-            <a href="?page={{ posts.paginator.num_pages }}">Última</a>
-        {% endif %}
-    </div>
+function carregarMaisPosts() {
+    if (!temMais || carregando) return;
+
+    carregando = true;
+    document.getElementById('loader').style.display = 'block';
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', paginaAtual);
+
+    fetch(url, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const container = document.getElementById('posts-container');
+        container.insertAdjacentHTML('beforeend', data.posts_html);
+
+        temMais = data.tem_mais;
+        paginaAtual++;
+    })
+    .catch(error => console.error('Erro ao carregar mais posts:', error))
+    .finally(() => {
+        carregando = false;
+        document.getElementById('loader').style.display = 'none';
+    });
+}
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+
+    if (scrollTop + windowHeight >= docHeight - 100) {
+        carregarMaisPosts();
+    }
+});
+</script>
 {% endblock %}

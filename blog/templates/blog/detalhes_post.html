@@ -27,6 +27,19 @@
     <img src="{{ post.imagem.url }}" alt="Imagem do post" class="imagem-post">
 {% endif %}
 
+{% if user.is_authenticated %}
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+        <button id="curtir-btn" data-id="{{ post.id }}">
+            {% if user in post.curtidas.all %}
+                💔 Descurtir
+            {% else %}
+                ❤️ Curtir
+            {% endif %}
+        </button>
+        <span id="total-curtidas">{{ post.curtidas.count }}</span> curtidas
+    </div>
+{% endif %}
+
 <hr>
 
 <h3>Comentários</h3>
@@ -63,7 +76,6 @@
             </div>
         {% endif %}
 
-        {# Respostas recursivas #}
         {% include "blog/respostas.html" with respostas=comentario.respostas.all nivel=1 form=form %}
     </div>
 {% empty %}
@@ -71,15 +83,6 @@
 {% endfor %}
 
 {% if user.is_authenticated %}
-    <button id="curtir-btn" data-id="{{ post.id }}">
-        {% if user in post.curtidas.all %}
-            💔 Descurtir
-        {% else %}
-            ❤️ Curtir
-        {% endif %}
-    </button>
-    <span id="total-curtidas">{{ post.curtidas.count }}</span> curtidas
-
     <hr>
     <h4>Adicionar Comentário</h4>
     <form method="post">
@@ -96,11 +99,7 @@
 <script>
 function mostrarFormResposta(id) {
     const form = document.getElementById('resposta-form-' + id);
-    if (form.style.display === 'none') {
-        form.style.display = 'block';
-    } else {
-        form.style.display = 'none';
-    }
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
 }
 </script>
 {% endblock %}

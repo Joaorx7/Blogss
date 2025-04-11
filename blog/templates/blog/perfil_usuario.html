@@ -3,15 +3,8 @@
 {% block content %}
 <h1>Perfil de {{ usuario.username }}</h1>
 
-{% if perfil.foto %}
-  <img src="{{ perfil.foto.url }}" width="150" style="border-radius: 50%;" alt="Foto de perfil"><br>
-{% else %}
-  <p>🙈 Sem foto de perfil ainda</p>
-{% endif %}
-
-{% if request.user != usuario %}
-  <a href="{% url 'enviar_mensagem' usuario.username %}">📩 Enviar mensagem</a>
-{% endif %}
+<!-- Foto do perfil (com imagem padrão caso esteja vazia) -->
+<img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}" width="150" style="border-radius: 50%;" alt="Foto de perfil"><br>
 
 <!-- Bio do usuário -->
 <p><strong>Bio:</strong> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
@@ -27,7 +20,7 @@
 
 <!-- Botão de seguir/deixar de seguir (só para outros usuários) -->
 {% if request.user != usuario %}
-    <form method="post" action="{% if request.user in seguidores %}{% url 'deixar_de_seguir_usuario' usuario.username %}{% else %}{% url 'seguir_usuario' usuario.username %}{% endif %}">
+    <form method="post" action="{% if request.user in seguidores %}{% url 'deixar_de_seguir' usuario.username %}{% else %}{% url 'seguir_usuario' usuario.username %}{% endif %}">
         {% csrf_token %}
         <button type="submit">
             {% if request.user in seguidores %}

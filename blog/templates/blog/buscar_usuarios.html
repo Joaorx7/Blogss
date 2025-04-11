@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+
 {% block title %}Buscar Usuários{% endblock %}
 
 {% block content %}
@@ -9,9 +10,14 @@
         <button type="submit">Buscar</button>
     </form>
 
-    <ul>
+    <ul style="list-style: none; padding: 0;">
         {% for usuario in usuarios %}
-            <li><a href="{% url 'perfil_usuario' usuario.username %}">{{ usuario.username }}</a></li>
+            <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                <img src="{% if usuario.perfil.foto %}{{ usuario.perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}"
+                     alt="Foto de perfil"
+                     style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                <a href="{% url 'perfil_usuario' usuario.username %}">@{{ usuario.username }}</a>
+            </li>
         {% empty %}
             <li>Nenhum usuário encontrado.</li>
         {% endfor %}

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Count
 from .forms import PostForm
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
@@ -13,9 +14,10 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from blog.models import Perfil
-from .models import Post, Comentario, Categoria, Mensagem, Notificacao
-from .forms import MensagemForm, CadastroForm
+from .models import Post, Comentario, Categoria, Notificacao
+from .forms import CadastroForm
 import markdown
+import random
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -45,8 +47,11 @@ def perfil_usuario(request, username):
     usuario = get_object_or_404(User, username=username)
     perfil = usuario.perfil
     seguidores = perfil.seguidores.all()
-    seguindo = usuario.seguindo.all()
+    seguindo = perfil.seguindo
     posts = Post.objects.filter(autor=usuario)
+
+    # Garantir que sempre haja uma foto
+    foto_url = perfil.foto.url if perfil.foto else '/media/img_resto/Account.png'
 
     context = {
         'usuario': usuario,
@@ -54,6 +59,7 @@ def perfil_usuario(request, username):
         'seguidores': seguidores,
         'seguindo': seguindo,
         'posts': posts,
+        'foto_url': foto_url,
     }
     return render(request, 'blog/perfil_usuario.html', context)
 
@@ -80,7 +86,10 @@ def feed_personalizado(request):
     # Garante que o usuário tenha um perfil
     perfil, created = Perfil.objects.get_or_create(user=request.user)
 
-    seguindo = perfil.seguidores.all()
+    # Pega os usuários que o user atual está seguindo
+    seguindo = User.objects.filter(perfil__seguidores=request.user)
+
+    # Filtra os posts dos autores que o usuário segue
     posts = Post.objects.filter(autor__in=seguindo).order_by('-criado_em')
 
     return render(request, 'blog/feed.html', {'posts': posts})
@@ -88,21 +97,7 @@ def feed_personalizado(request):
 from django.shortcuts import render
 from .models import Post
 
-def home(request):
-    categoria = request.GET.get('categoria')
-    ordenar = request.GET.get('ordenar')
 
-    posts = Post.objects.all()
-
-    if categoria:
-        posts = posts.filter(categorias__nome=categoria)
-
-    if ordenar == 'likes':
-        posts = posts.annotate(num_likes=Count('curtidas')).order_by('-num_likes')
-    else:
-        posts = posts.order_by('-data_publicacao')
-
-    return render(request, 'blog/home.html', {'posts': posts})
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 import markdown
@@ -226,39 +221,94 @@ def sobre(request):
 @login_required
 def curtir_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    user = request.user
 
-    if request.user in post.curtidas.all():
-        post.curtidas.remove(request.user)
+    if user in post.curtidas.all():
+        post.curtidas.remove(user)
         curtido = False
+
+        # Deleta a notificação de curtida se ela existir
+        Notificacao.objects.filter(
+            usuario=post.autor,
+            texto__icontains=f"{user.username} curtiu seu post",
+            link=f"/post/{post.id}/"
+        ).delete()
+
     else:
-        post.curtidas.add(request.user)
+        post.curtidas.add(user)
         curtido = True
+
+        # Cria notificação apenas se não existir ainda
+        if post.autor != user and not Notificacao.objects.filter(
+            usuario=post.autor,
+            texto__icontains=f"{user.username} curtiu seu post",
+            link=f"/post/{post.id}/"
+        ).exists():
+            Notificacao.objects.create(
+                usuario=post.autor,
+                texto=f"{user.username} curtiu seu post: {post.titulo}",
+                link=f"/post/{post.id}/"
+            )
 
     return JsonResponse({
         'curtido': curtido,
         'total_curtidas': post.curtidas.count()
     })
 
+from django.contrib.auth.models import User
+from django.db.models import Count, Q
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import Post, Categoria, Perfil
+
+from django.shortcuts import render
+from django.db.models import Q, Count
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from .models import Post, Categoria, Perfil  # Ajuste se o import for diferente
+
 def home(request):
-    termo_busca = request.GET.get('q', '')
+    categoria_id = request.GET.get('categoria')
+    ordenar = request.GET.get('ordenar', 'recentes')
+    page = request.GET.get('page', 1)
 
-    if termo_busca:
-        posts_lista = Post.objects.filter(
-            titulo__icontains=termo_busca
-        ) | Post.objects.filter(
-            conteudo__icontains=termo_busca
-        )
+    posts = Post.objects.all()
+
+    if categoria_id:
+        posts = posts.filter(categoria__id=categoria_id)
+
+    if ordenar == 'curtidos':
+        posts = posts.annotate(num_curtidas=Count('curtidas')).order_by('-num_curtidas', '-criado_em')
     else:
-        posts_lista = Post.objects.all()
+        posts = posts.order_by('-criado_em')
 
-    posts_lista = posts_lista.order_by('-criado_em')
-    paginator = Paginator(posts_lista, 5)
-    pagina = request.GET.get('page')
-    posts = paginator.get_page(pagina)
+    paginator = Paginator(posts, 5)  # 5 posts por página
+    pagina = paginator.get_page(page)
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # Scroll infinito: só manda os posts em HTML
+        posts_html = render(request, 'blog/post_resumo.html', {'posts': pagina}).content.decode('utf-8')
+        return JsonResponse({
+            'posts_html': posts_html,
+            'tem_mais': pagina.has_next()
+        })
+
+    categorias = Categoria.objects.all()
 
     return render(request, 'blog/home.html', {
+        'posts': pagina,
+        'categorias': categorias,
+        'categoria_id': int(categoria_id) if categoria_id else None,
+        'ordenar': ordenar
+    })
+
+def posts_por_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    posts = Post.objects.filter(categoria=categoria).order_by('-criado_em')[:10]  # Limita a 10
+
+    return render(request, 'blog/posts_por_categoria.html', {
         'posts': posts,
-        'termo_busca': termo_busca
+        'categoria': categoria,
     })
 
 @login_required
@@ -277,35 +327,29 @@ def seguir_usuario(request, username):
 
     return redirect('perfil_usuario', username=username)
 @login_required
-def deixar_de_seguir_usuario(request, username):
+def deixar_de_seguir(request, username):
     usuario_para_parar = get_object_or_404(User, username=username)
     if usuario_para_parar != request.user:
         usuario_para_parar.perfil.seguidores.remove(request.user)
     return redirect('perfil_usuario', username=username)
 
 @login_required
-def caixa_entrada(request):
-    mensagens = Mensagem.objects.filter(destinatario=request.user).order_by('-enviada_em')
-    return render(request, 'blog/caixa_de_entrada.html', {'mensagens': mensagens})
+@require_POST
+def seguir_ou_nao(request, username):
+    usuario_logado = request.user
+    perfil = usuario_logado.perfil
+    alvo = get_object_or_404(User, username=username)
+    perfil_alvo = alvo.perfil
 
-@login_required
-def enviar_mensagem(request, username):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        conteudo = data.get('mensagem')
-        destinatario = get_object_or_404(User, username=username)
+    if usuario_logado in perfil_alvo.seguidores.all():
+        perfil_alvo.seguidores.remove(usuario_logado)
+        seguindo = False
+    else:
+        perfil_alvo.seguidores.add(usuario_logado)
+        seguindo = True
 
-        mensagem = Mensagem.objects.create(
-            remetente=request.user,
-            destinatario=destinatario,
-            conteudo=conteudo
-        )
+    return JsonResponse({'seguindo': seguindo, 'total_seguidores': perfil_alvo.seguidores.count()})
 
-        return JsonResponse({'status': 'ok'})
-@login_required
-def caixa_de_entrada(request):
-    mensagens = Mensagem.objects.filter(destinatario=request.user).order_by('-enviada_em')
-    return render(request, 'blog/caixa_de_entrada.html', {'mensagens': mensagens})
 
 @login_required
 def editar_comentario(request, comentario_id):
@@ -397,8 +441,6 @@ def estatisticas_usuario(request):
     total_curtidas = Post.objects.filter(autor=user).aggregate(soma=Count('curtidas'))['soma'] or 0
     seguidores = perfil.seguidores.count()
     seguindo = user.seguindo.count()
-    mensagens_enviadas = Mensagem.objects.filter(remetente=user).count()
-    mensagens_recebidas = Mensagem.objects.filter(destinatario=user).count()
     notificacoes_nao_lidas = Notificacao.objects.filter(usuario=user, lida=False).count()
 
     context = {
@@ -407,8 +449,6 @@ def estatisticas_usuario(request):
         'total_curtidas': total_curtidas,
         'seguidores': seguidores,
         'seguindo': seguindo,
-        'mensagens_enviadas': mensagens_enviadas,
-        'mensagens_recebidas': mensagens_recebidas,
         'notificacoes_nao_lidas': notificacoes_nao_lidas,
     }
 
@@ -457,32 +497,7 @@ def termos_uso(request):
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
-from .models import Mensagem  # ou User, depende de como você nomeou
 
-@login_required
-def responder_mensagem(request, mensagem_id):
-    mensagem_original = get_object_or_404(Mensagem, id=mensagem_id)
 
-    if request.method == 'POST':
-        conteudo = request.POST.get('conteudo')
-        if conteudo:
-            nova_mensagem = Mensagem.objects.create(
-                remetente=request.user,
-                destinatario=mensagem_original.remetente,
-                conteudo=conteudo
-            )
-            return redirect('caixa_entrada')  # ou o nome da sua view
-    return redirect('caixa_entrada')
 
-@login_required
-def chat(request, username):
-    outro_usuario = get_object_or_404(User, username=username)
-    mensagens = Mensagem.objects.filter(
-        Q(remetente=request.user, destinatario=outro_usuario) |
-        Q(remetente=outro_usuario, destinatario=request.user)
-    ).order_by('enviada_em')
 
-    return render(request, 'blog/chat.html', {
-        'mensagens': mensagens,
-        'outro_usuario': outro_usuario
-    })

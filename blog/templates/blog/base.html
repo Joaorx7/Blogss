@@ -5,49 +5,83 @@
     <meta charset="UTF-8">
     <title>{% block title %}Meu Blog{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
-    <header style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 20px;">
-        <form method="get" action="{% url 'home' %}" style="margin-bottom: 20px;">
-            <input type="text" name="q" placeholder="Buscar posts..." value="{{ termo_busca }}">
-            <button type="submit">Buscar</button>
-        </form>
 
-        {% if user.is_authenticated %}
-            <p>
-                Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
-                <a href="{% url 'novo_post' %}">Novo Post</a> |
-                <a href="{% url 'logout' %}">Sair</a> |
-                <a href="{% url 'sobre' %}">Sobre</a>
-            </p>
-        {% else %}
-            <p>
-                <a href="{% url 'login' %}">Login</a> |
-                <a href="{% url 'cadastro' %}">Cadastro</a> |
-                <a href="{% url 'sobre' %}">Sobre</a>
-            </p>
-        {% endif %}
+    {% if user.is_authenticated %}
+        <p>
+            Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
+            <a href="{% url 'novo_post' %}">Novo Post</a> |
+            <a href="{% url 'logout' %}">Sair</a> |
+            <a href="{% url 'sobre' %}">Sobre</a>
+        </p>
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'cadastro' %}">Cadastro</a> |
+            <a href="{% url 'sobre' %}">Sobre</a>
+        </p>
+    {% endif %}
 
-        <nav>
-            {% if user.is_authenticated %}
-                <a href="{% url 'caixa_entrada' %}">📨 Mensagens</a> |
+    <nav>
+        <a href="{% url 'notificacoes' %}">🔔 Notificações 
+            {% if user.is_authenticated and notificacoes_nao_lidas > 0 %}
+                <span class="badge badge-danger">{{ notificacoes_nao_lidas }}</span>
             {% endif %}
-            <a href="{% url 'notificacoes' %}">🔔 Notificações 
-                {% if user.is_authenticated and notificacoes_nao_lidas > 0 %}
-                    <span class="badge badge-danger">{{ notificacoes_nao_lidas }}</span>
-                {% endif %}
-            </a> |
-            <a href="{% url 'estatisticas' %}">📊 Estatísticas</a> |
-            <a href="{% url 'buscar_usuarios' %}">Buscar Usuários</a> |
-            <a href="{% url 'feed' %}">Feed</a>
-        </nav>
+        </a> |
+        <a href="{% url 'estatisticas' %}">📊 Estatísticas</a> |
+        <a href="{% url 'buscar_usuarios' %}">Buscar Usuários</a> |
+        <a href="{% url 'feed' %}">Feed</a>
+    </nav>
 
-        <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
-    </header>
+    <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
 
-    <main>
-        {% block content %}
-        {% endblock %}
+    <main style="display: flex; gap: 40px; align-items: flex-start;">
+        <div style="flex: 3;">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <aside style="flex: 1; border-left: 1px solid #ccc; padding-left: 20px;">
+                <!-- PERFIS RECOMENDADOS -->
+                {% if user.is_authenticated %}
+                <div style="margin-bottom: 20px;">
+                    <strong>Perfis recomendados:</strong>
+                    <ul style="list-style: none; padding: 0;">
+                        {% for perfil in perfis_recomendados %}
+                            <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}" 
+                                     alt="Foto de perfil" 
+                                     style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                <a href="{% url 'perfil_usuario' perfil.user.username %}">@{{ perfil.user.username }}</a>
+                            </li>
+                        {% empty %}
+                            <li>Nenhum perfil recomendado no momento.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- CATEGORIAS MAIS POPULARES -->
+            <div style="margin-bottom: 20px;">
+                <strong>Categorias mais populares:</strong>
+                <ul>
+                    {% for categoria in categorias_populares %}
+                        <li>
+                            <a href="{% url 'posts_por_categoria' categoria.id %}">
+                                {{ categoria.nome }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+               <!-- CONTADOR DE CONTAS CRIADAS -->
+               <div style="margin-bottom: 20px;">
+                <strong>Contas criadas:</strong> {{ total_usuarios }}
+            </div>
+        </aside>
     </main>
 
     <script src="{% static 'js/script.js' %}"></script>

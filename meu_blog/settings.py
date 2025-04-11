@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'blog.apps.BlogConfig',
 ]
 
 STATICFILES_DIRS = [
@@ -64,6 +64,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'blog.context_processors.extras_para_todas_as_paginas',
                 'django.template.context_processors.request',
                 'blog.context_processors.categorias_disponiveis',
                 'django.template.context_processors.request',

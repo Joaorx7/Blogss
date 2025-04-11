@@ -1,13 +1,5 @@
-{% extends 'blog/base.html' %}
-
-{% block title %}{{ categoria.nome }} - Meu Blog{% endblock %}
-
-{% block content %}
-<h2>Posts da categoria: "{{ categoria.nome }}"</h2>
-
 {% for post in posts %}
 <div class="post-resumo" style="border-bottom: 1px solid #ddd; margin-bottom: 20px; padding-bottom: 15px;">
-
     <div style="display: flex; align-items: center; gap: 10px; margin: 5px 0;">
         {% if post.autor.perfil.foto %}
             <img src="{{ post.autor.perfil.foto.url }}" alt="Foto de perfil" style="width: 35px; height: 35px; border-radius: 50%;">
@@ -28,7 +20,15 @@
         {% endif %}
     </div>
 
-    <h3><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h3>
+    <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
+
+    {% if post.categoria %}
+        <p><strong>Categoria:</strong> 
+            <a href="{% url 'posts_por_categoria' post.categoria.id %}">
+                {{ post.categoria.nome }}
+            </a>
+        </p>
+    {% endif %}
 
     <p>{{ post.conteudo|truncatechars:200 }}</p>
     <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
@@ -53,22 +53,4 @@
         </div>
     {% endif %}
 </div>
-{% empty %}
-<p>Não há posts nesta categoria ainda.</p>
 {% endfor %}
-
-<div class="paginacao">
-    <span>Página {{ posts.number }} de {{ posts.paginator.num_pages }}</span><br>
-    {% if posts.has_previous %}
-        <a href="?page=1">Primeira</a>
-        <a href="?page={{ posts.previous_page_number }}">Anterior</a>
-    {% endif %}
-
-    {% if posts.has_next %}
-        <a href="?page={{ posts.next_page_number }}">Próxima</a>
-        <a href="?page={{ posts.paginator.num_pages }}">Última</a>
-    {% endif %}
-</div>
-
-<a href="{% url 'home' %}">← Voltar para o início</a>
-{% endblock %}

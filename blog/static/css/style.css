@@ -20,10 +20,6 @@
     padding: 10px;
 }
 
-.paginacao {
-    margin-top: 20px;
-    text-align: center;
-}
 
 /* Referente à página: detalhes_post.html */
 .comentario {
@@ -37,3 +33,4 @@
     height: auto;
     margin: 10px 0;
 }
+
