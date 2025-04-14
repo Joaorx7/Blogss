@@ -6,6 +6,9 @@
     <title>{% block title %}Meu Blog{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
     <meta name="csrf-token" content="{{ csrf_token }}">
+    <script>
+    const mediaPrefix = "{{ media_prefix }}";
+</script>
 </head>
 <body>
     <header>
@@ -25,15 +28,13 @@
     {% if user.is_authenticated %}
         <p>
             Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
-            <a href="{% url 'novo_post' %}">Novo Post</a> |
+
             <a href="{% url 'logout' %}">Sair</a> |
-            <a href="{% url 'sobre' %}">Sobre</a>
         </p>
     {% else %}
         <p>
             <a href="{% url 'login' %}">Login</a> |
             <a href="{% url 'cadastro' %}">Cadastro</a> |
-            <a href="{% url 'sobre' %}">Sobre</a>
         </p>
     {% endif %}
 
@@ -51,16 +52,21 @@
     <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
 
     <!-- Sidebar esquerda -->
-    <nav class="sidebar">
-        <ul>
-            <li><a href="{% url 'home' %}">🏠 Início</a></li>
-            <li><a href="{% url 'feed' %}">📰 Feed</a></li>
-            <li><a href="{% url 'buscar_usuarios' %}">🔍 Buscar Usuários</a></li>
-            <li><a href="{% url 'notificacoes' %}">🔔 Notificações</a></li>
-            <li><a href="{% url 'estatisticas' %}">📊 Estatísticas</a></li>
-            <li><a href="{% url 'sobre' %}">ℹ️ Sobre</a></li>
-        </ul>
-    </nav>
+  <nav class="sidebar">
+    <ul class="menu">
+        <div class="menu-topo">
+            <li><a href="{% url 'novo_post' %}"><img class="icon" src="{{ media_prefix }}Icones/novo_post.png" alt="Estatísticas"></a></li>
+            <li><a href="{% url 'home' %}"><img class="icon" src="{{ media_prefix }}Icones/home.png" alt="Início"></a></li>
+            <li><a href="{% url 'buscar_usuarios' %}"><img class="icon" src="{{ media_prefix }}Icones/buscar.png" alt="Buscar"></a></li>
+            <li><a href="{% url 'notificacoes' %}"><img class="icon" src="{{ media_prefix }}Icones/noti.png" alt="Notificações"></a></li>
+        </div>
+
+        <div class="menu-baixo">
+            <li><a href="{% url 'perfil_usuario' user.username %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
+            <li><a href="{% url 'sobre' %}"><img class="icon" src="{{ media_prefix }}Icones/info.png" alt="Sobre"></a></li>
+        </div>
+    </ul>
+</nav>
 
     <!-- Conteúdo principal -->
     <main style="display: flex; gap: 40px; align-items: flex-start;">
@@ -80,7 +86,7 @@
                                 <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}" 
                                      alt="Foto de perfil" 
                                      style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
-                                <a href="{% url 'perfil_usuario' perfil.user.username %}">@{{ perfil.user.username }}</a>
+                                <a class="nameuser" href="{% url 'perfil_usuario' perfil.user.username %}">@{{ perfil.user.username }}</a>
                             </li>
                         {% empty %}
                             <li>Nenhum perfil recomendado no momento.</li>
@@ -94,7 +100,7 @@
                 <ul>
                     {% for categoria in categorias_populares %}
                         <li>
-                            <a href="{% url 'posts_por_categoria' categoria.id %}">
+                            <a class="namecat" href="{% url 'posts_por_categoria' categoria.id %}">
                                 {{ categoria.nome }}
                             </a>
                         </li>

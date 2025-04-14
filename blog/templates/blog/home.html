@@ -4,23 +4,6 @@
 {% block title %}Início - Meu Blog{% endblock %}
 
 {% block content %}
-<form method="get">
-    <select name="categoria">
-        <option value="">Todas as categorias</option>
-        {% for cat in categorias %}
-            <option value="{{ cat.id }}" {% if cat.id == categoria_id %}selected{% endif %}>
-                {{ cat.nome }}
-            </option>
-        {% endfor %}
-    </select>
-
-    <select name="ordenar">
-        <option value="recentes" {% if ordenar == "recentes" %}selected{% endif %}>Mais recentes</option>
-        <option value="curtidos" {% if ordenar == "curtidos" %}selected{% endif %}>Mais curtidos</option>
-    </select>
-
-    <button type="submit">Filtrar</button>
-</form>
 
 <div id="posts-container">
     {% for post in posts %}

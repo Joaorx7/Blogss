@@ -46,8 +46,9 @@
                     ❤️ Curtir
                 {% endif %}
             </button>
-            <span id="total-curtidas-{{ post.id }}">{{ post.curtidas.count }}</span> curtidas
-
+            <span id="total-curtidas-{{ post.id }}">
+                {{ post.num_curtidas|default:post.curtidas.count }}
+            </span>
             <a href="{% url 'detalhes_post' post.id %}#comentarios" style="margin-left: 15px;">💬 Comentar</a>
             <span>{{ post.comentarios.count }} comentários</span>
         </div>
