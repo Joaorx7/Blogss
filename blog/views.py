@@ -286,12 +286,14 @@ def home(request):
     pagina = paginator.get_page(page)
 
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        # Scroll infinito: só manda os posts em HTML
-        posts_html = render(request, 'blog/post_resumo.html', {'posts': pagina}).content.decode('utf-8')
+        posts_html = ''
+        for post in pagina:
+            posts_html += render(request, 'blog/post_resumo.html', {'post': post}).content.decode('utf-8')
+    
         return JsonResponse({
             'posts_html': posts_html,
             'tem_mais': pagina.has_next()
-        })
+    })
 
     categorias = Categoria.objects.all()
 

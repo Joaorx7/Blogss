@@ -8,7 +8,20 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
-
+    <header>
+        {% load static %}
+        {% get_media_prefix as media_prefix %}
+        <nav class="navbar">
+            <div class="navbar-container">
+                <img src="{{ media_prefix }}img_resto/logo.png" alt="Logo">
+                <img class="centered-image" src="{{ media_prefix }}img_resto/titulo.png" alt="Titulo">
+            </div>
+            <div class="trilho" id="trilho">
+                <div class="indicador">
+                    <img class="centered-image" src="{{ media_prefix }}img_resto/lua.png" alt="Título">
+                </div>
+            </div>
+        </nav>
     {% if user.is_authenticated %}
         <p>
             Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
@@ -37,15 +50,28 @@
 
     <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
 
+    <!-- Sidebar esquerda -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="{% url 'home' %}">🏠 Início</a></li>
+            <li><a href="{% url 'feed' %}">📰 Feed</a></li>
+            <li><a href="{% url 'buscar_usuarios' %}">🔍 Buscar Usuários</a></li>
+            <li><a href="{% url 'notificacoes' %}">🔔 Notificações</a></li>
+            <li><a href="{% url 'estatisticas' %}">📊 Estatísticas</a></li>
+            <li><a href="{% url 'sobre' %}">ℹ️ Sobre</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo principal -->
     <main style="display: flex; gap: 40px; align-items: flex-start;">
         <div style="flex: 3;">
             {% block content %}
             {% endblock %}
         </div>
 
-        <aside style="flex: 1; border-left: 1px solid #ccc; padding-left: 20px;">
-                <!-- PERFIS RECOMENDADOS -->
-                {% if user.is_authenticated %}
+        <!-- Sidebar direita fixa -->
+        <aside class="sidebar-right">
+            {% if user.is_authenticated %}
                 <div style="margin-bottom: 20px;">
                     <strong>Perfis recomendados:</strong>
                     <ul style="list-style: none; padding: 0;">
@@ -63,7 +89,6 @@
                 </div>
             {% endif %}
 
-            <!-- CATEGORIAS MAIS POPULARES -->
             <div style="margin-bottom: 20px;">
                 <strong>Categorias mais populares:</strong>
                 <ul>
@@ -76,9 +101,8 @@
                     {% endfor %}
                 </ul>
             </div>
-
-               <!-- CONTADOR DE CONTAS CRIADAS -->
-               <div style="margin-bottom: 20px;">
+            
+            <div style="margin-bottom: 20px;">
                 <strong>Contas criadas:</strong> {{ total_usuarios }}
             </div>
         </aside>

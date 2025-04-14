@@ -105,3 +105,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+const trilho = document.querySelector('.trilho');
+const body = document.body;
+
+trilho.addEventListener('click', () => {
+    trilho.classList.toggle('dark');
+    body.classList.toggle('dark');
+
+    // Adiciona ou remove a classe "dark" nos componentes que precisam
+    document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
+        el.classList.toggle('dark');
+    });
+
+    // Salvar a preferência no localStorage
+    if (body.classList.contains('dark')) {
+        localStorage.setItem('tema', 'dark');
+    } else {
+        localStorage.setItem('tema', 'light');
+    }
+});
+
+// Aplica o tema salvo ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    const temaSalvo = localStorage.getItem('tema');
+    if (temaSalvo === 'dark') {
+        body.classList.add('dark');
+        trilho.classList.add('dark');
+        document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
+            el.classList.add('dark');
+        });
+    }
+});

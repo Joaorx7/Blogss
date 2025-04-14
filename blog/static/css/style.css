@@ -34,3 +34,277 @@
     margin: 10px 0;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    position: fixed;  /* Fixa a navbar no topo */
+    top: 0;           /* Alinha ela ao topo da página */
+    left: 0;          /* Alinha ela à esquerda */
+    width: 100%;      /* Garante que ela ocupe toda a largura */
+    background-color: #868686;
+    padding: 10px 20px;
+    z-index: 1000;    /* Garante que a navbar fique acima dos outros elementos */
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.nav-links a:hover {
+    color: #f1f1f1;
+}
+
+.navbar-container {
+    justify-content: space-between; /* Isso garante que a logo vai para a esquerda e a imagem Titulo ficará centralizada */
+    align-items: center; /* Isso alinha as imagens verticalmente */
+    width: 100%;
+}
+
+.centered-image {
+    margin: 0 auto; /* Centraliza a imagem no seu contêiner */
+    display: block;
+}
+
+.trilho{
+    width: 50px;
+    height: 20px;
+    background-color: #d9d9d9;
+    border-radius: 150px;
+    position: relative;
+    position: absolute;
+    right: 20px; /* distância da borda direita */
+    top: 3.8%; /* altura vertical da tela */
+    cursor: pointer;
+}
+
+
+.trilho .indicador {
+    width: 20px;
+    height: 20px;
+    background-color: #868686;
+    border-radius: 50%;
+    transform: scale(.9);
+    position: absolute;
+    left: 1px; /* Move a imagem para a esquerda */
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.5s ease;
+}
+
+.trilho.dark{
+    background-color: #868686;
+}
+
+.trilho.dark .indicador{
+    left: 30px;
+    background-color: black;
+}
+body.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.navbar.dark {
+    background-color: #333;
+}
+
+.post-resumo.dark,
+.comentario.dark,
+aside.dark {
+    background-color: #1e1e1e;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+a.dark {
+    color: #90caf9;
+}
+
+.trilho .indicador img {
+    width: 18px; /* Ajuste o tamanho da imagem conforme necessário */
+    height: 21px; /* Ajuste o tamanho da imagem conforme necessário */
+}
+
+.sidebar {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 230px;
+    height: calc(100vh - 80px);
+    background-color: #f8f9fa;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    z-index: 900;
+}
+
+.sidebar {
+    position: fixed;
+    top: 80px; /* Ajuste para garantir que a sidebar não sobreponha a navbar */
+    left: 0;
+    width: 230px;
+    height: calc(100vh - 80px); /* Isso ajusta a altura da sidebar */
+    background-color: #d9d9d9;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    z-index: 900;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #ddd;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-left: 230px; /* Ajuste conforme necessário para que a sidebar não sobreponha o conteúdo */
+    padding-top: 80px;
+}
+
+.sidebar-right {
+    position: fixed;
+    top: 80px; /* Ajuste para não sobrepor a navbar superior */
+    right: 0;
+    width: 230px;
+    height: calc(100vh - 80px);
+    background-color: #f8f9fa;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
+    z-index: 900;
+}
+
+main {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding-right: 250px; /* Espaço suficiente para a sidebar direita */
+}
+
+/* Navbar à direita */
+/* Estilo da Sidebar Direita */
+.sidebar-right {
+    position: fixed;
+    top: 80px; /* Ajuste para não sobrepor a navbar superior */
+    right: 0;
+    width: 230px;
+    height: calc(100vh - 80px); /* Altura total da sidebar */
+    background-color: #f8f9fa;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo das seções dentro da sidebar direita */
+.sidebar-right > div {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+/* Linha de separação visível em todas as seções, ajustável */
+.sidebar-right > div::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -20px; /* Ajusta a posição da linha para a esquerda */
+    width: 120%; /* A linha ocupa toda a largura da sidebar */
+    height: 2px; /* Espessura da linha, altere aqui para aumentar ou diminuir */
+    background-color: #ccc; /* Cor da linha, altere a cor aqui */
+}
+
+/* Remover a linha da última seção */
+.sidebar-right > div:last-child::after {
+    display: none;
+}
+
+/* Estilo de cada item na Sidebar Direita */
+.sidebar-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-right ul li {
+    margin: 10px 0;
+}
+
+.sidebar-right ul li a {
+    color: #333;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    transition: background 0.3s;
+}
+
+.sidebar-right ul li a:hover {
+    background-color: #ddd;
+}
+
+.sidebar-right strong {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}

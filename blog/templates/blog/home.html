@@ -23,7 +23,10 @@
 </form>
 
 <div id="posts-container">
-    {% include 'blog/post_resumo.html' with posts=posts %}
+    {% for post in posts %}
+        {% include 'blog/post_resumo.html' %}
+    {% endfor %}
+
 </div>
 
 <div id="loader" style="text-align: center; display: none; margin-top: 20px;">
@@ -55,6 +58,11 @@ function carregarMaisPosts() {
     .then(data => {
         const container = document.getElementById('posts-container');
         container.insertAdjacentHTML('beforeend', data.posts_html);
+
+// (Re)aplica os eventos de curtir/seguir aos novos posts
+        if (typeof adicionarEventosCurtirSeguir === 'function') {
+        adicionarEventosCurtirSeguir(container);
+        }
 
         temMais = data.tem_mais;
         paginaAtual++;
