@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     <script>
     const mediaPrefix = "{{ media_prefix }}";
-</script>
+    </script>
 </head>
 <body>
     <header>
@@ -28,7 +28,6 @@
     {% if user.is_authenticated %}
         <p>
             Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
-
             <a href="{% url 'logout' %}">Sair</a> |
         </p>
     {% else %}
@@ -79,7 +78,7 @@
         <aside class="sidebar-right">
             {% if user.is_authenticated %}
                 <div style="margin-bottom: 20px;">
-                    <strong>Perfis recomendados:</strong>
+                    <strong id="preco">Perfis recomendados:</strong>
                     <ul style="list-style: none; padding: 0;">
                         {% for perfil in perfis_recomendados %}
                             <li style="display: flex; align-items: center; margin-bottom: 10px;">
@@ -94,9 +93,10 @@
                     </ul>
                 </div>
             {% endif %}
+        
 
             <div style="margin-bottom: 20px;">
-                <strong>Categorias mais populares:</strong>
+                <strong id="creco">Categorias populares:</strong>
                 <ul>
                     {% for categoria in categorias_populares %}
                         <li>
@@ -104,12 +104,16 @@
                                 {{ categoria.nome }}
                             </a>
                         </li>
+                    {% empty %}
+                        <li>Nenhuma categoria popular no momento.</li>
                     {% endfor %}
                 </ul>
             </div>
-            
+        
+        
             <div style="margin-bottom: 20px;">
-                <strong>Contas criadas:</strong> {{ total_usuarios }}
+                <strong id="contador-contas">Contas criadas:</strong>
+                <strong id="conte"> {{ total_usuarios }}</strong>
             </div>
         </aside>
     </main>

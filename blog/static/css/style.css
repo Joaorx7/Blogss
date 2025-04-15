@@ -237,11 +237,23 @@ main {
 
 /* Navbar à direita */
 /* Estilo da Sidebar Direita */
+#conte {
+    display: block;
+    text-align: center;
+    margin-top: 100px; /* Ajuste a altura com esse valor */
+    width: 100%;
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+    /* Remova a segunda margem que estava sobrepondo o valor anterior */
+}
+
+/* Ajuste da sidebar */
 .sidebar-right {
     position: fixed;
-    top: 80px; /* Ajuste para não sobrepor a navbar superior */
+    top: 80px; /* Isso pode influenciar o alinhamento do conteúdo */
     right: 0;
-    width: 230px;
+    width: 510px;
     height: calc(100vh - 80px); /* Altura total da sidebar */
     background-color: #f8f9fa;
     padding: 20px;
@@ -252,30 +264,14 @@ main {
     flex-direction: column;
 }
 
-/* Ajustando o espaçamento das seções */
+/* Ajuste o espaçamento e o padding conforme necessário */
 .sidebar-right > div {
-    margin-bottom: 10px; /* Menor espaçamento entre as seções */
-    padding-bottom: 10px; /* Menor padding também */
+    margin-bottom: 10px;
+    padding-bottom: 10px;
     position: relative;
 }
 
-/* Linha de separação visível em todas as seções */
-.sidebar-right > div::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: -20px;
-    width: 120%;
-    height: 2px;
-    background-color: #ccc;
-}
-
-/* Remover a linha da última seção */
-.sidebar-right > div:last-child::after {
-    display: none;
-}
-
-/* Estilo das listas */
+/* Ajuste do estilo da lista */
 .sidebar-right ul {
     list-style: none;
     padding: 0;
@@ -283,13 +279,13 @@ main {
 }
 
 .sidebar-right ul li {
-    margin: px 0; /* Menor margem entre os itens */
+    margin: 0 0; /* Corrigido para 0px */
 }
 
 .sidebar-right ul li a {
     color: blue;
     text-decoration: none;
-    padding: 10px ;
+    padding: 0px;
     display: block;
     transition: background 0.3s;
 }
@@ -298,17 +294,11 @@ main {
     background-color: #ddd;
 }
 
-.sidebar-right strong {
-    display: block;
-    margin-bottom: 0px; /* Menor margem */
-    font-weight: bold;
-}
-
-/* Aumentar o tamanho dos nomes de usuário e categorias */
+/* Aumentando o tamanho do nome de usuário */
 .nameuser {
     color: blue;
     text-decoration: none;
-    font-size: 16px; /* Aumentar o tamanho da fonte */
+    font-size: 38px;
 }
 
 .nameuser:hover {
@@ -318,17 +308,36 @@ main {
 .namecat {
     color: blue;
     text-decoration: none;
-    font-size: 16px; /* Aumentar o tamanho da fonte */
+    font-size: 40px;
 }
 
 .namecat:hover {
     color: darkblue;
 }
 
-/* Aumentar o tamanho da quantidade de usuários */
+/* Tamanho maior para a quantidade de usuários */
 .sidebar-right > div:last-child {
-    font-size: 18px; /* Tamanho maior para a quantidade de usuários */
+    font-size: 18px;
     font-weight: bold;
-    color: #333; /* Cor para destacar */
+    color: #333;
 }
 
+#contador-contas {
+    display: block;
+    text-align: left;
+    width: 100%;
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+}
+
+#creco, #preco{
+    font-size: 40px;
+}
+
+.hr-separator{
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #000000;
+}
