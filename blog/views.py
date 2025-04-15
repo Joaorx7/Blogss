@@ -267,6 +267,17 @@ from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from .models import Post, Categoria, Perfil  # Ajuste se o import for diferente
 
+from django.core.paginator import Paginator
+from django.db.models import Count
+
+from django.core.paginator import Paginator
+from django.db.models import Count
+from django.shortcuts import render
+
+from django.core.paginator import Paginator
+from django.db.models import Count
+from django.shortcuts import render
+
 def home(request):
     categoria_id = request.GET.get('categoria')
     ordenar = request.GET.get('ordenar', 'recentes')
@@ -288,9 +299,7 @@ def home(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         posts_html = ''
         for post in pagina:
-            # Aqui, pegamos o estado de "curtido" pelo usuário
-            curtido = post.curtidas.filter(id=request.user.id).exists() if request.user.is_authenticated else False
-            posts_html += render(request, 'blog/post_resumo.html', {'post': post, 'curtido': curtido}).content.decode('utf-8')
+            posts_html += render(request, 'blog/post_resumo.html', {'post': post}).content.decode('utf-8')
 
         return JsonResponse({
             'posts_html': posts_html,
@@ -307,10 +316,14 @@ def home(request):
     })
 def posts_por_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
-    posts = Post.objects.filter(categoria=categoria).order_by('-criado_em')[:10]  # Limita a 10
+    posts_list = Post.objects.filter(categoria=categoria).order_by('-criado_em')
+
+    paginator = Paginator(posts_list, 10)  # 10 posts por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'blog/posts_por_categoria.html', {
-        'posts': posts,
+        'page_obj': page_obj,
         'categoria': categoria,
     })
 

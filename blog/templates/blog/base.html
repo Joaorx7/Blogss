@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     <script>
     const mediaPrefix = "{{ media_prefix }}";
-</script>
+    </script>
 </head>
 <body>
     <header>
@@ -25,6 +25,17 @@
                 </div>
             </div>
         </nav>
+    {% if user.is_authenticated %}
+        <p>
+            Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
+            <a href="{% url 'logout' %}">Sair</a> |
+        </p>
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'cadastro' %}">Cadastro</a> |
+        </p>
+    {% endif %}
 
     <nav>
         <a href="{% url 'notificacoes' %}">🔔 Notificações 
@@ -82,6 +93,7 @@
                     </ul>
                 </div>
             {% endif %}
+        
 
             <div style="margin-bottom: 20px;">
                 <strong id="creco">Categorias populares:</strong>
@@ -97,10 +109,11 @@
                     {% endfor %}
                 </ul>
             </div>
-            
+        
+        
             <div style="margin-bottom: 20px;">
-                <strong id="contasc">Contas criadas:</strong>
-                <strong id="contador"> {{ total_usuarios }}</strong>
+                <strong id="contador-contas">Contas criadas:</strong>
+                <strong id="conte"> {{ total_usuarios }}</strong>
             </div>
         </aside>
     </main>
