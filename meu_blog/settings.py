@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'blog.context_processors.categorias_disponiveis', 
                 'blog.context_processors.notificacoes_nao_lidas',
+                'blog.context_processors.media_url',
             ],
         },
     },

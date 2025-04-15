@@ -103,3 +103,10 @@ function mostrarFormResposta(id) {
 }
 </script>
 {% endblock %}
+
+{% block scripts %}
+<script>
+    window.MEDIA_PREFIX = "/static/media/";
+</script>
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

@@ -3,8 +3,21 @@
 {% block content %}
 <h1>Perfil de {{ usuario.username }}</h1>
 
+{% if user.is_authenticated %}
+        <p>
+            Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
+
+            <a href="{% url 'logout' %}">Sair</a> |
+        </p>
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'cadastro' %}">Cadastro</a> |
+        </p>
+    {% endif %}
+
 <!-- Foto do perfil (com imagem padrão caso esteja vazia) -->
-<img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}" width="150" style="border-radius: 50%;" alt="Foto de perfil"><br>
+<img id ="perfilf" src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}" width="150" style="border-radius: 50%;" alt="Foto de perfil"><br>
 
 <!-- Bio do usuário -->
 <p><strong>Bio:</strong> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
@@ -12,6 +25,9 @@
 <!-- Contagem de seguidores e seguindo -->
 <p><strong>Seguidores:</strong> {{ seguidores.count }}</p>
 <p><strong>Seguindo:</strong> {{ seguindo.count }}</p>
+<nav> 
+    <a href="{% url 'estatisticas' %}">📊 Estatísticas</a> 
+</nav>
 
 <!-- Botão de editar bio (só para o dono do perfil) -->
 {% if request.user == usuario %}

@@ -9,7 +9,14 @@
         <p><label for="{{ form.titulo.id_for_label }}">Título:</label> {{ form.titulo }}</p>
         <p><label for="{{ form.conteudo.id_for_label }}">Conteúdo:</label> {{ form.conteudo }}</p>
         <p><label for="{{ form.categoria.id_for_label }}">Categoria:</label> {{ form.categoria }}</p>
-        <p><label for="{{ form.imagem.id_for_label }}">Imagem:</label> {{ form.imagem }}</p> <!-- novo campo -->
+        <p><label for="{{ form.imagem.id_for_label }}">Imagem:</label> {{ form.imagem }}</p>
+
+        <!-- Pré-visualização -->
+        <div id="preview-container" style="margin-top: 10px;">
+            <strong>Pré-visualização:</strong><br>
+            <img id="preview-image" src="#" alt="Prévia da imagem" style="max-width: 300px; display: none; margin-top: 10px;">
+        </div>
+
         <button type="submit">Publicar</button>
     </form>
 {% endblock %}

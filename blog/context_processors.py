@@ -1,6 +1,7 @@
 from .models import Categoria, Notificacao
 from .models import Perfil, Categoria
 from django.contrib.auth.models import User
+from django.conf import settings
 
 def categorias_disponiveis(request):
     return {
@@ -27,3 +28,6 @@ def extras_para_todas_as_paginas(request):
         'total_usuarios': total_usuarios,
         'perfis_recomendados': perfis_recomendados
     }
+
+def media_url(request):
+    return {'MEDIA_URL': settings.MEDIA_URL}

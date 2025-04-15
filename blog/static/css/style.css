@@ -1,39 +1,4 @@
-/* Referente à página: categoria.html */
-.categorias-nav {
-    margin-bottom: 20px;
-}
-
-.post-resumo {
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    padding: 10px;
-}
-
-/* Referente à página: home.html */
-.categorias-nav {
-    margin-bottom: 20px;
-}
-
-.post-resumo {
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    padding: 10px;
-}
-
-
-/* Referente à página: detalhes_post.html */
-.comentario {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-.imagem-post {
-    max-width: 100%;
-    height: auto;
-    margin: 10px 0;
-}
-
+/* ======= GERAL (reset e fontes) ======= */
 * {
     margin: 0;
     padding: 0;
@@ -44,20 +9,22 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* ======= NAVBAR SUPERIOR ======= */
 .navbar {
-    position: fixed;  /* Fixa a navbar no topo */
-    top: 0;           /* Alinha ela ao topo da página */
-    left: 0;          /* Alinha ela à esquerda */
-    width: 100%;      /* Garante que ela ocupe toda a largura */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #868686;
     padding: 10px 20px;
-    z-index: 1000;    /* Garante que a navbar fique acima dos outros elementos */
+    z-index: 1000;
 }
 
 .navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .logo {
@@ -85,29 +52,22 @@ body {
     color: #f1f1f1;
 }
 
-.navbar-container {
-    justify-content: space-between; /* Isso garante que a logo vai para a esquerda e a imagem Titulo ficará centralizada */
-    align-items: center; /* Isso alinha as imagens verticalmente */
-    width: 100%;
-}
-
 .centered-image {
-    margin: 0 auto; /* Centraliza a imagem no seu contêiner */
+    margin: 0 auto;
     display: block;
 }
 
-.trilho{
+/* ======= BOTÃO DE TEMA (modo claro/escuro) ======= */
+.trilho {
     width: 50px;
     height: 20px;
     background-color: #d9d9d9;
     border-radius: 150px;
-    position: relative;
     position: absolute;
-    right: 20px; /* distância da borda direita */
-    top: 35%; /* altura vertical da tela */
+    right: 20px;
+    top: 35%;
     cursor: pointer;
 }
-
 
 .trilho .indicador {
     width: 20px;
@@ -116,7 +76,7 @@ body {
     border-radius: 50%;
     transform: scale(.9);
     position: absolute;
-    left: 1px; /* Move a imagem para a esquerda */
+    left: 1px;
     top: 0;
     display: flex;
     justify-content: center;
@@ -124,14 +84,20 @@ body {
     transition: left 0.5s ease;
 }
 
-.trilho.dark{
+.trilho.dark {
     background-color: #868686;
 }
 
-.trilho.dark .indicador{
+.trilho.dark .indicador {
     left: 30px;
     background-color: black;
 }
+
+.trilho .indicador img {
+    width: 18px;
+    height: 21px;
+}
+
 body.light {
     background-color: #ffffff;
     color: #000000;
@@ -158,22 +124,17 @@ a.dark {
     color: #90caf9;
 }
 
-.trilho .indicador img {
-    width: 18px; /* Ajuste o tamanho da imagem conforme necessário */
-    height: 21px; /* Ajuste o tamanho da imagem conforme necessário */
-}
-
+/* ======= SIDEBAR ESQUERDA ======= */
 .sidebar {
     position: fixed;
     top: 80px;
     left: 0;
-    width: 80px; /* Ideal para ícones */
+    width: 80px;
     height: calc(100vh - 80px);
     background-color: #d9d9d9;
     padding: 20px 0;
     box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
     z-index: 900;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -207,59 +168,39 @@ a.dark {
 }
 
 .icon {
-    width: 36px;  /* Altere aqui: ex. 24px, 30px, 40px... */
-    height: 36px;
+    width: 40px;
+    height: 40px;
     transition: transform 0.2s ease;
+    bottom: 10px;
 }
 
 .icon:hover {
     transform: scale(1.1);
 }
 
-
-main {
-    padding: 20px;
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-    margin-left: 100px; /* Ajuste conforme necessário para que a sidebar não sobreponha o conteúdo */
-    padding-top: 80px;
-}
-
-
-
-main {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-    padding-right: 250px; /* Espaço suficiente para a sidebar direita */
-}
-
-/* Navbar à direita */
-/* Estilo da Sidebar Direita */
+/* ======= SIDEBAR DIREITA ======= */
 .sidebar-right {
     position: fixed;
-    top: 80px; /* Ajuste para não sobrepor a navbar superior */
+    top: 80px;
     right: 0;
-    width: 230px;
-    height: calc(100vh - 80px); /* Altura total da sidebar */
+    width: 410px;
+    height: calc(100vh - 80px);
     background-color: #f8f9fa;
     padding: 20px;
-    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
     box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
     z-index: 900;
     display: flex;
     flex-direction: column;
 }
 
-/* Ajustando o espaçamento das seções */
 .sidebar-right > div {
-    margin-bottom: 10px; /* Menor espaçamento entre as seções */
-    padding-bottom: 10px; /* Menor padding também */
+    margin-bottom: 10px;
+    padding-bottom: 10px;
     position: relative;
 }
 
-/* Linha de separação visível em todas as seções */
 .sidebar-right > div::after {
     content: "";
     position: absolute;
@@ -270,26 +211,19 @@ main {
     background-color: #ccc;
 }
 
-/* Remover a linha da última seção */
 .sidebar-right > div:last-child::after {
     display: none;
 }
 
-/* Estilo das listas */
 .sidebar-right ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.sidebar-right ul li {
-    margin: px 0; /* Menor margem entre os itens */
-}
-
 .sidebar-right ul li a {
     color: blue;
     text-decoration: none;
-    padding: 10px ;
     display: block;
     transition: background 0.3s;
 }
@@ -300,35 +234,478 @@ main {
 
 .sidebar-right strong {
     display: block;
-    margin-bottom: 0px; /* Menor margem */
+    margin-bottom: 0px;
     font-weight: bold;
 }
 
-/* Aumentar o tamanho dos nomes de usuário e categorias */
-.nameuser {
-    color: blue;
-    text-decoration: none;
-    font-size: 16px; /* Aumentar o tamanho da fonte */
-}
-
-.nameuser:hover {
-    color: darkblue;
-}
-
-.namecat {
-    color: blue;
-    text-decoration: none;
-    font-size: 16px; /* Aumentar o tamanho da fonte */
-}
-
+.nameuser:hover,
 .namecat:hover {
     color: darkblue;
 }
 
-/* Aumentar o tamanho da quantidade de usuários */
-.sidebar-right > div:last-child {
-    font-size: 18px; /* Tamanho maior para a quantidade de usuários */
-    font-weight: bold;
-    color: #333; /* Cor para destacar */
+.namecat, .nameuser {
+    color: blue;
+    text-decoration: none;
+    font-size: 30px;
 }
 
+.sidebar-right > div:last-child {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+#creco, #preco, #contasc {
+    font-size: 30px;
+}
+
+#contador {
+    font-size: 80px;
+    text-align: center;
+}
+
+/* ======= MAIN (Conteúdo Principal) ======= */
+main {
+    margin-left: 100px;
+    padding: 20px;
+    padding-top: 80px;
+    padding-right: 450px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* ======= HOME & CATEGORIA: post e navegação ======= */
+.categorias-nav {
+    margin-bottom: 20px;
+}
+
+.post-resumo {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Botão de seguir nos posts */
+.seguir-form {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.seguir-btn {
+    background-color: #535353;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.seguir-btn:hover {
+    background-color: #535353;
+}
+
+/* ======= DETALHES DO POST (comentários e imagem) ======= */
+.comentario {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.imagem-post {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+}
+
+/* ======= FORMULÁRIO DE NOVO POST ======= */
+
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+form p {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form textarea,
+form select,
+form input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button[type="submit"] {
+    background-color: #535353;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #383838;
+}
+
+/* ======= PREVIEW DA IMAGEM ======= */
+
+#preview-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#preview-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+/* ==========================================
+   Estilo para a página: buscar_usuarios.html
+   ========================================== */
+
+/* Seção: Título da página */
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Seção: Formulário de busca */
+form {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+form input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    flex-grow: 1;
+    font-size: 16px;
+}
+
+form button {
+    background-color: #535353;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #434343;
+}
+
+/* Seção: Lista de usuários */
+ul.usuario-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.usuario-lista li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+ul.usuario-lista li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Seção: Imagem do usuário */
+ul.usuario-lista img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+/* Seção: Link do nome do usuário */
+ul.usuario-lista a {
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+ul.usuario-lista a:hover {
+    color: #0056b3;
+}
+
+/* Estilo para a página de cadastro */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form input, form button {
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+form p {
+    text-align: center;
+    font-size: 16px;
+}
+
+form a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+form a:hover {
+    text-decoration: underline;
+}
+
+/* Ajustando os campos de formulário */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 20px;
+    }
+}
+
+/* Estilos gerais para o perfil */
+h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+strong {
+    font-weight: bold;
+}
+
+/* Foto do perfil */
+#perfilf {
+    width: 150px;  /* Ajuste o tamanho conforme necessário */
+    height: 150px; /* Manter a altura igual à largura para ser redonda */
+    border-radius: 50%;
+    object-fit: cover; /* Garante que a imagem seja ajustada corretamente dentro do círculo */
+    margin-bottom: 20px;
+}
+
+/* Estilo para os links de login/cadastro */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para a bio e contagem de seguidores */
+.bio {
+    font-size: 16px;
+    color: #333;
+    margin-top: 15px;
+}
+
+.seguidores, .seguindo {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Estilo para o botão de editar bio */
+a[href*="editar_perfil"] {
+    font-size: 16px;
+    color: #f39c12;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+a[href*="editar_perfil"]:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+/* Estilo para o botão de seguir/deixar de seguir */
+
+
+form button:hover {
+    background-color: #27ae60;
+}
+
+form button:active {
+    background-color: #16a085;
+}
+
+/* Estilo para os links de navegação */
+nav a {
+    color: #3498db;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Estilo para a lista de posts */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+ul li a {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para a mensagem quando não há posts */
+li.empty {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+
+/* Estilo para a foto de perfil do autor */
+.foto-perfil {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* Deixa a foto de perfil redonda */
+    border: 2px solid #ddd; /* Borda ao redor da imagem de perfil */
+    object-fit: cover; /* Ajusta a imagem para preencher o espaço sem distorcer */
+    display: block; /* Garante que o elemento seja tratado como um bloco */
+    margin: 0 auto; /* Centraliza a imagem dentro do contêiner */
+}
+/* ===================== */
+/* imagem do post        */
+/* ===================== */
+.img-resumo {
+    display: block;              /* permite centralizar com margin */
+    margin: 20px auto;           /* centraliza e dá espaço */
+    width: 70%;                  /* tamanho médio (ajustável) */
+    max-width: 600px;            /* limite para telas grandes */
+    height: auto;                /* mantém proporção, sem corte */
+    border: 3px solid #444;      /* borda visível (pode trocar a cor) */
+    border-radius: 10px;         /* opcional, borda arredondada */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);  /* sombra suave */
+  } 
+
+/* Navbar do lado direito */
+.navbar-direita {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #f4f4f4;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.seguir-form {
+    margin-left: auto;
+}
+
+.seguir-btn {
+    background-color: #008cff;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.seguir-btn:hover {
+    background-color: #006bbd;
+}

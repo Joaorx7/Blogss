@@ -25,18 +25,6 @@
                 </div>
             </div>
         </nav>
-    {% if user.is_authenticated %}
-        <p>
-            Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
-
-            <a href="{% url 'logout' %}">Sair</a> |
-        </p>
-    {% else %}
-        <p>
-            <a href="{% url 'login' %}">Login</a> |
-            <a href="{% url 'cadastro' %}">Cadastro</a> |
-        </p>
-    {% endif %}
 
     <nav>
         <a href="{% url 'notificacoes' %}">🔔 Notificações 
@@ -79,7 +67,7 @@
         <aside class="sidebar-right">
             {% if user.is_authenticated %}
                 <div style="margin-bottom: 20px;">
-                    <strong>Perfis recomendados:</strong>
+                    <strong id="preco">Perfis recomendados:</strong>
                     <ul style="list-style: none; padding: 0;">
                         {% for perfil in perfis_recomendados %}
                             <li style="display: flex; align-items: center; margin-bottom: 10px;">
@@ -96,7 +84,7 @@
             {% endif %}
 
             <div style="margin-bottom: 20px;">
-                <strong>Categorias mais populares:</strong>
+                <strong id="creco">Categorias populares:</strong>
                 <ul>
                     {% for categoria in categorias_populares %}
                         <li>
@@ -104,12 +92,15 @@
                                 {{ categoria.nome }}
                             </a>
                         </li>
+                    {% empty %}
+                        <li>Nenhuma categoria popular no momento.</li>
                     {% endfor %}
                 </ul>
             </div>
             
             <div style="margin-bottom: 20px;">
-                <strong>Contas criadas:</strong> {{ total_usuarios }}
+                <strong id="contasc">Contas criadas:</strong>
+                <strong id="contador"> {{ total_usuarios }}</strong>
             </div>
         </aside>
     </main>

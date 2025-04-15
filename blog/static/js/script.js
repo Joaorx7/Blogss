@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return cookieValue;
     }
 
-    function adicionarEventosCurtirSeguir(contexto=document) {
+    function adicionarEventosCurtirSeguir(contexto = document) {
         contexto.querySelectorAll('.curtir-btn').forEach(btn => {
-            btn.removeEventListener('click', curtirHandler); // evita múltiplos handlers
+            btn.removeEventListener('click', curtirHandler);
             btn.addEventListener('click', curtirHandler);
         });
 
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function curtirHandler(event) {
         const postId = this.dataset.id;
+
         fetch(`/curtir/${postId}/`, {
             method: 'POST',
             headers: {
@@ -37,8 +38,20 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(res => res.json())
         .then(data => {
             const curtidasSpan = document.getElementById(`total-curtidas-${postId}`);
-            curtidasSpan.innerText = data.total_curtidas;
-            this.innerText = data.curtido ? '💔 Descurtir' : '❤️ Curtir';
+            if (curtidasSpan) {
+                curtidasSpan.innerText = data.total_curtidas;
+            }
+
+            const imagemCurtiu = this.querySelector('img');
+            if (imagemCurtiu) {
+                // Atualiza a imagem para o estado atual, diretamente com o caminho estático
+                const imagem = data.curtido ? '/media/Icones/vermelho.png' : '/media/Icones/like.png';
+                imagemCurtiu.src = imagem;
+                imagemCurtiu.alt = data.curtido ? 'Descurtir' : 'Curtir';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao curtir o post:', error);
         });
     }
 
@@ -55,14 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(res => res.json())
         .then(data => {
-            btn.innerText = data.seguindo ? '✔️ Seguindo' : '➕ Seguir';
+            btn.innerText = data.seguindo ? '✔️ Seguindo' : 'Seguir +';
         });
     }
 
     // Aplica os eventos inicialmente
     adicionarEventosCurtirSeguir();
+});
 
-    // Scroll infinito
+    // (Resto do código, como scroll infinito e tema, permanece inalterado)
+
     let page = 2;
     let carregando = false;
     let temMais = true;
@@ -87,10 +102,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 const container = document.getElementById('posts-container');
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = data.posts_html;
-                container.append(...tempDiv.children);
 
-                // Aplica eventos nos novos elementos
-                adicionarEventosCurtirSeguir(container);
+                const novosPosts = tempDiv.children;
+                const existingPosts = container.querySelectorAll('.post-resumo');
+                const existingPostIds = Array.from(existingPosts).map(post => post.dataset.id);
+
+                Array.from(novosPosts).forEach(post => {
+                    const postId = post.dataset.id;
+                    if (!existingPostIds.includes(postId)) {
+                        container.appendChild(post);
+                    }
+                });
+
+                // Se tiver função para curtir e seguir, chama aqui
+                if (typeof adicionarEventosCurtirSeguir === "function") {
+                    adicionarEventosCurtirSeguir(container);
+                }
 
                 page += 1;
                 temMais = data.tem_mais;
@@ -104,36 +131,49 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-});
 
-const trilho = document.querySelector('.trilho');
-const body = document.body;
+    // Tema escuro/claro
+    const trilho = document.querySelector('.trilho');
+    const body = document.body;
 
-trilho.addEventListener('click', () => {
-    trilho.classList.toggle('dark');
-    body.classList.toggle('dark');
+    trilho?.addEventListener('click', () => {
+        trilho.classList.toggle('dark');
+        body.classList.toggle('dark');
 
-    // Adiciona ou remove a classe "dark" nos componentes que precisam
-    document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
-        el.classList.toggle('dark');
+        document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
+            el.classList.toggle('dark');
+        });
+
+        localStorage.setItem('tema', body.classList.contains('dark') ? 'dark' : 'light');
     });
 
-    // Salvar a preferência no localStorage
-    if (body.classList.contains('dark')) {
-        localStorage.setItem('tema', 'dark');
-    } else {
-        localStorage.setItem('tema', 'light');
-    }
-});
-
-// Aplica o tema salvo ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
     const temaSalvo = localStorage.getItem('tema');
     if (temaSalvo === 'dark') {
         body.classList.add('dark');
-        trilho.classList.add('dark');
+        trilho?.classList.add('dark');
         document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
             el.classList.add('dark');
         });
     }
-});
+
+    // Preview de imagem
+    const inputImagem = document.getElementById('{{ form.imagem.id_for_label }}');
+    const preview = document.getElementById('preview-image');
+
+    if (inputImagem && preview) {
+        inputImagem.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#';
+                preview.style.display = 'none';
+            }
+        });
+    }
+

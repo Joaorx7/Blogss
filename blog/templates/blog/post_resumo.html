@@ -1,5 +1,4 @@
-{% for post in posts %}
-<div class="post-resumo" style="border-bottom: 1px solid #ddd; margin-bottom: 20px; padding-bottom: 15px;">
+<div class="post-resumo" style="border-bottom: 1px solid #ddd; margin-bottom: 20px; padding-bottom: 15px;" data-id="{{ post.id }}">
     <div style="display: flex; align-items: center; gap: 10px; margin: 5px 0;">
         {% if post.autor.perfil.foto %}
             <img src="{{ post.autor.perfil.foto.url }}" alt="Foto de perfil" style="width: 35px; height: 35px; border-radius: 50%;">
@@ -7,17 +6,20 @@
         <strong><a href="{% url 'perfil_usuario' post.autor.username %}">{{ post.autor.username }}</a></strong>
 
         {% if user.is_authenticated and user != post.autor %}
-            <form method="post" class="seguir-form" data-username="{{ post.autor.username }}" style="display: inline; margin-left: 10px;">
+        <div style="display: flex; justify-content: flex-end; overflow: hidden; width: 100%;">
+            <form method="post" class="seguir-form" data-username="{{ post.autor.username }}">
                 {% csrf_token %}
                 <button type="submit" class="seguir-btn">
                     {% if post.autor in user.perfil.seguindo.all %}
-                        ✔️ Seguindo
+                        Seguindo
                     {% else %}
-                        ➕ Seguir
+                        Seguir +
                     {% endif %}
                 </button>
             </form>
-        {% endif %}
+        </div>
+        
+    {% endif %}
     </div>
 
     <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
@@ -31,27 +33,22 @@
     {% endif %}
 
     <p>{{ post.conteudo|truncatechars:200 }}</p>
-    <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
 
     {% if post.imagem %}
-        <img src="{{ post.imagem.url }}" alt="Imagem do post" style="width: 100%; max-height: 300px; object-fit: cover; margin: 10px 0;">
+        <img src="{{ post.imagem.url }}" alt="Imagem do post" class="img-resumo">
     {% endif %}
 
     {% if user.is_authenticated %}
         <div style="margin-top: 10px;">
             <button class="curtir-btn" data-id="{{ post.id }}">
-                {% if user in post.curtidas.all %}
-                    💔 Descurtir
-                {% else %}
-                    ❤️ Curtir
-                {% endif %}
+                <img src="{% if user in post.curtidas.all %}{{ media_prefix }}Icones/vermelho.png{% else %}{{ media_prefix }}Icones/like.png{% endif %}" alt="Curtir">
             </button>
-            <span id="total-curtidas-{{ post.id }}">
-                {{ post.num_curtidas|default:post.curtidas.count }}
-            </span>
-            <a href="{% url 'detalhes_post' post.id %}#comentarios" style="margin-left: 15px;">💬 Comentar</a>
-            <span>{{ post.comentarios.count }} comentários</span>
+
+            <span id="total-curtidas-{{ post.id }}">{{ post.curtidas.count }}</span>
+
+            <a href="{% url 'detalhes_post' post.id %}#comentarios" style="margin-left: 15px;">
+                <img class="icon" src="{{ media_prefix }}Icones/comentar.png" alt="">
+            </a>
         </div>
     {% endif %}
 </div>
-{% endfor %}

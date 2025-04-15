@@ -282,28 +282,29 @@ def home(request):
     else:
         posts = posts.order_by('-criado_em')
 
-    paginator = Paginator(posts, 5)  # 5 posts por página
+    paginator = Paginator(posts, 10)
     pagina = paginator.get_page(page)
 
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         posts_html = ''
         for post in pagina:
-            posts_html += render(request, 'blog/post_resumo.html', {'post': post}).content.decode('utf-8')
-    
+            # Aqui, pegamos o estado de "curtido" pelo usuário
+            curtido = post.curtidas.filter(id=request.user.id).exists() if request.user.is_authenticated else False
+            posts_html += render(request, 'blog/post_resumo.html', {'post': post, 'curtido': curtido}).content.decode('utf-8')
+
         return JsonResponse({
             'posts_html': posts_html,
             'tem_mais': pagina.has_next()
-    })
+        })
 
-    categorias = Categoria.objects.all()
+    categorias_populares = Categoria.objects.annotate(num_posts=Count('post')).order_by('-num_posts')[:10]
 
     return render(request, 'blog/home.html', {
         'posts': pagina,
-        'categorias': categorias,
+        'categorias_populares': categorias_populares,
         'categoria_id': int(categoria_id) if categoria_id else None,
         'ordenar': ordenar
     })
-
 def posts_por_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
     posts = Post.objects.filter(categoria=categoria).order_by('-criado_em')[:10]  # Limita a 10
