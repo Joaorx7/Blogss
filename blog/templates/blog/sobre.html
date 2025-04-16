@@ -4,7 +4,29 @@
 {% block title %}Sobre - Meu Blog{% endblock %}
 
 {% block content %}
-    <h2>Sobre o Blog</h2>
-    <p>Bem-vindo ao Meu Blog! Aqui você encontrará publicações sobre diversos assuntos interessantes, organizados por categorias.</p>
-    <p>Esse blog foi criado com Django, HTML e muito café. Fique à vontade para explorar e comentar!</p>
+    <section class="sobre">
+        <header class="sobre-header">
+            <h1>Bem-vindo ao Meu Blog!</h1>
+            <p class="subtitulo">Um espaço dedicado à troca de ideias, experiências e conhecimento.</p>
+        </header>
+
+        <div class="sobre-conteudo">
+            <p>Este blog nasceu da minha paixão por compartilhar histórias, aprendizados e reflexões sobre os mais diversos temas. Desde viagens e cultura até tecnologia e desenvolvimento pessoal, aqui você encontrará conteúdos que buscam inspirar e conectar pessoas.</p>
+
+            <p>Acredito que a escrita tem o poder de transformar, de provocar novas perspectivas e de criar comunidades. Por isso, cada postagem é pensada com carinho, buscando oferecer algo significativo para quem lê.</p>
+
+            <p>Além dos artigos, você também encontrará entrevistas com pessoas inspiradoras, resenhas de livros e dicas práticas para o dia a dia. Meu objetivo é criar um ambiente acolhedor, onde todos se sintam à vontade para explorar e interagir.</p>
+
+            <p>Fique à vontade para comentar, sugerir temas ou entrar em contato. Este espaço é tão seu quanto meu!</p>
+        </div>
+
+        <footer class="sobre-footer">
+            <p>Conecte-se comigo nas redes sociais:</p>
+            <ul class="redes-sociais">
+                <li><a href="https://twitter.com/seunome" target="_blank">Twitter</a></li>
+                <li><a href="https://www.instagram.com/seunome" target="_blank">Instagram</a></li>
+                <li><a href="https://www.linkedin.com/in/seunome" target="_blank">LinkedIn</a></li>
+            </ul>
+        </footer>
+    </section>
 {% endblock %}

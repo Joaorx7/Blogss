@@ -44,10 +44,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const imagemCurtiu = this.querySelector('img');
             if (imagemCurtiu) {
-                // Atualiza a imagem para o estado atual, diretamente com o caminho estático
                 const imagem = data.curtido ? '/media/Icones/vermelho.png' : '/media/Icones/like.png';
                 imagemCurtiu.src = imagem;
                 imagemCurtiu.alt = data.curtido ? 'Descurtir' : 'Curtir';
+
+                if (data.curtido) {
+                    // Adiciona a classe de animação se curtiu
+                    this.classList.add('pulsar');
+                    setTimeout(() => {
+                        this.classList.remove('pulsar');
+                    }, 300);
+                } else {
+                    // Adiciona animação de descurtir
+                    this.classList.add('descurtir');
+                    setTimeout(() => {
+                        this.classList.remove('descurtir');
+                    }, 300);
+                }
             }
         })
         .catch(error => {
@@ -58,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function seguirHandler(e) {
         e.preventDefault();
         const username = this.dataset.username;
-        const btn = this.querySelector('.seguir-btn');
 
         fetch(`/seguir_ou_nao/${username}/`, {
             method: 'POST',
@@ -68,13 +80,20 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(res => res.json())
         .then(data => {
-            btn.innerText = data.seguindo ? '✔️ Seguindo' : 'Seguir +';
+            // Atualiza TODOS os botões do mesmo autor
+            document.querySelectorAll(`.seguir-btn[data-username="${username}"]`).forEach(btn => {
+                btn.innerText = data.seguindo ? 'Seguindo' : 'Seguir +';
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao seguir/desseguir:', error);
         });
     }
 
-    // Aplica os eventos inicialmente
     adicionarEventosCurtirSeguir();
 });
+
+
 
     // (Resto do código, como scroll infinito e tema, permanece inalterado)
 

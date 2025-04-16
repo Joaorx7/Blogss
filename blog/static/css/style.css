@@ -297,21 +297,6 @@ main {
     top: 10px;
 }
 
-.seguir-btn {
-    all: unset;
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-}
-
-.seguir-btn:hover {
-    background-color: #535353;
-}
-
 /* ======= DETALHES DO POST (comentários e imagem) ======= */
 .comentario {
     margin-bottom: 10px;
@@ -627,7 +612,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #3498db;
+    background-color: #b09999;
     color: white;
 }
 
@@ -673,15 +658,16 @@ li.empty {
 /* imagem do post        */
 /* ===================== */
 .img-resumo {
-    display: block;              /* permite centralizar com margin */
-    margin: 20px auto;           /* centraliza e dá espaço */
-    width: 100%;                  /* tamanho médio (ajustável) */
-    max-width: 800px;            /* limite para telas grandes */
-    height: auto;                /* mantém proporção, sem corte */
-    border: 3px solid #444;      /* borda visível (pode trocar a cor) */
-    border-radius: 10px;         /* opcional, borda arredondada */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);  /* sombra suave */
-  } 
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    height: auto;
+    border: 3px solid #444;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    image-rendering: auto;
+  }
 
 /* Navbar do lado direito */
 .navbar-direita {
@@ -695,23 +681,14 @@ li.empty {
 }
 
 .seguir-form {
-    border: none;           /* Remove a borda do formulário */
-    padding: 0;             /* Remove o preenchimento interno */
-    margin: 0;              /* Remove a margem */
-}
-
-.seguir-btn {
-    background-color: #008cff;
-    padding: 6px 12px;
+    background: transparent;
+    box-shadow: none;
     border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    margin-right: 50px;
+    padding: 0;
+    margin: 0;             /* Remove a margem */
 }
 
-.seguir-btn:hover {
-    background-color: #006bbd;
-}
+
 
 /* Estilo geral do post */
 .post-resumo {
@@ -746,21 +723,19 @@ li.empty {
     line-height: 1.5;
 }
 
-/* Botões */
-.seguir-btn {
+/* Botão Seguir */
+button.seguir-btn {
     font-size: 13px;
-    padding: 5px 10px;
-    background-color: #008cff;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    background-color: #535353;
+    border-radius: 13px;
     cursor: pointer;
+    margin-right: 50px;
+    margin-top: 10px;
 }
 
-.seguir-btn:hover {
+button.seguir-btn:hover {
     background-color: #006bbd;
 }
-
 .curtir-btn img{
     width: 40px;
     height: 40px;
@@ -800,5 +775,86 @@ li.empty {
     color: rgb(0, 0, 0);
 }
 
+.sobre {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 900px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.sobre-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
+.sobre-header h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+.sobre-header .subtitulo {
+    font-size: 1.2em;
+    color: #777;
+}
+
+.sobre-conteudo {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.sobre-footer {
+    text-align: center;
+}
+
+.sobre-footer p {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.redes-sociais {
+    list-style: none;
+    padding: 0;
+}
+
+.redes-sociais li {
+    display: inline;
+    margin: 0 10px;
+}
+
+.redes-sociais li a {
+    text-decoration: none;
+    color: #0073e6;
+    font-size: 1.2em;
+}
+
+.redes-sociais li a:hover {
+    text-decoration: underline;
+}
+.post-resumo {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+}
+
+.post-resumo img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.curtir-btn img {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.curtir-btn.pulsar img {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 5px red);
+}
+
+.curtir-btn.descurtir img {
+    transform: scale(0.8);
+    filter: brightness(0.7);
+}

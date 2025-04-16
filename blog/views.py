@@ -47,8 +47,8 @@ def perfil_usuario(request, username):
     usuario = get_object_or_404(User, username=username)
     perfil = usuario.perfil
     seguidores = perfil.seguidores.all()
-    seguindo = perfil.seguindo
-    posts = Post.objects.filter(autor=usuario)
+    seguindo = perfil.seguindo.all()
+    posts = Post.objects.filter(autor=usuario).order_by('-criado_em')
 
     # Garantir que sempre haja uma foto
     foto_url = perfil.foto.url if perfil.foto else '/media/img_resto/Account.png'
@@ -62,7 +62,6 @@ def perfil_usuario(request, username):
         'foto_url': foto_url,
     }
     return render(request, 'blog/perfil_usuario.html', context)
-
 @login_required
 def novo_post(request):
     categorias = Categoria.objects.all()  # ← Adicionado aqui

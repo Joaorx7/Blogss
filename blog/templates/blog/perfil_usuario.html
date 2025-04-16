@@ -4,34 +4,33 @@
 <h1>Perfil de {{ usuario.username }}</h1>
 
 {% if user.is_authenticated %}
-        <p>
-            Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
+    <p>
+        Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
+        <a href="{% url 'logout' %}">Sair</a> |
+    </p>
+{% else %}
+    <p>
+        <a href="{% url 'login' %}">Login</a> |
+        <a href="{% url 'cadastro' %}">Cadastro</a> |
+    </p>
+{% endif %}
 
-            <a href="{% url 'logout' %}">Sair</a> |
-        </p>
-    {% else %}
-        <p>
-            <a href="{% url 'login' %}">Login</a> |
-            <a href="{% url 'cadastro' %}">Cadastro</a> |
-        </p>
-    {% endif %}
-
-<!-- Foto do perfil (com imagem padrão caso esteja vazia) -->
-<img id ="perfilf" src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}" width="150" style="border-radius: 50%;" alt="Foto de perfil"><br>
-
+<!-- Foto do perfil -->
+{% if perfil.foto %}
+    <img id="perfilf" src="{{ perfil.foto.url }}" width="150" style="border-radius: 50%; object-fit: cover;" alt="Foto de perfil">
+{% else %}
+    <img id="perfilf" src="/media/Icones/account.png" width="150" style="border-radius: 50%; object-fit: cover;" alt="Foto padrão">
+{% endif %}
 <!-- Bio do usuário -->
 <p><strong>Bio:</strong> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
 
 <!-- Contagem de seguidores e seguindo -->
 <p><strong>Seguidores:</strong> {{ seguidores.count }}</p>
 <p><strong>Seguindo:</strong> {{ seguindo.count }}</p>
-<nav> 
-    <a href="{% url 'estatisticas' %}">📊 Estatísticas</a> 
-</nav>
 
 <!-- Botão de editar bio (só para o dono do perfil) -->
 {% if request.user == usuario %}
-  <a href="{% url 'editar_perfil' %}">✏️ Editar Bio</a>
+    <a href="{% url 'editar_perfil' %}">✏️ Editar Bio</a>
 {% endif %}
 
 <!-- Botão de seguir/deixar de seguir (só para outros usuários) -->
@@ -50,14 +49,13 @@
 
 <hr>
 
-<!-- Lista de posts do usuário -->
+   <!-- Lista de posts do usuário -->
 <h2>Posts de {{ usuario.username }}</h2>
-<ul>
-    {% for post in posts %}
-        <li><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></li>
-    {% empty %}
-        <li>Este usuário ainda não publicou nada.</li>
-    {% endfor %}
+{% for post in posts %}
+    {% include 'blog/post_resumo.html' with post=post %}
+{% empty %}
+    <p>Este usuário ainda não publicou nada.</p>
+{% endfor %}
 </ul>
 
 {% endblock %}

@@ -3,7 +3,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Meu Blog{% endblock %}</title>
+    <title>Viventi</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
     <meta name="csrf-token" content="{{ csrf_token }}">
     <script>
@@ -84,10 +84,10 @@
                     <ul style="list-style: none; padding: 0;">
                         {% for perfil in perfis_recomendados %}
                             <li style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}" 
-                                     alt="Foto de perfil" 
-                                     style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
-                                <a class="nameuser" href="{% url 'perfil_usuario' perfil.user.username %}">@{{ perfil.user.username }}</a>
+                             <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/Icones/account.png{% endif %}"
+                                    alt="Foto de perfil" 
+                                   style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                             <a class="nameuser" href="{% url 'perfil_usuario' perfil.user.username %}">@{{ perfil.user.username }}</a>
                             </li>
                         {% empty %}
                             <li>Nenhum perfil recomendado no momento.</li>
@@ -100,16 +100,10 @@
             <div style="margin-bottom: 20px;">
                 <strong id="creco">Categorias populares:</strong>
                 <ul>
-                    {% for categoria in categorias_populares %}
-                        <li>
-                            <a class="namecat" href="{% url 'posts_por_categoria' categoria.id %}">
-                                {{ categoria.nome }}
-                            </a>
-                        </li>
-                    {% empty %}
-                        <li>Nenhuma categoria popular no momento.</li>
+                    {% for categoria in categorias_principais %}
+                      <li><a class="namecat" href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a></li>
                     {% endfor %}
-                </ul>
+                  </ul>
             </div>
         
         

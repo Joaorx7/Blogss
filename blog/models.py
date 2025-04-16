@@ -43,7 +43,7 @@ class Post(models.Model):
     conteudo = models.TextField()
     criado_em = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True)
+    categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=True)
     curtidas = models.ManyToManyField(User, related_name='posts_curtidos', blank=True)
     imagem = models.ImageField(upload_to='imagens_posts/', blank=True, null=True)
 

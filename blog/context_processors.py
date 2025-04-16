@@ -31,3 +31,8 @@ def extras_para_todas_as_paginas(request):
 
 def media_url(request):
     return {'MEDIA_URL': settings.MEDIA_URL}
+
+def categorias_principais(request):
+    return {
+        'categorias_principais': Categoria.objects.all()[:10]
+    }
