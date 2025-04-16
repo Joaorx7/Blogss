@@ -196,8 +196,8 @@ a.dark {
 }
 
 .sidebar-right > div {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
     position: relative;
 }
 
@@ -246,7 +246,7 @@ a.dark {
 .namecat, .nameuser {
     color: blue;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 26px;
 }
 
 .sidebar-right > div:last-child {
@@ -298,13 +298,14 @@ main {
 }
 
 .seguir-btn {
-    background-color: #535353;
-    color: white;
-    padding: 5px 15px;
+    all: unset;
+    background: none;
     border: none;
-    border-radius: 10px;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .seguir-btn:hover {
@@ -373,7 +374,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #383838;
+    background-color: #000000;
 }
 
 /* ======= PREVIEW DA IMAGEM ======= */
@@ -674,8 +675,8 @@ li.empty {
 .img-resumo {
     display: block;              /* permite centralizar com margin */
     margin: 20px auto;           /* centraliza e dá espaço */
-    width: 70%;                  /* tamanho médio (ajustável) */
-    max-width: 600px;            /* limite para telas grandes */
+    width: 100%;                  /* tamanho médio (ajustável) */
+    max-width: 800px;            /* limite para telas grandes */
     height: auto;                /* mantém proporção, sem corte */
     border: 3px solid #444;      /* borda visível (pode trocar a cor) */
     border-radius: 10px;         /* opcional, borda arredondada */
@@ -694,13 +695,63 @@ li.empty {
 }
 
 .seguir-form {
-    margin-left: auto;
+    border: none;           /* Remove a borda do formulário */
+    padding: 0;             /* Remove o preenchimento interno */
+    margin: 0;              /* Remove a margem */
 }
 
 .seguir-btn {
     background-color: #008cff;
-    color: white;
     padding: 6px 12px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    margin-right: 50px;
+}
+
+.seguir-btn:hover {
+    background-color: #006bbd;
+}
+
+/* Estilo geral do post */
+.post-resumo {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #d9d9d9;
+    border-radius: 35px;
+}
+
+/* Nome do autor */
+.post-resumo strong a {
+    font-size: 25px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.post-resumo h2 a:hover {
+    text-decoration: underline;
+}
+
+/* Categoria */
+.post-resumo p strong,
+.post-resumo p a {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Conteúdo do post (resumo) */
+.post-resumo p {
+    font-size: 30px;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* Botões */
+.seguir-btn {
+    font-size: 13px;
+    padding: 5px 10px;
+    background-color: #008cff;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -709,3 +760,45 @@ li.empty {
 .seguir-btn:hover {
     background-color: #006bbd;
 }
+
+.curtir-btn img{
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin-left: 45px;
+}
+
+.iconc{
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-top: 10px; /* Ajuste o valor conforme necessário */
+}
+
+.curtir-btn {
+    all: unset;
+    cursor: pointer;
+}
+
+.detalhes-post {
+    margin-left: 200px; /* Ajuste o valor conforme necessário */
+}
+
+.cont_post{
+    margin-left: 45px;
+}
+
+#contador-contas{
+    text-decoration: none;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+}
+
+#conte{
+    font-size: 45px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+
+

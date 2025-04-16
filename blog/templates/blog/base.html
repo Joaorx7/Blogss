@@ -61,7 +61,9 @@
         </div>
 
         <div class="menu-baixo">
-            <li><a href="{% url 'perfil_usuario' user.username %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'perfil_usuario' user.username %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
+            {% endif %}
             <li><a href="{% url 'sobre' %}"><img class="icon" src="{{ media_prefix }}Icones/info.png" alt="Sobre"></a></li>
         </div>
     </ul>

@@ -6,7 +6,6 @@
     <h2>Novo Post</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <p><label for="{{ form.titulo.id_for_label }}">Título:</label> {{ form.titulo }}</p>
         <p><label for="{{ form.conteudo.id_for_label }}">Conteúdo:</label> {{ form.conteudo }}</p>
         <p><label for="{{ form.categoria.id_for_label }}">Categoria:</label> {{ form.categoria }}</p>
         <p><label for="{{ form.imagem.id_for_label }}">Imagem:</label> {{ form.imagem }}</p>

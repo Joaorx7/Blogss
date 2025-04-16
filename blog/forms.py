@@ -14,9 +14,8 @@ class CadastroForm(UserCreationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['titulo', 'conteudo', 'categoria', 'imagem']
+        fields = ['conteudo', 'categoria', 'imagem']
         widgets = {
-            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
             'conteudo': forms.Textarea(attrs={'class': 'form-control'}),
             'categoria': forms.Select(attrs={'class': 'form-control'}),
             'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'}),

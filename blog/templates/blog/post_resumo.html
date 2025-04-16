@@ -2,6 +2,8 @@
     <div style="display: flex; align-items: center; gap: 10px; margin: 5px 0;">
         {% if post.autor.perfil.foto %}
             <img src="{{ post.autor.perfil.foto.url }}" alt="Foto de perfil" style="width: 35px; height: 35px; border-radius: 50%;">
+        {% else %}
+            <img src="/media/img_resto/Account.png" alt="Foto de perfil padrão" style="width: 35px; height: 35px; border-radius: 50%;">
         {% endif %}
         <strong><a href="{% url 'perfil_usuario' post.autor.username %}">{{ post.autor.username }}</a></strong>
 
@@ -18,21 +20,12 @@
                 </button>
             </form>
         </div>
-        
-    {% endif %}
+        {% endif %}
     </div>
 
-    <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
+    <h2><a href="{% url 'detalhes_post' post.id %}" class="link-detalhes"></a></h2>
 
-    {% if post.categoria %}
-        <p><strong>Categoria:</strong> 
-            <a href="{% url 'posts_por_categoria' post.categoria.id %}">
-                {{ post.categoria.nome }}
-            </a>
-        </p>
-    {% endif %}
-
-    <p>{{ post.conteudo|truncatechars:200 }}</p>
+    <p class="cont_post">{{ post.conteudo|truncatechars:200 }}</p>
 
     {% if post.imagem %}
         <img src="{{ post.imagem.url }}" alt="Imagem do post" class="img-resumo">
@@ -43,11 +36,8 @@
             <button class="curtir-btn" data-id="{{ post.id }}">
                 <img src="{% if user in post.curtidas.all %}{{ media_prefix }}Icones/vermelho.png{% else %}{{ media_prefix }}Icones/like.png{% endif %}" alt="Curtir">
             </button>
-
-            <span id="total-curtidas-{{ post.id }}">{{ post.curtidas.count }}</span>
-
             <a href="{% url 'detalhes_post' post.id %}#comentarios" style="margin-left: 15px;">
-                <img class="icon" src="{{ media_prefix }}Icones/comentar.png" alt="">
+                <img class="iconc" src="{{ media_prefix }}Icones/comentar.png" alt="Comentar">
             </a>
         </div>
     {% endif %}
