@@ -1,23 +1,23 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-  <h2>Notificações</h2>
+  <h2 id="notificacoes-title">Notificações</h2>
   {% if notificacoes %}
-    <ul>
+    <ul id="notificacoes-list">
       {% for notificacao in notificacoes %}
-        <li>
+        <li class="notificacao">
           {% if notificacao.link %}
-            <a href="{{ notificacao.link }}">{{ notificacao.texto }}</a>
+            <a href="{{ notificacao.link }}" class="notificacao-link">{{ notificacao.texto }}</a>
           {% else %}
-            {{ notificacao.texto }}
+            <span class="notificacao-texto">{{ notificacao.texto }}</span>
           {% endif %}
           {% if not notificacao.lida %}
-            <strong>(Nova)</strong>
+            <strong class="notificacao-status">(Nova)</strong>
           {% endif %}
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>Você não tem notificações.</p>
+    <p id="no-notifications-msg">Você não tem notificações.</p>
   {% endif %}
 {% endblock %}

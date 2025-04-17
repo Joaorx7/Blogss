@@ -5,22 +5,25 @@
 
 {% block content %}
 <div id="buscar-usuarios-container">
-    <h2 id="buscar-usuarios-titulo">Buscar usuários</h2>
-    <form method="get" action="{% url 'buscar_usuarios' %}">
-        <input type="text" name="q" placeholder="Digite um nome de usuário..." value="{{ termo }}">
-        <button type="submit">Buscar</button>
-      </form>
-
-      <ul id="buscar-usuarios-lista">
-        {% for usuario in usuarios %}
-          <li class="buscar-usuarios-item">
-            <img src="{% if usuario.perfil.foto %}{{ usuario.perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}"
-                 alt="Foto de perfil" class="buscar-usuarios-foto">
-            <a href="{% url 'perfil_usuario' usuario.username %}" class="buscar-usuarios-link">@{{ usuario.username }}</a>
-          </li>
-        {% empty %}
-          <li>Nenhum usuário encontrado.</li>
-        {% endfor %}
-      </ul>
+  <h2 id="buscar-usuarios-titulo">Buscar usuários</h2>
+  <form method="get" action="{% url 'buscar_usuarios' %}" class="form-busca">
+      <input type="text" name="q" placeholder="Digite um nome de usuário..." value="{{ termo }}" class="campo-busca">
+      <button type="submit" class="botao-lupa">
+        <img src="/media/Icones/buscar.png" alt="Buscar" class="lupa-img">
+      </button>
+  </form>
 </div>
+
+<ul id="buscar-usuarios-lista">
+  {% for usuario in usuarios %}
+    <li class="buscar-usuarios-item">
+      <img src="{% if usuario.perfil.foto %}{{ usuario.perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}"
+           alt="Foto de perfil" class="buscar-usuarios-foto">
+      <a href="{% url 'perfil_usuario' usuario.username %}" class="buscar-usuarios-link">{{ usuario.username }}</a>
+    </li>
+  {% empty %}
+    <li>Nenhum usuário encontrado.</li>
+  {% endfor %}
+</ul>
+
 {% endblock %}

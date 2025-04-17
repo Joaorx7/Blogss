@@ -1,43 +1,47 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<h1>Perfil de {{ usuario.username }}</h1>
+<h1 id="perfil-titulo">Perfil de {{ usuario.username }}</h1>
 
 {% if user.is_authenticated %}
-    <p>
-        Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
-        <a href="{% url 'logout' %}">Sair</a> |
+    <p id="perfil-usuario-auth">
+        Olá, <a href="{% url 'perfil_usuario' user.username %}" id="perfil-usuario-link">{{ user.username }}</a> |
+        <a href="{% url 'logout' %}" id="perfil-logout">Sair</a> |
     </p>
 {% else %}
-    <p>
-        <a href="{% url 'login' %}">Login</a> |
-        <a href="{% url 'cadastro' %}">Cadastro</a> |
+    <p id="perfil-usuario-guest">
+        <a href="{% url 'login' %}" id="perfil-login">Login</a> |
+        <a href="{% url 'cadastro' %}" id="perfil-cadastro">Cadastro</a> |
     </p>
 {% endif %}
 
 <!-- Foto do perfil -->
-{% if perfil.foto %}
-    <img id="perfilf" src="{{ perfil.foto.url }}" width="150" style="border-radius: 50%; object-fit: cover;" alt="Foto de perfil">
-{% else %}
-    <img id="perfilf" src="/media/Icones/account.png" width="150" style="border-radius: 50%; object-fit: cover;" alt="Foto padrão">
-{% endif %}
+<div id="perfil-foto-container">
+    {% if perfil.foto %}
+        <img id="perfil-foto" src="{{ perfil.foto.url }}" alt="Foto de perfil">
+    {% else %}
+        <img id="perfil-foto" src="/media/Icones/account.png" alt="Foto padrão">
+    {% endif %}
+</div>
 <!-- Bio do usuário -->
-<p><strong>Bio:</strong> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
+<p id="perfil-bio"><strong>Bio:</strong> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
 
 <!-- Contagem de seguidores e seguindo -->
-<p><strong>Seguidores:</strong> {{ seguidores.count }}</p>
-<p><strong>Seguindo:</strong> {{ seguindo.count }}</p>
+<div id="perfil-seguidores">
+    <p><strong>Seguidores:</strong> {{ seguidores.count }}</p>
+    <p><strong>Seguindo:</strong> {{ seguindo.count }}</p>
+</div>
 
 <!-- Botão de editar bio (só para o dono do perfil) -->
 {% if request.user == usuario %}
-    <a href="{% url 'editar_perfil' %}">✏️ Editar Bio</a>
+    <a href="{% url 'editar_perfil' %}" id="perfil-editar-bio">✏️ Editar Perfil</a>
 {% endif %}
 
 <!-- Botão de seguir/deixar de seguir (só para outros usuários) -->
 {% if request.user != usuario %}
-    <form method="post" action="{% if request.user in seguidores %}{% url 'deixar_de_seguir' usuario.username %}{% else %}{% url 'seguir_usuario' usuario.username %}{% endif %}">
+    <form method="post" action="{% if request.user in seguidores %}{% url 'deixar_de_seguir' usuario.username %}{% else %}{% url 'seguir_usuario' usuario.username %}{% endif %}" id="perfil-form-seguir">
         {% csrf_token %}
-        <button type="submit">
+        <button type="submit" id="perfil-botao-seguir">
             {% if request.user in seguidores %}
                 Deixar de seguir
             {% else %}
@@ -47,15 +51,16 @@
     </form>
 {% endif %}
 
-<hr>
+<hr id="perfil-separador">
 
-   <!-- Lista de posts do usuário -->
-<h2>Posts de {{ usuario.username }}</h2>
-{% for post in posts %}
-    {% include 'blog/post_resumo.html' with post=post %}
-{% empty %}
-    <p>Este usuário ainda não publicou nada.</p>
-{% endfor %}
-</ul>
+<!-- Lista de posts do usuário -->
+<h2 id="perfil-posts-titulo">Posts de {{ usuario.username }}</h2>
+<div id="perfil-posts-lista">
+    {% for post in posts %}
+        {% include 'blog/post_resumo.html' with post=post %}
+    {% empty %}
+        <p id="perfil-sem-posts">Este usuário ainda não publicou nada.</p>
+    {% endfor %}
+</div>
 
 {% endblock %}

@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="post-resumo" style="border-bottom: 1px solid #ddd; margin-bottom: 20px; padding-bottom: 15px;" data-id="{{ post.id }}">
     <div style="display: flex; align-items: center; gap: 10px; margin: 5px 0;">
         {% if post.autor.perfil.foto %}
@@ -36,7 +38,7 @@
     </a>
 
     {% if user.is_authenticated %}
-        <div style="margin-top: 10px;">
+        <div class="divducomen" style="margin-top: 10px;">
             <button class="curtir-btn" data-id="{{ post.id }}">
                 <img src="{% if user in post.curtidas.all %}{{ media_prefix }}Icones/vermelho.png{% else %}{{ media_prefix }}Icones/like.png{% endif %}" alt="Curtir">
             </button>            

@@ -1,20 +1,24 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<h2>Editar Perfil</h2>
+<h2 id="editar-perfil-titulo">Editar Perfil</h2>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" id="form-editar-perfil">
     {% csrf_token %}
-    <label for="bio">Bio:</label><br>
-    <textarea name="bio" rows="4" cols="50">{{ perfil.bio }}</textarea><br><br>
+    
+    <label for="bio" id="label-bio">Bio:</label><br>
+    <textarea name="bio" rows="4" cols="50" id="bio-textarea">{{ perfil.bio }}</textarea><br><br>
 
-    <label for="foto">Foto de perfil:</label><br>
+    <label id="label-foto">Foto de perfil:</label><br>
     {% if perfil.foto %}
-        <img src="{{ perfil.foto.url }}" width="100" alt="Foto atual"><br>
+        <img src="{{ perfil.foto.url }}" width="100" alt="Foto atual" id="foto-atual"><br>
     {% endif %}
-    <input type="file" name="foto"><br><br>
-
-    <button type="submit">Salvar</button>
+    
+    <!-- Input oculto e botão customizado -->
+    <input type="file" name="foto" id="foto-input" accept="image/*" style="display: none;">
+    <label for="foto-input" class="custom-file-upload">Escolher imagem</label><br><br>
+    
+    <button type="submit" id="botao-salvar">Salvar</button>
 </form>
 
-<a href="{% url 'perfil_usuario' request.user.username %}">← Voltar ao perfil</a>
-{% endblock %}
+<a href="{% url 'perfil_usuario' request.user.username %}" id="voltar-perfil">← Voltar ao perfil</a>
+{% endblock %}  

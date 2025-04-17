@@ -25,28 +25,6 @@
                 </div>
             </div>
         </nav>
-    {% if user.is_authenticated %}
-        <p>
-            Olá, <a href="{% url 'perfil_usuario' user.username %}">{{ user.username }}</a> |
-            <a href="{% url 'logout' %}">Sair</a> |
-        </p>
-    {% else %}
-        <p>
-            <a href="{% url 'login' %}">Login</a> |
-            <a href="{% url 'cadastro' %}">Cadastro</a> |
-        </p>
-    {% endif %}
-
-    <nav>
-        <a href="{% url 'notificacoes' %}">🔔 Notificações 
-            {% if user.is_authenticated and notificacoes_nao_lidas > 0 %}
-                <span class="badge badge-danger">{{ notificacoes_nao_lidas }}</span>
-            {% endif %}
-        </a> |
-        <a href="{% url 'estatisticas' %}">📊 Estatísticas</a> |
-        <a href="{% url 'buscar_usuarios' %}">Buscar Usuários</a> |
-        <a href="{% url 'feed' %}">Feed</a>
-    </nav>
 
     <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
 

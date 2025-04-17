@@ -3,10 +3,12 @@
 
 {% block content %}
 <h2>Tem certeza que deseja excluir este comentário?</h2>
-<p>{{ comentario.conteudo }}</p>
-<form method="post">
+<p class="comentario-conteudo">{{ comentario.conteudo }}</p>
+<form class="formdelete"  method="post">
     {% csrf_token %}
     <button type="submit">Sim, excluir</button>
+    <button type="submit"><a style="color: #fff;" href="{% url 'detalhes_post' comentario.post.id %}">Cancelar</a></button>
+
+    
 </form>
-<p><a href="{% url 'detalhes_post' comentario.post.id %}">Cancelar</a></p>
 {% endblock %}

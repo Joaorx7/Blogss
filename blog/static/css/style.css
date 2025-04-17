@@ -370,6 +370,14 @@ button[type="submit"]:hover {
     text-align: center;
 }
 
+.cont_post {
+    white-space: pre-wrap; /* Garante que quebre linhas quando necessário */
+    word-wrap: break-word; /* Quebra palavras longas */
+    overflow-wrap: break-word; /* Quebra palavras longas quando necessário */
+    line-height: 1.5; /* Espaçamento entre as linhas */
+    word-break: break-all; /* Quebra qualquer palavra se necessário */
+}
+
 #preview-image {
     max-width: 100%;
     height: auto;
@@ -377,6 +385,8 @@ button[type="submit"]:hover {
     border: 1px solid #ccc;
     margin-top: 10px;
 }
+
+
 
 /* ==========================================
    Estilo para a página: buscar_usuarios.html
@@ -554,6 +564,7 @@ strong {
     object-fit: cover; /* Garante que a imagem seja ajustada corretamente dentro do círculo */
     margin-bottom: 20px;
 }
+
 
 /* Estilo para os links de login/cadastro */
 a {
@@ -735,7 +746,7 @@ button.seguir-btn {
 }
 
 button.seguir-btn:hover {
-    background-color: #006bbd;
+    background-color: #ffffff;
 }
 .curtir-btn img{
     width: 40px;
@@ -969,51 +980,65 @@ button.seguir-btn:hover {
     display: none;
 }
 
-/* Container principal */
-#buscar-usuarios-container {
-    max-width: 600px;
-    margin: 0; /* Remove a centralização automática */
-    padding: 20px;
-}
+/* ---------- Buscar Usuários ---------- */
 
-/* Título */
-#buscar-usuarios-titulo {
-    text-align: left; /* Alinha o título à esquerda */
-    margin-bottom: 20px;
-    margin-right: 100px;
-}
-
-/* Formulário */
-#buscar-usuarios-form {
+/* ---------- Corrigindo estilo do formulário ---------- */
+#buscar-usuarios-container form {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 auto 30px auto;
+    max-width: 500px;
     display: flex;
-    justify-content: flex-start; /* Alinha os itens do formulário à esquerda */
+    flex-direction: column;
+    gap: 10px;
+}
+
+#buscar-usuarios-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+#buscar-usuarios-titulo {
+    font-size: 1.8rem;
+    text-align: center;
     margin-bottom: 20px;
-    margin-right: 100px;
 }
 
-#buscar-usuarios-input {
-    flex: 1;
-    padding: 8px 12px;
+#buscar-usuarios-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#buscar-usuarios-container input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 100px;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.3s;
 }
 
-#buscar-usuarios-botao {
-    padding: 8px 16px;
-    background-color: #4CAF50;
+#buscar-usuarios-container input[type="text"]:focus {
+    border-color: #666;
+}
+
+#buscar-usuarios-container button {
+    background-color: #444;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 999px;
+    padding: 10px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-#buscar-usuarios-botao:hover {
-    background-color: #535353;
+    transition: 0.3s;
 }
 
-/* Lista de usuários */
+
 #buscar-usuarios-lista {
     list-style: none;
     padding: 0;
@@ -1023,26 +1048,574 @@ button.seguir-btn:hover {
 .buscar-usuarios-item {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .buscar-usuarios-foto {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .buscar-usuarios-link {
-    color: #333;
+    font-weight: 500;
     text-decoration: none;
-    font-weight: bold;
+    color: #000;
 }
 
 .buscar-usuarios-link:hover {
     text-decoration: underline;
 }
 
+/* Estilizando a área de busca com input + botão com imagem */
+#buscar-usuarios-container form {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
 
+/* Campo de texto da busca */
+#buscar-usuarios-container input[type="text"] {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: 100%;
+}
+
+/* Botão com a imagem da lupa */
+#buscar-usuarios-container button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+/* Imagem da lupa */
+#buscar-usuarios-container .lupa-img {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+#notificacoes-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#notificacoes-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notificacao {
+  margin-bottom: 8px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.notificacao-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.notificacao-foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.notificacao-usuario {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.notificacao-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.notificacao-link:hover {
+  text-decoration: underline;
+}
+
+.notificacao-status {
+  color: #e74c3c; 
+  font-weight: bold;
+}
+
+#no-notifications-msg {
+  font-size: 18px;
+  color: #999;
+}
+
+#perfil-foto {
+    width: 150px;  /* Tamanho fixo para a foto */
+    height: 150px;  /* Altura para dar forma oval */
+    border-radius: 50%;  /* Ajuste suave para oval */
+    object-fit: cover;
+}
+
+#perfil-titulo {
+    font-size: 28px;
+    color: #333;
+    margin: 20px 0;
+}
+
+#perfil-usuario-auth, #perfil-usuario-guest {
+    font-size: 16px;
+    color: #555;
+}
+
+#perfil-usuario-link, #perfil-logout, #perfil-login, #perfil-cadastro {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#perfil-usuario-link:hover, #perfil-logout:hover, #perfil-login:hover, #perfil-cadastro:hover {
+    text-decoration: underline;
+}
+
+#perfil-bio {
+    font-size: 18px;
+    margin: 20px 0;
+    color: #555;
+}
+
+#perfil-seguidores {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+}
+
+#perfil-seguidores p {
+    margin: 5px 0;
+}
+
+#perfil-editar-bio {
+    font-size: 16px;
+    color: #007bff;
+    margin-top: 15px;
+    display: block;
+}
+
+#perfil-editar-bio:hover {
+    text-decoration: underline;
+}
+
+#perfil-form-seguir {
+    margin-top: 20px;
+}
+
+#perfil-botao-seguir {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#perfil-botao-seguir:hover {
+    background-color: #45a049;
+}
+
+/* ======= FOTO DE PERFIL ======= */
+#perfil-foto-container {
+    margin-top: 30px;
+}
+
+#perfil-foto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    margin-bottom: 15px;
+}
+
+/* ======= POSTAGEM E LISTA DE POSTS ======= */
+#perfil-posts-lista {
+    margin-top: 40px;
+}
+
+#perfil-posts-titulo {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#perfil-sem-posts {
+    font-size: 18px;
+    color: #777;
+}
+
+/* ======= ESTILOS DE SEPARADOR ======= */
+#perfil-separador {
+    margin-top: 30px;
+    border: 1px solid #ddd;
+}
+
+/* ======= RESPONSIVO (Mobile) ======= */
+@media (max-width: 600px) {
+    #perfil-titulo {
+        font-size: 24px;
+    }
+
+    #perfil-usuario-auth, #perfil-usuario-guest {
+        font-size: 14px;
+    }
+
+    #perfil-bio, #perfil-seguidores {
+        font-size: 16px;
+    }
+
+    #perfil-foto {
+        width: 120px;
+        height: 120px;
+    }
+
+    #perfil-posts-titulo {
+        font-size: 22px;
+    }
+
+    #perfil-botao-seguir {
+        width: 100%;
+    }
+}
+
+/* Estilo para o título da página de edição de perfil */
+#editar-perfil-titulo {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilos para o formulário de edição */
+#form-editar-perfil {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para os rótulos dos campos */
+#label-bio, #label-foto {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+/* Estilo para o campo de texto da bio */
+#bio-textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Estilo para a imagem de perfil */
+#foto-atual {
+    display: block;
+    margin: 0 auto 15px; 
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    margin-bottom: 15px;
+}
+
+/* Estilo para o campo de upload de foto */
+#foto-input {
+    display: block;
+    margin-top: 10px;
+}
+
+/* Estilo para o botão de salvar */
+#botao-salvar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#botao-salvar:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para o link de voltar ao perfil */
+#voltar-perfil {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+}
+
+#voltar-perfil:hover {
+    text-decoration: underline;
+}
+.container-imagem-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Isso aqui garante que a div ocupa toda a largura disponível */
+    margin-bottom: 16px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background-color: #4CAF50;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    width: auto;
+    transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #45a049;
+}
+
+#foto-input {
+    display: none;
+}
+
+#perfil-form-seguir {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.voltarfor{
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
   
+
+/* Estilo para o título do post */
+.post-titulo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Estilo para informações do autor e categoria */
+.post-autor, .post-categoria {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Estilo para conteúdo do post */
+.post-conteudo {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+/* Estilo para a data de publicação */
+.post-data-publicacao {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Estilo para as opções de edição (visível apenas para o autor) */
+.opcoes-edicao a {
+    color: #007BFF;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+/* Estilo para a imagem do post */
+.imagem-post {
+    display: block;  /* Faz a imagem ser um bloco para que possamos usar margin para centralizar */
+    margin-left: auto;  /* Margem automática à esquerda */
+    margin-right: auto;  /* Margem automática à direita */
+    max-width: 100%;  /* A imagem não ultrapassa a largura do container */
+    height: auto;  /* A altura é ajustada automaticamente para manter a proporção */
+    border-radius: 8px;  /* Bordas arredondadas, opcional */
+    margin-top: 20px;  /* Adiciona um espaçamento acima da imagem */
+}
+
+/* Estilo para o container de curtidas */
+.curtidas-container {
+    margin-top: 20px;
+    text-align: left; /* Alinha o conteúdo à esquerda */
+}
+
+.curtir-btn {
+    margin-left: -40px; /* Empurra o botão ainda mais para a esquerda */
+}
+
+/* Estilo para o separador de comentários */
+.comentarios-separador {
+    margin-top: 30px;
+    border-top: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+/* Estilo para os comentários */
+.comentario {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+/* Estilo para as respostas aos comentários */
+.resposta-form {
+    margin-left: 20px;
+    display: none;
+}
+
+/* Estilo para o link de responder */
+.responder-link {
+    color: #007BFF;
+    cursor: pointer;
+}
+
+/* Estilo para o formulário de adicionar comentário */
+.form-comentario {
+    margin-top: 20px;
+}
+
+/* Container que contém o formulário de comentário */
+/* Container que contém o formulário de comentário */
+.comentario-principal-container {
+    width: 100%; /* Garante que o container ocupe 100% da largura */
+    max-width: 100%; /* Garantir que não ultrapasse a largura disponível */
+    margin: 0 auto; /* Centraliza o conteúdo horizontalmente, caso necessário */
+    padding: 20px; /* Ajuste de espaçamento interno, se necessário */
+    box-sizing: border-box; /* Faz o padding ser considerado dentro da largura */
+}
+
+.adicionar-comentario-titulo {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.form-comentario {
+    width: 100%; /* Garantir que o formulário ocupe 100% da largura */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-comentario textarea,
+.form-comentario input,
+.form-comentario select {
+    width: 100%; /* Garantir que os inputs ocupem 100% da largura */
+    padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.botao-comentar {
+    width: 100%; /* Garantir que o botão ocupe 100% da largura */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center; /* Centraliza o texto do botão */
+}
+
+.adicionar-comentario-separador {
+    border-top: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-comentario {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+/* Estilo para o link de voltar */
+/* Estilo para o link de voltar */
+/* Estilo para o link de voltar */
+.voltarfor .voltar-home {
+    font-size: 1.2rem;
+    color: #007BFF !important; /* Cor azul */
+    text-decoration: none; /* Retira o sublinhado */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s; /* Efeito de transição */
+}
+
+.voltarfor .voltar-home:hover {
+    background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+    color: #0056b3; /* Cor mais escura ao passar o mouse */
+}
+
+.voltarfor .voltar-home:focus {
+    outline: none; /* Remove o contorno padrão ao focar no link */
+    background-color: #e0e0e0; /* Cor de fundo ao focar */
+}
+
+.form-comentario label {
+    display: none;
+}
+
+/* Quebra de linha para textos longos */
+.post-conteudo, .comentario p, .form-comentario textarea {
+    word-break: break-word; /* Quebra as palavras longas */
+    overflow-wrap: break-word; /* Garante que o texto seja quebrado corretamente */
+    white-space: normal;  /* Permite que o texto se quebre ao atingir o limite */
+}
+/* Quebra de linha para o conteúdo do comentário */
+.comentario-conteudo {
+    word-break: break-word; /* Quebra palavras longas */
+    overflow-wrap: break-word; /* Garante que o texto seja quebrado corretamente */
+    white-space: normal;  /* Permite que o texto se quebre ao atingir o limite */
+}
+
+.formdelete {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
