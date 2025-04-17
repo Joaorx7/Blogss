@@ -176,23 +176,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Preview de imagem
-    const inputImagem = document.getElementById('{{ form.imagem.id_for_label }}');
-    const preview = document.getElementById('preview-image');
-
-    if (inputImagem && preview) {
-        inputImagem.addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = '#';
-                preview.style.display = 'none';
-            }
-        });
-    }
+    document.getElementById('id_imagem').addEventListener('change', function(event) {
+        const preview = document.getElementById('preview-image');
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+    
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
 

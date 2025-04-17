@@ -3,19 +3,26 @@
 {% block title %}Novo Post{% endblock %}
 
 {% block content %}
-    <h2>Novo Post</h2>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <p><label for="{{ form.conteudo.id_for_label }}">Conteúdo:</label> {{ form.conteudo }}</p>
-        <p><label for="{{ form.categoria.id_for_label }}">Categoria:</label> {{ form.categoria }}</p>
-        <p><label for="{{ form.imagem.id_for_label }}">Imagem:</label> {{ form.imagem }}</p>
-
-        <!-- Pré-visualização -->
-        <div id="preview-container" style="margin-top: 10px;">
-            <strong>Pré-visualização:</strong><br>
-            <img id="preview-image" src="#" alt="Prévia da imagem" style="max-width: 300px; display: none; margin-top: 10px;">
-        </div>
-
-        <button type="submit">Publicar</button>
-    </form>
+<form method="POST" enctype="multipart/form-data" id="form-novo-post">
+    {% csrf_token %}
+    <div class="campo-form">
+        <label for="{{ form.conteudo.id_for_label }}" class="label-form">Conteúdo:</label>
+        {{ form.conteudo }}
+    </div>
+    <div class="campo-form">
+        <label for="{{ form.categoria.id_for_label }}" class="label-form">Categoria:</label>
+        {{ form.categoria }}
+    </div>
+    <div class="campo-form">
+        <label for="id_imagem" class="label-form">Imagem:</label>
+        <input type="file" id="id_imagem" name="imagem" accept="image/*" style="display: none;">
+        <label for="id_imagem" class="custom-file-upload">Escolher Imagem</label>
+    </div>
+    <!-- Pré-visualização -->
+    <div id="preview-container" class="preview-container">
+        <p class="preview-label">Pré-visualização:</p>
+        <img id="preview-image" src="#" alt="Prévia da imagem" class="preview-image" style="display: none;">
+    </div>
+    <button type="submit">Publicar</button>
+</form>  
 {% endblock %}

@@ -193,6 +193,7 @@ a.dark {
     z-index: 900;
     display: flex;
     flex-direction: column;
+    border-left: 1px solid #ccc;
 }
 
 .sidebar-right > div {
@@ -858,3 +859,190 @@ button.seguir-btn:hover {
     transform: scale(0.8);
     filter: brightness(0.7);
 }
+
+/*NOVOPOST*/
+
+#form-novo-post {
+    max-width: 1500px;
+    max-height: 1500px;
+    background-color: #d9d9d9;
+    border-radius: 21px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+#form-novo-post h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#form-novo-post .campo-form {
+    margin-bottom: 20px;
+}
+
+#form-novo-post .label-form {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+#form-novo-post input[type="text"],
+#form-novo-post textarea,
+#form-novo-post select,
+#form-novo-post input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+#form-novo-post textarea {
+    min-height: 150px;
+    resize: vertical;
+    background-color: #f0f0f0;
+}
+
+#form-novo-post button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #535353;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+}
+
+#form-novo-post button[type="submit"]:hover {
+    background-color: #535353;
+}
+
+#form-novo-post .preview-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#form-novo-post .preview-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#form-novo-post .preview-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+#form-novo-post .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #535353;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-left: 500px;
+}
+
+#form-novo-post .custom-file-upload:hover {
+    background-color: #535353;
+}
+
+#form-novo-post input[type="file"] {
+    display: none;
+}
+
+/* Container principal */
+#buscar-usuarios-container {
+    max-width: 600px;
+    margin: 0; /* Remove a centralização automática */
+    padding: 20px;
+}
+
+/* Título */
+#buscar-usuarios-titulo {
+    text-align: left; /* Alinha o título à esquerda */
+    margin-bottom: 20px;
+    margin-right: 100px;
+}
+
+/* Formulário */
+#buscar-usuarios-form {
+    display: flex;
+    justify-content: flex-start; /* Alinha os itens do formulário à esquerda */
+    margin-bottom: 20px;
+    margin-right: 100px;
+}
+
+#buscar-usuarios-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 100px;
+}
+
+#buscar-usuarios-botao {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+#buscar-usuarios-botao:hover {
+    background-color: #535353;
+}
+
+/* Lista de usuários */
+#buscar-usuarios-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.buscar-usuarios-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.buscar-usuarios-foto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.buscar-usuarios-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.buscar-usuarios-link:hover {
+    text-decoration: underline;
+}
+
+
+  
