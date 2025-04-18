@@ -35,7 +35,7 @@
     <img src="{{ post.imagem.url }}" alt="Imagem do post" class="imagem-post">
 {% endif %}
 
-<!-- Curtidas (visível apenas para usuários autenticados) -->
+<!-- Curtidas -->
 {% if user.is_authenticated %}
     <div class="curtidas-container">
         <button class="curtir-btn" data-id="{{ post.id }}">
@@ -47,60 +47,62 @@
 <hr class="comentarios-separador">
 
 <!-- Comentários -->
-<h3 class="comentarios-titulo">Comentários</h3>
+<div class="comentarios-container">
+    <h3 class="comentarios-titulo">Comentários</h3>
 
-{% for comentario in comentarios %}
-    <div class="comentario" id="comentario-{{ comentario.id }}">
-        <p>
-            <strong>
-                <a href="{% url 'perfil_usuario' comentario.autor.username %}">
-                    {{ comentario.autor.username }}
-                </a>
-            </strong> comentou:
-        </p>
-        <p>{{ comentario.conteudo }}</p>
-        <small class="comentario-data">{{ comentario.criado_em|date:"d/m/Y H:i" }}</small>
+    {% for comentario in comentarios %}
+        <div class="comentario" id="comentario-{{ comentario.id }}">
+            <p>
+                <strong>
+                    <a href="{% url 'perfil_usuario' comentario.autor.username %}">
+                        {{ comentario.autor.username }}
+                    </a>
+                </strong> comentou:
+            </p>
+            <p>{{ comentario.conteudo }}</p>
+            <small class="comentario-data">{{ comentario.criado_em|date:"d/m/Y H:i" }}</small>
 
-        {% if user == comentario.autor %}
-            <div class="comentario-edicao">
-                <a href="{% url 'editar_comentario' comentario.id %}" class="editar-comentario">✏️ Editar</a> |
-                <a href="{% url 'deletar_comentario' comentario.id %}" class="deletar-comentario">🗑️ Excluir</a>
-            </div>
-        {% endif %}
+            {% if user == comentario.autor %}
+                <div class="comentario-edicao">
+                    <a href="{% url 'editar_comentario' comentario.id %}" class="editar-comentario">✏️ Editar</a> |
+                    <a href="{% url 'deletar_comentario' comentario.id %}" class="deletar-comentario">🗑️ Excluir</a>
+                </div>
+            {% endif %}
 
-        {% if user.is_authenticated %}
-            <p><a href="#" onclick="mostrarFormResposta({{ comentario.id }}); return false;" class="responder-link">💬 Responder</a></p>
+            {% if user.is_authenticated %}
+                <p><a href="#" onclick="mostrarFormResposta({{ comentario.id }}); return false;" class="responder-link">💬 Responder</a></p>
 
-            <div id="resposta-form-{{ comentario.id }}" class="resposta-form">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="hidden" name="resposta_a" value="{{ comentario.id }}">
-                    <button type="submit" class="botao-enviar-resposta">Enviar resposta</button>
-                </form>
-            </div>
-        {% endif %}
+                <div id="resposta-form-{{ comentario.id }}" class="resposta-form" style="display: none;">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="hidden" name="resposta_a" value="{{ comentario.id }}">
+                        <button type="submit" class="botao-enviar-resposta">Enviar resposta</button>
+                    </form>
+                </div>
+            {% endif %}
 
-        {% include "blog/respostas.html" with respostas=comentario.respostas.all nivel=1 form=form %}
+            {% include "blog/respostas.html" with respostas=comentario.respostas.all nivel=1 form=form %}
+        </div>
+    {% empty %}
+        <p class="comentarios-vazio">Seja o primeiro a comentar!</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+    <div class="comentario-principal-container">
+        <hr class="adicionar-comentario-separador">
+        <h4 class="adicionar-comentario-titulo">Adicionar Comentário:</h4>
+        <form method="post" class="form-comentario">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="botao-comentar">Comentar</button>
+        </form>
     </div>
-{% empty %}
-    <p class="comentarios-vazio">Seja o primeiro a comentar!</p>
-{% endfor %}
-
-{% if user.is_authenticated %}
-<div class="comentario-principal-container">
-    <hr class="adicionar-comentario-separador">
-    <h4 class="adicionar-comentario-titulo">Adicionar Comentário:</h4>
-    <form method="post" class="form-comentario">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="botao-comentar">Comentar</button>
-    </form>
+    {% else %}
+        <p class="login-para-comentar"><a href="{% url 'login' %}">Faça login para comentar</a></p>
+    {% endif %}
 </div>
 
-{% else %}
-    <p class="login-para-comentar"><a href="{% url 'login' %}">Faça login para comentar</a></p>
-{% endif %}
 <script>
 function mostrarFormResposta(id) {
     const form = document.getElementById('resposta-form-' + id);

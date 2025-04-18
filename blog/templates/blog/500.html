@@ -3,7 +3,9 @@
 {% block title %}Erro no servidor - 500{% endblock %}
 
 {% block content %}
-    <h2>💥 Erro no servidor (500)</h2>
-    <p>Algo deu errado em nosso sistema. Tente novamente mais tarde.</p>
-    <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
+    <div class="erro-servidor">
+        <h2>💥 Erro no servidor (500)</h2>
+        <p>Algo deu errado em nosso sistema. Tente novamente mais tarde.</p>
+        <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
+    </div>
 {% endblock %}

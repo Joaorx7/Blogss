@@ -33,7 +33,7 @@
         <p class="cont_post">{{ post.conteudo|truncatechars:200 }}</p>
 
         {% if post.imagem %}
-            <img src="{{ post.imagem.url }}" alt="Imagem do post" class="img-resumo">
+            <img src="{{ post.imagem.url }}" alt="Imagem do post" class="img-resumo" style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
         {% endif %}
     </a>
 

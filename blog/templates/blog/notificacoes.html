@@ -7,9 +7,9 @@
       {% for notificacao in notificacoes %}
         <li class="notificacao">
           {% if notificacao.link %}
-            <a href="{{ notificacao.link }}" class="notificacao-link">{{ notificacao.texto }}</a>
+            <a href="{{ notificacao.link }}" style="color: #000000" class="notificacao-link">{{ notificacao.texto }}</a>
           {% else %}
-            <span class="notificacao-texto">{{ notificacao.texto }}</span>
+            <span class="notificacao-texto" style="color: #000000">{{ notificacao.texto }}</span>
           {% endif %}
           {% if not notificacao.lida %}
             <strong class="notificacao-status">(Nova)</strong>

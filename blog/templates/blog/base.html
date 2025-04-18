@@ -25,9 +25,6 @@
                 </div>
             </div>
         </nav>
-
-    <h1><a href="{% url 'home' %}">Meu Blog</a></h1>
-
     <!-- Sidebar esquerda -->
   <nav class="sidebar">
     <ul class="menu">
@@ -41,6 +38,8 @@
         <div class="menu-baixo">
             {% if user.is_authenticated %}
                 <li><a href="{% url 'perfil_usuario' user.username %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
             {% endif %}
             <li><a href="{% url 'sobre' %}"><img class="icon" src="{{ media_prefix }}Icones/info.png" alt="Sobre"></a></li>
         </div>

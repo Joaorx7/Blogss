@@ -152,28 +152,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Tema escuro/claro
-    const trilho = document.querySelector('.trilho');
-    const body = document.body;
+    // Tema escuro/claro
+const trilho = document.querySelector('.trilho');
+const body = document.body;
 
-    trilho?.addEventListener('click', () => {
-        trilho.classList.toggle('dark');
-        body.classList.toggle('dark');
+trilho?.addEventListener('click', () => {
+    // Alterna a classe 'dark' no corpo e no trilho
+    trilho.classList.toggle('dark');
+    body.classList.toggle('dark');
 
-        document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
-            el.classList.toggle('dark');
-        });
-
-        localStorage.setItem('tema', body.classList.contains('dark') ? 'dark' : 'light');
+    // Alterna a classe 'dark' nos outros elementos necessários
+    document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
+        el.classList.toggle('dark');
     });
 
-    const temaSalvo = localStorage.getItem('tema');
-    if (temaSalvo === 'dark') {
-        body.classList.add('dark');
-        trilho?.classList.add('dark');
-        document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
-            el.classList.add('dark');
-        });
-    }
+    // Salva o tema escolhido no localStorage
+    localStorage.setItem('tema', body.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// Recupera o tema salvo no localStorage e aplica
+const temaSalvo = localStorage.getItem('tema');
+if (temaSalvo === 'dark') {
+    body.classList.add('dark');
+    trilho?.classList.add('dark');
+    document.querySelectorAll('.navbar, .post-resumo, .comentario, aside, a').forEach(el => {
+        el.classList.add('dark');
+    });
+}
+
 
     // Preview de imagem
     document.getElementById('id_imagem').addEventListener('change', function(event) {
