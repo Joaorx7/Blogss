@@ -27,7 +27,6 @@ urlpatterns = [
     path('perfil/<str:username>/', views.perfil_usuario, name='perfil_usuario'),
     path('feed/', views.feed_personalizado, name='feed'),
     path('termos-de-uso/', termos_uso, name='termos_uso'),
-    path('categoria/<int:categoria_id>/', views.posts_por_categoria, name='posts_por_categoria'),
     path('seguir_ou_nao/<str:username>/', views.seguir_ou_nao, name='seguir_ou_nao'),
     # Redefinição de senha com link exibido na tela
     path('senha-reset/', views.PasswordResetViewDev.as_view(), name='password_reset'),

@@ -117,17 +117,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
-
 EMAIL_PORT = 587
-
 EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = 'seuemail@gmail.com'
-
-EMAIL_HOST_PASSWORD = 'sua_senha_de_aplicativo'
+EMAIL_HOST_USER = 'viventiblog@gmail.com'  # Coloque seu e-mail aqui
+EMAIL_HOST_PASSWORD = 'joao0876'  # Coloque sua senha ou senha de app
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEBUG = True
 

@@ -6,7 +6,7 @@
     {% csrf_token %}
     
     <label for="bio" id="label-bio">Bio:</label><br>
-    <textarea name="bio" rows="4" cols="50" id="bio-textarea">{{ perfil.bio }}</textarea><br><br>
+    <textarea class="biotext" name="bio" rows="4" cols="50" id="bio-textarea">{{ perfil.bio }}</textarea><br><br>
 
     <label id="label-foto">Foto de perfil:</label><br>
     {% if perfil.foto %}

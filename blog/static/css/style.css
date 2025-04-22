@@ -217,13 +217,12 @@ main {
 }
 
 .post-resumo {
-    border: 1px solid #ccc;
     margin-bottom: 20px;
     padding: 10px;
-    border-radius: 10px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
+    margin-top: 10px;
 }
 
 /* Botão de seguir nos posts */
@@ -558,11 +557,6 @@ nav a {
     border-radius: 4px;
 }
 
-nav a:hover {
-    background-color: #b09999;
-    color: white;
-}
-
 /* Estilo para a lista de posts */
 ul {
     list-style: none;
@@ -681,12 +675,6 @@ button.seguir-btn {
 button.seguir-btn:hover {
     background-color: #ffffff;
 }
-.curtir-btn img{
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
-    margin-left: 45px;
-}
 
 .iconc{
     width: 30px;
@@ -695,10 +683,6 @@ button.seguir-btn:hover {
     margin-top: 10px; /* Ajuste o valor conforme necessário */
 }
 
-.curtir-btn {
-    all: unset;
-    cursor: pointer;
-}
 
 .detalhes-post {
     margin-left: 200px; /* Ajuste o valor conforme necessário */
@@ -790,23 +774,12 @@ button.seguir-btn:hover {
     height: auto;
     border-radius: 5px;
 }
-.curtir-btn img {
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
 
-.curtir-btn.pulsar img {
-    transform: scale(1.3);
-    filter: drop-shadow(0 0 5px red);
-}
-
-.curtir-btn.descurtir img {
-    transform: scale(0.8);
-    filter: brightness(0.7);
-}
 
 /*NOVOPOST*/
 
 #form-novo-post {
+    margin-top: 100px;
     max-width: 1500px;
     max-height: 1500px;
     background-color: #d9d9d9;
@@ -831,6 +804,7 @@ button.seguir-btn:hover {
     font-size: 16px;
     color: #333;
     margin-bottom: 8px;
+    text-align: left !important;
 }
 
 #form-novo-post input[type="text"],
@@ -887,8 +861,11 @@ button.seguir-btn:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.campo-forma{
+    justify-items: center;
+}
 
-#form-novo-post .custom-file-upload {
+.custom-file-uploade{
     display: inline-block;
     padding: 10px 20px;
     background-color: #535353;
@@ -902,7 +879,6 @@ button.seguir-btn:hover {
     max-width: 300px;
     margin: 0 auto;
     box-sizing: border-box;
-    margin-left: 500px;
 }
 
 #form-novo-post .custom-file-upload:hover {
@@ -1167,18 +1143,9 @@ button.seguir-btn:hover {
 }
 
 /* ======= FOTO DE PERFIL ======= */
-#perfil-foto-container {
-    margin-top: 30px;
-}
 
-#perfil-foto {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ddd;
-    margin-bottom: 15px;
-}
+
+
 
 /* ======= POSTAGEM E LISTA DE POSTS ======= */
 #perfil-posts-lista {
@@ -1411,9 +1378,7 @@ button.seguir-btn:hover {
     text-align: left; /* Alinha o conteúdo à esquerda */
 }
 
-.curtir-btn {
-    margin-left: -40px; /* Empurra o botão ainda mais para a esquerda */
-}
+
 
 /* Estilo para o separador de comentários */
 .comentarios-separador {
@@ -1518,7 +1483,7 @@ button.seguir-btn:hover {
 
 .voltarfor .voltar-home:hover {
     background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
-    color: #0056b3; /* Cor mais escura ao passar o mouse */
+    color: #fefefe; /* Cor mais escura ao passar o mouse */
 }
 
 .voltarfor .voltar-home:focus {
@@ -1641,7 +1606,7 @@ button.seguir-btn:hover {
 }
 
 .trilho.dark {
-    background-color: #868686;
+    background-color: #000000;
 }
 
 .trilho.dark .indicador {
@@ -1662,14 +1627,14 @@ body.light {
 }
 
 body.dark {
-    background-color: #121212;
+    background-color: #000000;
     color: #e0e0e0;
     transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
 }
 
 /* Navbar no modo escuro */
 .navbar.dark {
-    background-color: #333;
+    background-color: #000000;
 }
 
 /* Posts, comentários e aside no modo escuro */
@@ -1677,23 +1642,23 @@ body.dark {
 .comentario.dark,
 aside.dark {
     background-color: #1e1e1e;
-    border-color: #444;
+    border-color: #000000;
     color: #e0e0e0;
 }
 
 /* Links no modo escuro */
 a.dark {
-    color: #90caf9;
+    color: #ffffff;
 }
 
 body.dark a {
-    color: #90caf9;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 body.dark a:hover {
-    color: #bbdefb;
+    color: #ffffff;
 }
 
 /* Estilos para páginas de erro - 403, 404 e 500 */
@@ -1704,7 +1669,7 @@ body.dark .acesso-negado h2 {
 }
 
 body.dark .acesso-negado p {
-    color: #b0bec5;  /* Texto em cinza claro */
+    color: #ffffff;  /* Texto em cinza claro */
 }
 
 /* Página Não Encontrada (404) */
@@ -1726,27 +1691,14 @@ body.dark .erro-servidor p {
 }
 
 body.dark .erro-servidor a {
-    color: #90caf9;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 body.dark .erro-servidor a:hover {
-    color: #bbdefb;
+    color: #ffffff;
 }
-
-/* Navbar no modo escuro */
-/* Navbar no modo escuro */
-/* Contas Criadas no modo escuro */
-body.dark #contador-contas {
-    color: #ffffff;  /* Texto branco */
-}
-
-body.dark #conte {
-    color: #ffffff;  /* Conteúdo em branco também */
-}
-
-/* Navbar Esquerda: Ícones */
 
 /* Contas Criadas no modo escuro */
 body.dark #contador-contas {
@@ -1777,12 +1729,12 @@ body.dark .sidebar .menu a {
 }
 
 body.dark .sidebar .menu a:hover {
-    color: #90caf9;
+    color: #ffffff;
 }
 
 /* Estilo para o conteúdo principal (modo escuro) */
 body.dark main {
-    background-color: #1e1e1e;
+    background-color: #121212;
     color: #e0e0e0;
 }
 
@@ -1796,18 +1748,18 @@ body.dark .sidebar-right a {
 }
 
 body.dark .sidebar-right a:hover {
-    color: #90caf9;
+    color: #ffffff;
 }
 
 /* Estilo para os links no modo escuro */
 body.dark a {
-    color: #90caf9;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 body.dark a:hover {
-    color: #bbdefb;
+    color: #ffffff;
 }
 
 /* Ícones no modo escuro */
@@ -1821,7 +1773,6 @@ body.dark .trilho {
 }
 
 body.dark .trilho .indicador {
-    left: 30px;
     background-color: black;
 }
 
@@ -1846,13 +1797,9 @@ body.dark .form-busca {
     border: 1px solid #444;
 }
 
-
 body.dark .comentario {
     background-color: #1e1e1e;
     color: #e0e0e0;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 10px;
 }
 
 body.dark .comentario p {
@@ -1860,27 +1807,22 @@ body.dark .comentario p {
 }
 
 body.dark .comentario a {
-    color: #90caf9;  /* Links em azul claro */
+    color: #ffffff;  /* Links em branco */
 }
 
 body.dark .comentario a:hover {
-    color: #bbdefb;  /* Hover em azul mais claro */
+    color: #ffffff;  /* Hover em branco */
 }
 
 /* Formulário de resposta */
 body.dark .resposta-form {
     background-color: #1e1e1e;
-    padding: 15px;
-    border-radius: 5px;
 }
 
 body.dark .botao-enviar-resposta {
     background-color: #333;
     color: #ffffff;
     border: 1px solid #444;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 body.dark .botao-enviar-resposta:hover {
@@ -1890,18 +1832,12 @@ body.dark .botao-enviar-resposta:hover {
 /* Comentário principal */
 body.dark .form-comentario {
     background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 5px;
-    border: 1px solid #444;
 }
 
 body.dark .botao-comentar {
     background-color: #333;
     color: #ffffff;
     border: 1px solid #444;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 body.dark .botao-comentar:hover {
@@ -1910,40 +1846,38 @@ body.dark .botao-comentar:hover {
 
 /* Mensagem de login para comentar */
 body.dark .login-para-comentar a {
-    color: #90caf9;
+    color: #ffffff;
 }
 
 body.dark .login-para-comentar a:hover {
-    color: #bbdefb;  /* Hover em azul mais claro */
+    color: #ffffff;  /* Hover em branco */
 }
 
 /* Estilo geral para o post */
 body.dark h1,
 body.dark p {
-    color: #e0e0e0;  /* Texto em cinza claro no modo escuro */
+    color: #e0e0e0;  /* Texto em cinza claro */
 }
 
 body.dark small {
-    color: #90caf9;  /* Data de publicação em azul claro */
+    color: #ffffff;  /* Data de publicação em branco */
 }
 
 body.dark a {
-    color: #90caf9;  /* Links em azul claro */
+    color: #ffffff;  /* Links em branco */
 }
 
 body.dark a:hover {
-    color: #bbdefb;  /* Hover em azul mais claro */
+    color: #ffffff;  /* Hover em branco */
 }
 
 body.dark p strong {
-    color: #90caf9;  /* Título em azul claro */
+    color: #ffffff;  /* Título em branco */
 }
 
 body.dark .post-conteudo {
     background-color: #121212;  /* Fundo escuro para o conteúdo do post */
     color: #e0e0e0;  /* Texto claro */
-    padding: 20px;
-    border-radius: 5px;
 }
 
 /* Estilos para o post */
@@ -1953,11 +1887,11 @@ body.dark .post-data-publicacao {
 }
 
 body.dark .opcoes-edicao a {
-    color: #90caf9;  /* Links de edição em azul claro */
+    color: #ffffff;  /* Links de edição em branco */
 }
 
 body.dark .opcoes-edicao a:hover {
-    color: #bbdefb;  /* Hover em azul mais claro */
+    color: #ffffff;  /* Hover em branco */
 }
 
 /* Navbar no modo escuro */
@@ -1971,11 +1905,11 @@ body.dark .navbar .navbar-container img {
 
 /* Links de ação (Voltar, Editar, Excluir) */
 body.dark a {
-    color: #90caf9;  /* Links em azul claro */
+    color: #ffffff;  /* Links em branco */
 }
 
 body.dark a:hover {
-    color: #bbdefb;  /* Hover em azul mais claro */
+    color: #ffffff;  /* Hover em branco */
 }
 
 /* Definições gerais para o corpo */
@@ -1983,6 +1917,7 @@ body.dark {
     background-color: #121212;  /* Fundo escuro para o corpo */
     color: #e0e0e0;  /* Texto claro */
 }
+
 
 /* Ajustes de margens */
 body.dark p {
@@ -2019,7 +1954,7 @@ body.dark form button:hover {
 
 /* Link de cancelar */
 body.dark p a {
-    color: #90caf9;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -2028,11 +1963,12 @@ body.dark p a:hover {
     color: #bbdefb;
 }
 
-/* Modo escuro para a página de edição de perfil */
+/* Título da página */
 body.dark #editar-perfil-titulo {
     color: #ffffff;
 }
 
+/* Formulário principal */
 body.dark #form-editar-perfil {
     background-color: #1e1e1e;
     color: #e0e0e0;
@@ -2041,12 +1977,12 @@ body.dark #form-editar-perfil {
     border: 1px solid #444;
 }
 
+/* Rótulos do formulário */
 body.dark #form-editar-perfil label {
     color: #e0e0e0;
-    display: block;
-    margin-bottom: 5px;
 }
 
+/* Campo de bio */
 body.dark #bio-textarea {
     background-color: #2c2c2c;
     color: #e0e0e0;
@@ -2058,16 +1994,17 @@ body.dark #bio-textarea {
 }
 
 body.dark #bio-textarea:focus {
-    border-color: #90caf9;
+    border-color: #ffffff;
     outline: none;
 }
 
+/* Foto atual */
 body.dark #foto-atual {
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
+/* Botão de upload de imagem */
 body.dark .custom-file-upload {
     background-color: #333;
     color: #ffffff;
@@ -2083,6 +2020,7 @@ body.dark .custom-file-upload:hover {
     background-color: #444;
 }
 
+/* Botão salvar */
 body.dark #botao-salvar {
     background-color: #333;
     color: #ffffff;
@@ -2097,8 +2035,9 @@ body.dark #botao-salvar:hover {
     background-color: #444;
 }
 
+/* Link "Voltar ao perfil" */
 body.dark #voltar-perfil {
-    color: #90caf9;
+    color: #ffffff;
     text-decoration: none;
     display: inline-block;
     margin-top: 20px;
@@ -2109,30 +2048,6 @@ body.dark #voltar-perfil:hover {
     color: #bbdefb;
 }
 
-/* Estilo para o título da página */
-h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Estilo para o formulário */
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Estilo para os rótulos */
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-}
 
 /* Estilo para os campos de entrada e textarea */
 form input[type="text"],
@@ -2184,7 +2099,7 @@ form button[type="submit"]:hover {
 
 .pagina-inicial .post-resumo h3 a {
     text-decoration: none;
-    color: #1a73e8;
+    color: #ffffff;
 }
 
 .pagina-inicial .post-resumo h3 a:hover {
@@ -2232,7 +2147,7 @@ form button[type="submit"]:hover {
 }
 
 .pagina-redefinir-senha a {
-    color: #1a73e8;
+    color: #ffffff;
     text-decoration: none;
     word-break: break-word;
 }
@@ -2265,11 +2180,11 @@ body.dark .sobre-conteudo p {
 
 /* Links dentro da seção */
 body.dark .sobre-conteudo p a {
-    color: #90caf9; /* Cor de links no modo escuro */
+    color: white; /* Cor de links no modo escuro */
 }
 
 body.dark .sobre-conteudo p a:hover {
-    color: #bbdefb; /* Cor ao passar o mouse sobre links */
+    color: #ffffff; /* Cor ao passar o mouse sobre links */
 }
 
 /* Garantir contraste nos botões */
@@ -2321,7 +2236,7 @@ body.dark .post-resumo h3 {
 }
 
 body.dark .post-resumo h3 a {
-    color: #1a73e8; /* Cor dos links dentro das postagens */
+    color: #ffffff; /* Cor dos links dentro das postagens */
 }
 
 body.dark .post-resumo h3 a:hover {
@@ -2344,33 +2259,35 @@ body.dark #notificacoes-title {
     color: white;
 }
 
+/* Fundo e cor padrão do formulário */
 body.dark #form-novo-post {
     background-color: #2c2c2c;
     color: #e0e0e0;
 }
 
+/* Espaçamento entre campos */
 body.dark .campo-form {
     margin-bottom: 15px;
 }
 
-body.dark .campo-form .label-form {
-    color: #e0e0e0;
+/* Label */
+body.dark .label-form {
+    color: #e0e0e0 !important;
 }
 
+/* Input de arquivo */
 body.dark .campo-form input[type="file"] {
     background-color: #333;
-    color: #e0e0e0;
+    color: #e0e0e0 !important;
     border: 1px solid #444;
-    padding: 10px 15px;
-    border-radius: 5px;
+
 }
 
+/* Botão estilizado para upload */
 body.dark .campo-form .custom-file-upload {
     background-color: #333;
-    color: #e0e0e0;
-    border: 1px solid #444;
-    padding: 10px 15px;
-    border-radius: 5px;
+    color: #e0e0e0 !important;
+ 
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -2379,17 +2296,131 @@ body.dark .campo-form .custom-file-upload:hover {
     background-color: #444;
 }
 
-body.dark button {
-    background-color: #333;
-    color: #ffffff;
+
+
+/* Input, textarea, select */
+body.dark .campo-form textarea,
+body.dark .campo-form select,
+body.dark .campo-form input[type="text"],
+body.dark .campo-form input,
+body.dark .campo-form select,
+body.dark .campo-form textarea {
+    background-color: #333 !important;
+    color: #e0e0e0 !important;
     border: 1px solid #444;
-    padding: 10px 20px;
-    border-radius: 5px;
+}
+
+/* Placeholder (textinho dentro dos inputs) */
+body.dark ::placeholder {
+    color: #bbbbbb;
+
+}
+
+body.dark #perfil-posts-titulo{
+    color: white;
+}
+
+/* Selecionando todas as imagens dentro da sidebar */
+body.dark .sidebar .icon {
+    filter: invert(1);
+    transition: filter 0.3s ease; /* Adiciona uma transição suave ao efeito */
+}
+
+/* Para um efeito ao passar o mouse */
+body.dark .sidebar .icon:hover {
+    filter: invert(1);
+}
+/* Para o modo escuro, aplica o filtro nas imagens do tipo "like.png" */
+/* No modo escuro, altera a cor da imagem "like.png" para branca */
+/* No modo escuro, altera a cor da imagem "comentar.png" para branca */
+body.dark .iconc[src*="comentar.png"] {
+    filter: invert(100%) brightness(200%) !important;
+    transition: filter 0.3s ease;
+}
+
+/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
+/* No modo escuro, altera a cor da imagem "like.png" para branca */
+body.dark .curtir-btn img[src*="like.png"],
+body.dark .iconc[src*="comentar.png"] {
+    filter: invert(100%) brightness(200%) !important;
+    transition: filter 0.3s ease;
+}
+
+/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
+body.dark .curtir-btn img[src*="vermelho.png"] {
+    filter: none !important; /* Sem filtro */
+}
+
+/* A animação de pulsar deve afetar o tamanho e a sombra da imagem, mas sem alterar a cor */
+.curtir-btn.pulsar img {
+    transform: scale(1.3);
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 5px red) !important; /* Aplica sombra vermelha, sem afetar a cor */
+}
+
+/* No modo claro, a imagem "like.png" deve ficar inalterada (preta) */
+.curtir-btn img[src*="like.png"] {
+    filter: none !important;
+}
+
+/* Estilo para a imagem de "vermelho.png" não ser alterada */
+.curtir-btn img[src*="vermelho.png"] {
+    filter: none !important; /* Garante que não altere a cor */
+}
+
+/* Quando o botão de curtir é desfeito (descurtir), mantém a cor original sem alterações */
+.curtir-btn.descurtir img {
+    transform: scale(0.8);
+    filter: none !important; /* Não aplica filtro */
+}
+
+/* Tamanho e posicionamento das imagens de curtir */
+.curtir-btn img {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin-left: 45px;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Transição suave */
+}
+
+/* Estilo do botão de curtir */
+.curtir-btn {
+    all: unset;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-left: -40px; /* Ajuste do botão */
 }
 
-body.dark button:hover {
-    background-color: #444;
+/* Animação de pulsar com sombra vermelha */
+.curtir-btn.pulsar img {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 5px red); /* Aplica a sombra vermelha */
 }
 
+/* Efeito de descurtir, com redução de brilho */
+.curtir-btn.descurtir img {
+    transform: scale(0.8);
+    filter: brightness(0.7); /* Reduz o brilho */
+}
+
+/* Modo escuro: transforma a imagem de 'account.png' para branco */
+body.dark img[src*="account.png"] {
+    filter: invert(100%) brightness(200%);
+    transition: filter 0.3s ease;
+}
+
+body.dark #perfil-bio {
+    color: white;
+    white-space: pre-line; /* Preserva as quebras de linha */
+}
+
+#perfil-bio{
+    white-space: pre-line;
+}
+
+body.dark #perfil-titulo{
+    color: white;
+}
+
+body.dark #perfil-usuario-auth{
+    color: white;
+}

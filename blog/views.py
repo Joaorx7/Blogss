@@ -62,6 +62,14 @@ def perfil_usuario(request, username):
         'foto_url': foto_url,
     }
     return render(request, 'blog/perfil_usuario.html', context)
+
+@login_required
+def remover_foto_perfil(request):
+    usuario = request.user
+    usuario.perfil.foto = None  # Remove a foto de perfil
+    usuario.perfil.save()
+    return redirect('perfil_usuario', username=usuario.username)
+
 @login_required
 def novo_post(request):
     categorias = Categoria.objects.all()  # ← Adicionado aqui
@@ -516,3 +524,31 @@ from django.shortcuts import get_object_or_404, redirect
 
 
 
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+
+def solicitar_redefinicao_senha(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            link = request.build_absolute_uri(reverse('redefinir_senha', kwargs={'uidb64': uid, 'token': token}))
+
+            send_mail(
+                'Redefinição de Senha',
+                f'Clique no link para redefinir sua senha: {link}',
+                'viventiblog@gmail.com',
+                [email],
+                fail_silently=False,
+            )
+            return render(request, 'senha/sucesso_envio.html', {'link': link})  # Exibe o link no terminal e tela
+        except User.DoesNotExist:
+            return render(request, 'senha/solicitar_redefinicao.html', {'erro': 'E-mail não encontrado.'})
+    return render(request, 'senha/solicitar_redefinicao.html')

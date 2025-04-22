@@ -19,11 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.removeEventListener('click', curtirHandler);
             btn.addEventListener('click', curtirHandler);
         });
-
-        contexto.querySelectorAll('.seguir-form').forEach(form => {
-            form.removeEventListener('submit', seguirHandler);
-            form.addEventListener('submit', seguirHandler);
-        });
     }
 
     function curtirHandler(event) {
@@ -44,12 +39,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const imagemCurtiu = this.querySelector('img');
             if (imagemCurtiu) {
+                // Troca de imagem: se curtiu, usa "vermelho.png", caso contrário "like.png"
                 const imagem = data.curtido ? '/media/Icones/vermelho.png' : '/media/Icones/like.png';
                 imagemCurtiu.src = imagem;
                 imagemCurtiu.alt = data.curtido ? 'Descurtir' : 'Curtir';
 
+                // Impede que a imagem de curtir (vermelho.png) seja afetada por qualquer filtro
                 if (data.curtido) {
-                    // Adiciona a classe de animação se curtiu
+                    imagemCurtiu.style.filter = 'none'; // Não aplica filtro
+                } else {
+                    imagemCurtiu.style.filter = 'invert(100%) brightness(200%)'; // Aplica filtro na imagem de curtir
+                }
+
+                // Adiciona animação de pulsar ao curtir
+                if (data.curtido) {
                     this.classList.add('pulsar');
                     setTimeout(() => {
                         this.classList.remove('pulsar');
@@ -68,30 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function seguirHandler(e) {
-        e.preventDefault();
-        const username = this.dataset.username;
-
-        fetch(`/seguir_ou_nao/${username}/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': getCookie('csrftoken'),
-            },
-        })
-        .then(res => res.json())
-        .then(data => {
-            // Atualiza TODOS os botões do mesmo autor
-            document.querySelectorAll(`.seguir-btn[data-username="${username}"]`).forEach(btn => {
-                btn.innerText = data.seguindo ? 'Seguindo' : 'Seguir +';
-            });
-        })
-        .catch(error => {
-            console.error('Erro ao seguir/desseguir:', error);
-        });
-    }
-
     adicionarEventosCurtirSeguir();
 });
+
 
 
 

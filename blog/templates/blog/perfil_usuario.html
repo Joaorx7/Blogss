@@ -24,7 +24,7 @@
     {% endif %}
 </div>
 <!-- Bio do usuário -->
-<p id="perfil-bio"><strong>Bio:</strong> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
+<p id="perfil-bio"> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
 
 <!-- Contagem de seguidores e seguindo -->
 <div id="perfil-seguidores">
@@ -63,4 +63,4 @@
     {% endfor %}
 </div>
 
-{% endblock %}
+{% endblock %}      
