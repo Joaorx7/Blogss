@@ -9,16 +9,23 @@
     <textarea class="biotext" name="bio" rows="4" cols="50" id="bio-textarea">{{ perfil.bio }}</textarea><br><br>
 
     <label id="label-foto">Foto de perfil:</label><br>
+
+    <div class="foto-perfil-wrapper">
+        <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/Icones/account.png{% endif %}"
+             alt="Foto de perfil" class="perfil-icon">
+    </div>
+
     {% if perfil.foto %}
-        <img src="{{ perfil.foto.url }}" width="100" alt="Foto atual" id="foto-atual"><br>
+        <!-- Botão para remover foto -->
+        <button type="submit" name="remover_foto" value="1" id="botao-remover-foto">Remover Foto</button><br><br>
     {% endif %}
     
     <!-- Input oculto e botão customizado -->
     <input type="file" name="foto" id="foto-input" accept="image/*" style="display: none;">
     <label for="foto-input" class="custom-file-upload">Escolher imagem</label><br><br>
-    
+
     <button type="submit" id="botao-salvar">Salvar</button>
 </form>
 
 <a href="{% url 'perfil_usuario' request.user.username %}" id="voltar-perfil">← Voltar ao perfil</a>
-{% endblock %}  
+{% endblock %}

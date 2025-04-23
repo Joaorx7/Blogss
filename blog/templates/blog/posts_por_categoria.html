@@ -6,16 +6,11 @@
 
     <h1 class="text32">Posts na categoria: {{ categoria.nome }}</h1>
 
-    
-
     {% for post in posts %}
-        <div class="post-resumo">
-            <h2><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h2>
-            <p><strong>Por:</strong> {{ post.autor.username }}</p>
-            <p>{{ post.conteudo|truncatechars:200 }}</p>
-            <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
-        </div>
+        {% include 'blog/post_resumo.html' %}
     {% empty %}
         <p>Não há posts nesta categoria ainda.</p>
     {% endfor %}
+
+
 {% endblock %}

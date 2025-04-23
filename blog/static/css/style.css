@@ -202,7 +202,7 @@ body {
 
 /* ======= MAIN (Conteúdo Principal) ======= */
 main {
-    margin-left: 100px;
+    margin-left: 80px;
     padding: 20px;
     padding-top: 80px;
     padding-right: 450px;
@@ -215,6 +215,24 @@ main {
 .categorias-nav {
     margin-bottom: 20px;
 }
+
+.botao-editar-perfil {
+    display: inline-block;
+    background-color: #333;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.botao-editar-perfil:hover {
+    background-color: #555;
+    text-decoration: none; /* isso garante que não fique sublinhado no hover */
+}
+
 
 .post-resumo {
     margin-bottom: 20px;
@@ -755,38 +773,6 @@ button.seguir-btn:hover {
     font-style: italic;
 }
 
-body.dark .sobre-conteudo blockquote {
-    color: rgb(205, 201, 201);
-    border-left: 4px solid #c8bfbf;
-}
-
-/* Para modo escuro */
-body.dark-mode .sobre {
-    background-color: #1e1e1e;
-    color: #ddd;
-}
-
-body.dark-mode .sobre-header h1,
-body.dark-mode .sobre-footer p {
-    color: #eee;
-}
-
-body.dark-mode .sobre-header .subtitulo {
-    color: #aaa;
-}
-
-body.dark-mode .sobre-conteudo {
-    color: #ccc;
-}
-
-body.dark-mode .sobre-conteudo .destaque {
-    color: #728294;
-}
-
-body.dark-mode .sobre-conteudo blockquote {
-    border-left-color: #000000;
-    color: #bbb;
-}
 
 .redes-sociais {
     list-style: none;
@@ -1334,22 +1320,38 @@ body.dark-mode .sobre-conteudo blockquote {
 }
 
 .custom-file-upload {
-    display: inline-block;
-    padding: 6px 20px;
-    font-size: 14px;
-    font-weight: 500;
+    background-color: #000000;
     color: white;
-    background-color: #4CAF50;
-    border-radius: 6px;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
     text-align: center;
-    width: auto;
-    transition: background-color 0.3s;
 }
 
-.custom-file-upload:hover {
-    background-color: #45a049;
+.foto-perfil-wrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
 }
+
+.perfil-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+
 
 #foto-input {
     display: none;
@@ -1378,8 +1380,89 @@ body.dark-mode .sobre-conteudo blockquote {
     padding: 0 !important;
     margin: 0 !important;
 }
+/*///////////////////////*/
+.vxkzz-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
   
-
+  .vxkzz-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+  }
+  
+  .vxkzz-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .vxkzz-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #222;
+  }
+  
+  .vxkzz-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 25px;
+  }
+  
+  .vxkzz-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .vxkzz-label {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  .vxkzz-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: border 0.3s;
+  }
+  
+  .vxkzz-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .vxkzz-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .vxkzz-button:hover {
+    background-color: #555;
+  }
+  
+/*///////////////////////*/
 /* Estilo para o título do post */
 .post-titulo {
     font-size: 2.5rem;
@@ -1580,6 +1663,7 @@ body.dark-mode .sobre-conteudo blockquote {
     margin-bottom: 10px;
 }
 
+
 .comentario {
     background-color: #f9f9f9;
     padding: 15px;
@@ -1682,131 +1766,7 @@ body.light {
     transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
 }
 
-body.dark {
-    background-color: #000000;
-    color: #e0e0e0;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
-}
 
-/* Navbar no modo escuro */
-.navbar.dark {
-    background-color: #000000;
-}
-
-/* Posts, comentários e aside no modo escuro */
-.post-resumo.dark,
-.comentario.dark,
-aside.dark {
-    background-color: #1e1e1e;
-    border-color: #000000;
-    color: #e0e0e0;
-}
-
-/* Links no modo escuro */
-a.dark {
-    color: #ffffff;
-}
-
-body.dark a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-body.dark a:hover {
-    color: #ffffff;
-}
-
-/* Estilos para páginas de erro - 403, 404 e 500 */
-
-/* Página de Acesso Negado (403) */
-body.dark .acesso-negado h2 {
-    color: #e57373;  /* Cor de alerta suave */
-}
-
-body.dark .acesso-negado p {
-    color: #ffffff;  /* Texto em cinza claro */
-}
-
-/* Página Não Encontrada (404) */
-body.dark .pagina-nao-encontrada h2 {
-    color: #ff7043;  /* Cor de erro suave para destaque */
-}
-
-body.dark .pagina-nao-encontrada p {
-    color: #b0bec5;  /* Texto em cinza claro */
-}
-
-/* Página de Erro no Servidor (500) */
-body.dark .erro-servidor h2 {
-    color: #ffffff;  /* Cor de alerta amarela */
-}
-
-body.dark .erro-servidor p {
-    color: #b0bec5;  /* Texto em cinza claro */
-}
-
-body.dark .erro-servidor a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-body.dark .erro-servidor a:hover {
-    color: #ffffff;
-}
-
-/* Contas Criadas no modo escuro */
-body.dark #contador-contas {
-    color: #ffffff;  /* Texto branco */
-}
-
-body.dark #conte {
-    color: #ffffff;  /* Conteúdo em branco também */
-}
-
-/* Navbar no modo escuro */
-body.dark .navbar {
-    background-color: #333;
-}
-
-body.dark .navbar .navbar-container img {
-    filter: brightness(0) invert(1); /* Ajusta a logo para visibilidade no modo escuro */
-}
-
-/* Sidebar no modo escuro */
-body.dark .sidebar {
-    background-color: #2c2c2c;
-    border-right: 1px solid #444;
-}
-
-
-body.dark .sidebar .menu a {
-    color: #e0e0e0;
-}
-
-body.dark .sidebar .menu a:hover {
-    color: #ffffff;
-}
-
-/* Estilo para o conteúdo principal (modo escuro) */
-body.dark main {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-/* Sidebar direita (modo escuro) */
-body.dark .sidebar-right {
-    background-color: #333;
-}
-
-body.dark .sidebar-right a {
-    color: #e0e0e0;
-}
-
-body.dark .sidebar-right a:hover {
-    color: #ffffff;
-}
 
 /* Remove o efeito de contorno (outline), sombra (box-shadow) e fundo (background) */
 .sidebar-right ul li a,
@@ -1830,6 +1790,488 @@ body.dark .sidebar-right a:hover {
     -webkit-tap-highlight-color: transparent !important; /* Mobile */
 }
 
+
+
+
+/* Estilo para os campos de entrada e textarea */
+form input[type="text"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilo para o botão de submissão */
+form button[type="submit"] {
+    background-color: #535353;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/* Estilos específicos para a página inicial */
+.pagina-inicial #posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.pagina-inicial .post-resumo {
+    background-color: #db0000;
+    border: 1px solid #ddd;
+    padding: 15px 20px;
+    border-radius: 5px;
+}
+
+.pagina-inicial .post-resumo h3 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #222;
+}
+
+.pagina-inicial .post-resumo h3 a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.pagina-inicial .post-resumo h3 a:hover {
+    text-decoration: underline;
+}
+
+.pagina-inicial .post-resumo p {
+    color: #555;
+    margin: 10px 0;
+}
+
+.pagina-inicial .post-resumo small {
+    color: #999;
+    font-size: 12px;
+}
+
+.pagina-inicial #loader {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Estilos específicos para a página de redefinição de senha */
+.pagina-redefinir-senha .container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+.pagina-redefinir-senha h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.pagina-redefinir-senha p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.pagina-redefinir-senha a {
+    color: #ffffff;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.pagina-redefinir-senha a:hover {
+    text-decoration: underline;
+}
+
+
+/* A animação de pulsar deve afetar o tamanho e a sombra da imagem, mas sem alterar a cor */
+.curtir-btn.pulsar img {
+    transform: scale(1.3);
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 5px red) !important; /* Aplica sombra vermelha, sem afetar a cor */
+}
+
+/* No modo claro, a imagem "like.png" deve ficar inalterada (preta) */
+.curtir-btn img[src*="like.png"] {
+    filter: none !important;
+}
+
+/* Estilo para a imagem de "vermelho.png" não ser alterada */
+.curtir-btn img[src*="vermelho.png"] {
+    filter: none !important; /* Garante que não altere a cor */
+}
+
+/* Quando o botão de curtir é desfeito (descurtir), mantém a cor original sem alterações */
+.curtir-btn.descurtir img {
+    transform: scale(0.8);
+    filter: none !important; /* Não aplica filtro */
+}
+
+/* Tamanho e posicionamento das imagens de curtir */
+.curtir-btn img {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin-left: 45px;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Transição suave */
+}
+
+/* Estilo do botão de curtir */
+.curtir-btn {
+    all: unset;
+    cursor: pointer;
+    margin-left: -40px; /* Ajuste do botão */
+}
+
+/* Animação de pulsar com sombra vermelha */
+.curtir-btn.pulsar img {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 5px red); /* Aplica a sombra vermelha */
+}
+
+/* Efeito de descurtir, com redução de brilho */
+.curtir-btn.descurtir img {
+    transform: scale(0.8);
+    filter: brightness(0.7); /* Reduz o brilho */
+}
+
+
+#perfil-bio{
+    white-space: pre-line;
+}
+
+
+/* SCROLLBAR BASE - TEMA CLARO */
+.scrollbase::-webkit-scrollbar {
+    width: 12px;
+    background-color: transparent;
+}
+
+.scrollbase::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* fundo do scroll no claro */
+}
+
+.scrollbase::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 10px;
+}
+
+.scrollbase::-webkit-scrollbar-button {
+    background-color: #f0f0f0;
+    height: 10px;
+}
+
+#perfil-botao-editar {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#perfil-botao-editar:hover {
+    background-color: #0056b3;
+}
+
+.sidebar .icon.perfil-icon {
+    width: 70px; /* aumenta o tamanho */
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: transform 0.2s ease;
+}
+
+.sidebar .icon.perfil-icon:hover {
+    transform: scale(1.05);
+}
+
+#botao-remover-foto {
+    background-color: #231f1f;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.logitext{
+    margin-top: 20px;
+    font-size: 50px;
+}
+
+/*////////////////////////////////////////////////////////////////////////////*
+//////////////////////////////////////////////////////////////////////////////*
+//////////////////////////////TEMA ESCURO/////////////////////////////////////*
+//////////////////////////////////////////////////////////////////////////////*
+//////////////////////////////////////////////////////////////////////////////*
+
+/* SCROLLBAR BASE - TEMA ESCURO */
+body.dark .scrollbase::-webkit-scrollbar {
+    width: 12px;
+    background-color: transparent;
+}
+
+body.dark .scrollbase::-webkit-scrollbar-track {
+    background-color: #000 !important; /* fundo do scroll no escuro */
+}
+
+body.dark .scrollbase::-webkit-scrollbar-thumb {
+    background-color: #666;
+    border-radius: 10px;
+}
+
+body.dark .scrollbase::-webkit-scrollbar-button {
+    background-color: #000;
+    height: 10px;
+}
+
+body.dark .user-avatar {
+    background-color: transparent !important;
+}
+
+body.dark #perfil-titulo{
+    color: white;
+}
+
+body.dark #perfil-usuario-auth{
+    color: white;
+}
+
+/* Modo escuro: transforma a imagem de 'account.png' para branco */
+body.dark img[src*="account.png"] {
+    filter: invert(100%) brightness(200%);
+    transition: filter 0.3s ease;
+}
+
+body.dark #perfil-bio {
+    color: white;
+    white-space: pre-line; /* Preserva as quebras de linha */
+}
+
+/* Estilos para o modo escuro */
+
+/* Estilos gerais para o modo escuro */
+body.dark {
+    background-color: #121212; /* Fundo escuro */
+    color: #e0e0e0; /* Cor do texto claro */
+}
+
+/* Estilo para a seção sobre */
+body.dark .sobre {
+    background-color: #1e1e1e; /* Fundo escuro para a seção */
+}
+
+body.dark .sobre-header h1,
+body.dark .sobre-header .subtitulo {
+    color: #ffffff; /* Títulos e subtítulos em branco */
+}
+
+body.dark .sobre-conteudo p {
+    color: #ddd; /* Cor dos parágrafos em cinza claro */
+}
+
+/* Links dentro da seção */
+body.dark .sobre-conteudo p a {
+    color: white; /* Cor de links no modo escuro */
+}
+
+body.dark .sobre-conteudo p a:hover {
+    color: #ffffff; /* Cor ao passar o mouse sobre links */
+}
+
+/* Garantir contraste nos botões */
+body.dark button[type="submit"], body.dark #botao-salvar {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
+
+body.dark button[type="submit"]:hover, body.dark #botao-salvar:hover {
+    background-color: #444;
+}
+
+/* Estilo para a barra de navegação no modo escuro */
+body.dark .navbar {
+    background-color: #333; /* Fundo da navbar */
+    color: #e0e0e0; /* Cor do texto na navbar */
+}
+
+body.dark .navbar a {
+    color: #90caf9; /* Links na navbar */
+}
+
+body.dark .navbar a:hover {
+    color: #bbdefb; /* Cor ao passar o mouse sobre links da navbar */
+}
+
+/* Estilo para as bordas e caixas de texto */
+body.dark input[type="text"], body.dark textarea, body.dark select {
+    background-color: #2c2c2c; /* Fundo escuro para campos de entrada */
+    color: #e0e0e0; /* Cor do texto nos campos */
+    border: 1px solid #444;
+}
+
+body.dark input[type="text"]:focus, body.dark textarea:focus {
+    border-color: #90caf9; /* Cor de borda ao focar nos campos */
+    outline: none; /* Remove o contorno padrão */
+}
+
+/* Ajustes para o fundo das postagens */
+body.dark .post-resumo {
+    background-color: #333; /* Fundo escuro para postagens */
+    color: #e0e0e0; /* Cor do texto nas postagens */
+    border: 1px solid #444;
+}
+
+body.dark .post-resumo h3 {
+    color: #ffffff; /* Títulos das postagens em branco */
+}
+
+body.dark .post-resumo h3 a {
+    color: #ffffff; /* Cor dos links dentro das postagens */
+}
+
+body.dark .post-resumo h3 a:hover {
+    color: #bbdefb; /* Cor ao passar o mouse sobre os links */
+}
+
+body.dark .post-resumo p {
+    color: #ddd; /* Cor dos parágrafos nas postagens */
+}
+
+body.dark .post-resumo small {
+    color: #aaa; /* Cor das pequenas informações nas postagens */
+}
+
+body.dark #loader {
+    color: #bbb; /* Cor do texto do loader */
+}
+
+body.dark #notificacoes-title {
+    color: white;
+}
+
+/* Fundo e cor padrão do formulário */
+body.dark #form-novo-post {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+}
+
+/* Espaçamento entre campos */
+body.dark .campo-form {
+    margin-bottom: 15px;
+}
+
+/* Label */
+body.dark .label-form {
+    color: #e0e0e0 !important;
+}
+
+/* Input de arquivo */
+body.dark .campo-form input[type="file"] {
+    background-color: #333;
+    color: #e0e0e0 !important;
+    border: 1px solid #444;
+
+}
+
+/* Botão estilizado para upload */
+body.dark .campo-form .custom-file-upload {
+    background-color: #333;
+    color: #e0e0e0 !important;
+ 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+body.dark .campo-form .custom-file-upload:hover {
+    background-color: #444;
+}
+
+
+
+/* Input, textarea, select */
+body.dark .campo-form textarea,
+body.dark .campo-form select,
+body.dark .campo-form input[type="text"],
+body.dark .campo-form input,
+body.dark .campo-form select,
+body.dark .campo-form textarea {
+    background-color: #333 !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #444;
+}
+
+/* Placeholder (textinho dentro dos inputs) */
+body.dark ::placeholder {
+    color: #bbbbbb;
+
+}
+
+body.dark #perfil-posts-titulo{
+    color: white;
+}
+
+/* Selecionando todas as imagens dentro da sidebar */
+body.dark .sidebar .icon {
+    filter: invert(1);
+    transition: filter 0.3s ease; /* Adiciona uma transição suave ao efeito */
+}
+
+/* Para um efeito ao passar o mouse */
+body.dark .sidebar .icon:hover {
+    filter: invert(1);
+}
+/* Para o modo escuro, aplica o filtro nas imagens do tipo "like.png" */
+/* No modo escuro, altera a cor da imagem "like.png" para branca */
+/* No modo escuro, altera a cor da imagem "comentar.png" para branca */
+body.dark .iconc[src*="comentar.png"] {
+    filter: invert(100%) brightness(200%) !important;
+    transition: filter 0.3s ease;
+}
+
+/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
+/* No modo escuro, altera a cor da imagem "like.png" para branca */
+body.dark .curtir-btn img[src*="like.png"],
+body.dark .iconc[src*="comentar.png"] {
+    filter: invert(100%) brightness(200%) !important;
+    transition: filter 0.3s ease;
+}
+
+/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
+body.dark .curtir-btn img[src*="vermelho.png"] {
+    filter: none !important; /* Sem filtro */
+}
+
+body.dark form button[type="submit"]{
+    background-color: rgb(89, 88, 88);
+    border-radius: 15px;
+}
 
 /* Estilo para os links no modo escuro */
 body.dark a {
@@ -2128,385 +2570,189 @@ body.dark #voltar-perfil:hover {
     color: #bbdefb;
 }
 
-
-/* Estilo para os campos de entrada e textarea */
-form input[type="text"],
-form textarea,
-form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-/* Estilo para o botão de submissão */
-form button[type="submit"] {
-    background-color: #535353;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-}
-
-body.dark form button[type="submit"]{
-    background-color: rgb(89, 88, 88);
-    border-radius: 15px;
-}
-
-form button[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-
-/* Estilos específicos para a página inicial */
-.pagina-inicial #posts-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.pagina-inicial .post-resumo {
-    background-color: #db0000;
-    border: 1px solid #ddd;
-    padding: 15px 20px;
-    border-radius: 5px;
-}
-
-.pagina-inicial .post-resumo h3 {
-    margin-top: 0;
-    font-size: 22px;
-    color: #222;
-}
-
-.pagina-inicial .post-resumo h3 a {
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.pagina-inicial .post-resumo h3 a:hover {
-    text-decoration: underline;
-}
-
-.pagina-inicial .post-resumo p {
-    color: #555;
-    margin: 10px 0;
-}
-
-.pagina-inicial .post-resumo small {
-    color: #999;
-    font-size: 12px;
-}
-
-.pagina-inicial #loader {
-    text-align: center;
-    margin-top: 20px;
-    color: #666;
-    font-style: italic;
-}
-
-/* Estilos específicos para a página de redefinição de senha */
-.pagina-redefinir-senha .container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-}
-
-.pagina-redefinir-senha h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.pagina-redefinir-senha p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-.pagina-redefinir-senha a {
-    color: #ffffff;
-    text-decoration: none;
-    word-break: break-word;
-}
-
-.pagina-redefinir-senha a:hover {
-    text-decoration: underline;
-}
-
-/* Estilos para o modo escuro */
-
-/* Estilos gerais para o modo escuro */
 body.dark {
-    background-color: #121212; /* Fundo escuro */
-    color: #e0e0e0; /* Cor do texto claro */
+    background-color: #000000;
+    color: #e0e0e0;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
 }
 
-/* Estilo para a seção sobre */
-body.dark .sobre {
-    background-color: #1e1e1e; /* Fundo escuro para a seção */
+/* Navbar no modo escuro */
+.navbar.dark {
+    background-color: #000000;
 }
 
-body.dark .sobre-header h1,
-body.dark .sobre-header .subtitulo {
-    color: #ffffff; /* Títulos e subtítulos em branco */
-}
-
-body.dark .sobre-conteudo p {
-    color: #ddd; /* Cor dos parágrafos em cinza claro */
-}
-
-/* Links dentro da seção */
-body.dark .sobre-conteudo p a {
-    color: white; /* Cor de links no modo escuro */
-}
-
-body.dark .sobre-conteudo p a:hover {
-    color: #ffffff; /* Cor ao passar o mouse sobre links */
-}
-
-/* Garantir contraste nos botões */
-body.dark button[type="submit"], body.dark #botao-salvar {
-    background-color: #333;
-    color: white;
-    border: 1px solid #444;
-}
-
-body.dark button[type="submit"]:hover, body.dark #botao-salvar:hover {
-    background-color: #444;
-}
-
-/* Estilo para a barra de navegação no modo escuro */
-body.dark .navbar {
-    background-color: #333; /* Fundo da navbar */
-    color: #e0e0e0; /* Cor do texto na navbar */
-}
-
-body.dark .navbar a {
-    color: #90caf9; /* Links na navbar */
-}
-
-body.dark .navbar a:hover {
-    color: #bbdefb; /* Cor ao passar o mouse sobre links da navbar */
-}
-
-/* Estilo para as bordas e caixas de texto */
-body.dark input[type="text"], body.dark textarea, body.dark select {
-    background-color: #2c2c2c; /* Fundo escuro para campos de entrada */
-    color: #e0e0e0; /* Cor do texto nos campos */
-    border: 1px solid #444;
-}
-
-body.dark input[type="text"]:focus, body.dark textarea:focus {
-    border-color: #90caf9; /* Cor de borda ao focar nos campos */
-    outline: none; /* Remove o contorno padrão */
-}
-
-/* Ajustes para o fundo das postagens */
-body.dark .post-resumo {
-    background-color: #333; /* Fundo escuro para postagens */
-    color: #e0e0e0; /* Cor do texto nas postagens */
-    border: 1px solid #444;
-}
-
-body.dark .post-resumo h3 {
-    color: #ffffff; /* Títulos das postagens em branco */
-}
-
-body.dark .post-resumo h3 a {
-    color: #ffffff; /* Cor dos links dentro das postagens */
-}
-
-body.dark .post-resumo h3 a:hover {
-    color: #bbdefb; /* Cor ao passar o mouse sobre os links */
-}
-
-body.dark .post-resumo p {
-    color: #ddd; /* Cor dos parágrafos nas postagens */
-}
-
-body.dark .post-resumo small {
-    color: #aaa; /* Cor das pequenas informações nas postagens */
-}
-
-body.dark #loader {
-    color: #bbb; /* Cor do texto do loader */
-}
-
-body.dark #notificacoes-title {
-    color: white;
-}
-
-/* Fundo e cor padrão do formulário */
-body.dark #form-novo-post {
-    background-color: #2c2c2c;
+/* Posts, comentários e aside no modo escuro */
+.post-resumo.dark,
+.comentario.dark,
+aside.dark {
+    background-color: #1e1e1e;
+    border-color: #000000;
     color: #e0e0e0;
 }
 
-/* Espaçamento entre campos */
-body.dark .campo-form {
-    margin-bottom: 15px;
+/* Links no modo escuro */
+a.dark {
+    color: #ffffff;
 }
 
-/* Label */
-body.dark .label-form {
-    color: #e0e0e0 !important;
+body.dark a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
-/* Input de arquivo */
-body.dark .campo-form input[type="file"] {
+body.dark a:hover {
+    color: #ffffff;
+}
+
+/* Estilos para páginas de erro - 403, 404 e 500 */
+
+/* Página de Acesso Negado (403) */
+body.dark .acesso-negado h2 {
+    color: #e57373;  /* Cor de alerta suave */
+}
+
+body.dark .acesso-negado p {
+    color: #ffffff;  /* Texto em cinza claro */
+}
+
+/* Página Não Encontrada (404) */
+body.dark .pagina-nao-encontrada h2 {
+    color: #ff7043;  /* Cor de erro suave para destaque */
+}
+
+body.dark .pagina-nao-encontrada p {
+    color: #b0bec5;  /* Texto em cinza claro */
+}
+
+/* Página de Erro no Servidor (500) */
+body.dark .erro-servidor h2 {
+    color: #ffffff;  /* Cor de alerta amarela */
+}
+
+body.dark .erro-servidor p {
+    color: #b0bec5;  /* Texto em cinza claro */
+}
+
+body.dark .erro-servidor a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+body.dark .erro-servidor a:hover {
+    color: #ffffff;
+}
+
+/* Contas Criadas no modo escuro */
+body.dark #contador-contas {
+    color: #ffffff;  /* Texto branco */
+}
+
+body.dark #conte {
+    color: #ffffff;  /* Conteúdo em branco também */
+}
+
+/* Navbar no modo escuro */
+body.dark .navbar {
     background-color: #333;
-    color: #e0e0e0 !important;
-    border: 1px solid #444;
-
 }
 
-/* Botão estilizado para upload */
-body.dark .campo-form .custom-file-upload {
+body.dark .navbar .navbar-container img {
+    filter: brightness(0) invert(1); /* Ajusta a logo para visibilidade no modo escuro */
+}
+
+/* Sidebar no modo escuro */
+body.dark .sidebar {
+    background-color: #2c2c2c;
+    border-right: 1px solid #444;
+}
+
+
+body.dark .sidebar .menu a {
+    color: #e0e0e0;
+}
+
+body.dark .sidebar .menu a:hover {
+    color: #ffffff;
+}
+
+/* Estilo para o conteúdo principal (modo escuro) */
+body.dark main {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Sidebar direita (modo escuro) */
+body.dark .sidebar-right {
     background-color: #333;
-    color: #e0e0e0 !important;
- 
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-body.dark .campo-form .custom-file-upload:hover {
-    background-color: #444;
+body.dark .sidebar-right a {
+    color: #e0e0e0;
 }
 
+body.dark .sidebar-right a:hover {
+    color: #ffffff;
+}
 
+body.dark .sobre-conteudo blockquote {
+    color: rgb(205, 201, 201);
+    border-left: 4px solid #c8bfbf;
+}
 
-/* Input, textarea, select */
-body.dark .campo-form textarea,
-body.dark .campo-form select,
-body.dark .campo-form input[type="text"],
-body.dark .campo-form input,
-body.dark .campo-form select,
-body.dark .campo-form textarea {
-    background-color: #333 !important;
-    color: #e0e0e0 !important;
+/* Para modo escuro */
+body.dark-mode .sobre {
+    background-color: #1e1e1e;
+    color: #ddd;
+}
+
+body.dark-mode .sobre-header h1,
+body.dark-mode .sobre-footer p {
+    color: #eee;
+}
+
+body.dark-mode .sobre-header .subtitulo {
+    color: #aaa;
+}
+
+body.dark-mode .sobre-conteudo {
+    color: #ccc;
+}
+
+body.dark-mode .sobre-conteudo .destaque {
+    color: #728294;
+}
+
+body.dark-mode .sobre-conteudo blockquote {
+    border-left-color: #000000;
+    color: #bbb;
+}
+
+body.dark .form-campo input {
+    background-color: #2c2c2c; /* cinza escuro */
+    color: #f1f1f1; /* texto claro */
     border: 1px solid #444;
 }
 
-/* Placeholder (textinho dentro dos inputs) */
-body.dark ::placeholder {
-    color: #bbbbbb;
-
+body.dark .form-campo input:focus {
+    outline: none;
+    border-color: #000000;
+    background-color: #333;
 }
 
-body.dark #perfil-posts-titulo{
-    color: white;
+.form-campo a,
+form a {
+    color: #000000;
+    text-decoration: underline;
 }
 
-/* Selecionando todas as imagens dentro da sidebar */
-body.dark .sidebar .icon {
-    filter: invert(1);
-    transition: filter 0.3s ease; /* Adiciona uma transição suave ao efeito */
+body.dark .form-campo a,
+body.dark form a {
+    color: #ccc;
+    text-decoration: underline;
 }
 
-/* Para um efeito ao passar o mouse */
-body.dark .sidebar .icon:hover {
-    filter: invert(1);
+body.dark .botao-editar-perfil{
+    background-color: #4c4c4c;
 }
-/* Para o modo escuro, aplica o filtro nas imagens do tipo "like.png" */
-/* No modo escuro, altera a cor da imagem "like.png" para branca */
-/* No modo escuro, altera a cor da imagem "comentar.png" para branca */
-body.dark .iconc[src*="comentar.png"] {
-    filter: invert(100%) brightness(200%) !important;
-    transition: filter 0.3s ease;
-}
-
-/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
-/* No modo escuro, altera a cor da imagem "like.png" para branca */
-body.dark .curtir-btn img[src*="like.png"],
-body.dark .iconc[src*="comentar.png"] {
-    filter: invert(100%) brightness(200%) !important;
-    transition: filter 0.3s ease;
-}
-
-/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
-body.dark .curtir-btn img[src*="vermelho.png"] {
-    filter: none !important; /* Sem filtro */
-}
-
-/* A animação de pulsar deve afetar o tamanho e a sombra da imagem, mas sem alterar a cor */
-.curtir-btn.pulsar img {
-    transform: scale(1.3);
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0 0 5px red) !important; /* Aplica sombra vermelha, sem afetar a cor */
-}
-
-/* No modo claro, a imagem "like.png" deve ficar inalterada (preta) */
-.curtir-btn img[src*="like.png"] {
-    filter: none !important;
-}
-
-/* Estilo para a imagem de "vermelho.png" não ser alterada */
-.curtir-btn img[src*="vermelho.png"] {
-    filter: none !important; /* Garante que não altere a cor */
-}
-
-/* Quando o botão de curtir é desfeito (descurtir), mantém a cor original sem alterações */
-.curtir-btn.descurtir img {
-    transform: scale(0.8);
-    filter: none !important; /* Não aplica filtro */
-}
-
-/* Tamanho e posicionamento das imagens de curtir */
-.curtir-btn img {
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
-    margin-left: 45px;
-    transition: transform 0.3s ease, filter 0.3s ease; /* Transição suave */
-}
-
-/* Estilo do botão de curtir */
-.curtir-btn {
-    all: unset;
-    cursor: pointer;
-    margin-left: -40px; /* Ajuste do botão */
-}
-
-/* Animação de pulsar com sombra vermelha */
-.curtir-btn.pulsar img {
-    transform: scale(1.3);
-    filter: drop-shadow(0 0 5px red); /* Aplica a sombra vermelha */
-}
-
-/* Efeito de descurtir, com redução de brilho */
-.curtir-btn.descurtir img {
-    transform: scale(0.8);
-    filter: brightness(0.7); /* Reduz o brilho */
-}
-
-/* Modo escuro: transforma a imagem de 'account.png' para branco */
-body.dark img[src*="account.png"] {
-    filter: invert(100%) brightness(200%);
-    transition: filter 0.3s ease;
-}
-
-body.dark #perfil-bio {
-    color: white;
-    white-space: pre-line; /* Preserva as quebras de linha */
-}
-
-#perfil-bio{
-    white-space: pre-line;
-}
-
-body.dark #perfil-titulo{
-    color: white;
-}
-
-body.dark #perfil-usuario-auth{
-    color: white;
-}
-

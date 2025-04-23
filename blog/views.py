@@ -210,16 +210,6 @@ def sair(request):
     logout(request)
     return redirect('home')
 
-def posts_por_categoria(request, categoria_id):
-    categoria = get_object_or_404(Categoria, pk=categoria_id)
-    posts = Post.objects.filter(categoria=categoria).order_by('-criado_em')
-    categorias = Categoria.objects.all()
-
-    return render(request, 'blog/posts_por_categoria.html', {
-        'posts': posts,
-        'categoria': categoria,
-        'categorias': categorias
-    })
 
 def sobre(request):
     return render(request, 'blog/sobre.html')
@@ -299,8 +289,7 @@ def home(request):
     else:
         posts = posts.order_by('-criado_em')
 
-    paginator = Paginator(posts, 10)
-    pagina = paginator.get_page(page)
+    pagina = posts  # sem paginação
 
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         posts_html = ''
@@ -333,16 +322,14 @@ def home(request):
     })
 
 def posts_por_categoria(request, categoria_id):
-    categoria = get_object_or_404(Categoria, id=categoria_id)
-    posts_list = Post.objects.filter(categoria=categoria).order_by('-criado_em')
-
-    paginator = Paginator(posts_list, 10)  # 10 posts por página
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    categoria = get_object_or_404(Categoria, pk=categoria_id)
+    posts = Post.objects.filter(categoria=categoria).order_by('-criado_em')
+    categorias = Categoria.objects.all()
 
     return render(request, 'blog/posts_por_categoria.html', {
-        'page_obj': page_obj,
+        'posts': posts,
         'categoria': categoria,
+        'categorias': categorias
     })
 
 @login_required
@@ -433,6 +420,9 @@ def ver_post(request, post_id):
     }
     return render(request, 'blog/ver_post.html', context)
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
 @login_required
 def editar_perfil(request):
     perfil = request.user.perfil
@@ -440,15 +430,22 @@ def editar_perfil(request):
     if request.method == 'POST':
         bio = request.POST.get('bio')
         foto = request.FILES.get('foto')
+        remover_foto = request.POST.get('remover_foto')  # verifica se a opção foi marcada
 
         perfil.bio = bio
-        if foto:
-            perfil.foto = foto
-        perfil.save()
 
+        if remover_foto:
+            if perfil.foto:
+                perfil.foto.delete(save=False)  # remove a foto do sistema de arquivos
+                perfil.foto = None
+        elif foto:
+            perfil.foto = foto
+
+        perfil.save()
         return redirect('perfil_usuario', username=request.user.username)
 
     return render(request, 'blog/editar_perfil.html', {'perfil': perfil})
+
 
 @login_required
 def notificacoes(request):
@@ -529,37 +526,33 @@ def cadastro(request):
 def termos_uso(request):
     return render(request, 'blog/termos_uso.html')
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
+class UsernamePasswordResetView(PasswordResetView):
+    template_name = 'registration/password_reset_username_form.html'
+    email_template_name = 'registration/password_reset_email.html'
+    subject_template_name = 'registration/password_reset_subject.txt'
+    success_url = '/redefinir/enviado/'
 
-
-
-
-from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-
-def solicitar_redefinicao_senha(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username')
         try:
-            user = User.objects.get(email=email)
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
-            token = default_token_generator.make_token(user)
-            link = request.build_absolute_uri(reverse('redefinir_senha', kwargs={'uidb64': uid, 'token': token}))
-
-            send_mail(
-                'Redefinição de Senha',
-                f'Clique no link para redefinir sua senha: {link}',
-                'viventiblog@gmail.com',
-                [email],
-                fail_silently=False,
-            )
-            return render(request, 'senha/sucesso_envio.html', {'link': link})  # Exibe o link no terminal e tela
+            user = User.objects.get(username=username)
+            form = PasswordResetForm({'email': user.email})
+            if form.is_valid():
+                form.save(
+                    request=request,
+                    use_https=request.is_secure(),
+                    from_email=None,
+                    email_template_name=self.email_template_name,
+                    subject_template_name=self.subject_template_name,
+                )
+                messages.success(request, 'Um e-mail de redefinição foi enviado.')
+                return redirect(self.success_url)
         except User.DoesNotExist:
-            return render(request, 'senha/solicitar_redefinicao.html', {'erro': 'E-mail não encontrado.'})
-    return render(request, 'senha/solicitar_redefinicao.html')
+            messages.error(request, 'Usuário não encontrado.')
+
+        return render(request, self.template_name)
+    
+from django.contrib.auth.views import PasswordResetDoneView
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'registration/password_reset_done.html'

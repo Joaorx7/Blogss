@@ -25,30 +25,32 @@
                 </div>
             </div>
         </nav>
-    <!-- Sidebar esquerda -->
-  <nav class="sidebar">
-    <ul class="menu">
-        <div class="menu-topo">
-            <li><a href="{% url 'novo_post' %}"><img class="icon" src="{{ media_prefix }}Icones/novo_post.png" alt="Estatísticas"></a></li>
-            <li><a href="{% url 'home' %}"><img class="icon" src="{{ media_prefix }}Icones/home.png" alt="Início"></a></li>
-            <li><a href="{% url 'buscar_usuarios' %}"><img class="icon" src="{{ media_prefix }}Icones/buscar.png" alt="Buscar"></a></li>
-            <li><a href="{% url 'notificacoes' %}"><img class="icon" src="{{ media_prefix }}Icones/noti.png" alt="Notificações"></a></li>
-        </div>
 
-        <div class="menu-baixo">
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'perfil_usuario' user.username %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
-            {% endif %}
-            <li><a href="{% url 'sobre' %}"><img class="icon" src="{{ media_prefix }}Icones/info.png" alt="Sobre"></a></li>
-        </div>
-    </ul>
-</nav>
+        <!-- Sidebar esquerda -->
+        <nav class="sidebar">
+            <ul class="menu">
+                <div class="menu-topo">
+                    <li><a href="{% url 'novo_post' %}"><img class="icon" src="{{ media_prefix }}Icones/novo_post.png" alt="Novo Post"></a></li>
+                    <li><a href="{% url 'home' %}"><img class="icon" src="{{ media_prefix }}Icones/home.png" alt="Início"></a></li>
+                    <li><a href="{% url 'buscar_usuarios' %}"><img class="icon" src="{{ media_prefix }}Icones/buscar.png" alt="Buscar"></a></li>
+                    <li><a href="{% url 'notificacoes' %}"><img class="icon" src="{{ media_prefix }}Icones/noti.png" alt="Notificações"></a></li>
+                </div>
+                <div class="menu-baixo">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'perfil_usuario' user.username %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
+                    {% endif %}
+                    <li><a href="{% url 'sobre' %}"><img class="icon" src="{{ media_prefix }}Icones/info.png" alt="Sobre"></a></li>
+                </div>
+            </ul>
+        </nav>
+    </header>
 
     <!-- Conteúdo principal -->
-    <main style="display: flex; gap: 40px; align-items: flex-start;">
-        <div style="flex: 3;">
+    <main style="display: flex; gap: 40px; align-items: flex-start; height: 100vh; overflow: hidden;">
+        <!-- Feed com scroll ajustável manualmente -->
+        <div class="scrollbase" style="flex: 3; height: 100vh; overflow-y: auto; margin-right: -40px; padding-right: 30px;">
             {% block content %}
             {% endblock %}
         </div>
@@ -61,10 +63,10 @@
                     <ul style="list-style: none; padding: 0;">
                         {% for perfil in perfis_recomendados %}
                             <li style="display: flex; align-items: center; margin-bottom: 10px;">
-                             <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/Icones/account.png{% endif %}"
-                                    alt="Foto de perfil" 
-                                   style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
-                             <a class="nameuser" href="{% url 'perfil_usuario' perfil.user.username %}">@{{ perfil.user.username }}</a>
+                                <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/Icones/account.png{% endif %}"
+                                     alt="Foto de perfil"
+                                     style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                <a class="nameuser" href="{% url 'perfil_usuario' perfil.user.username %}">@{{ perfil.user.username }}</a>
                             </li>
                         {% empty %}
                             <li>Nenhum perfil recomendado no momento.</li>
@@ -72,21 +74,19 @@
                     </ul>
                 </div>
             {% endif %}
-        
 
             <div style="margin-bottom: 20px;">
                 <strong id="creco">Categorias populares:</strong>
                 <ul>
                     {% for categoria in categorias_principais %}
-                      <li><a class="namecat" href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a></li>
+                        <li><a class="namecat" href="{% url 'posts_por_categoria' categoria.id %}">{{ categoria.nome }}</a></li>
                     {% endfor %}
-                  </ul>
+                </ul>
             </div>
-        
-        
+
             <div style="margin-bottom: 20px;">
                 <strong id="contador-contas">Contas criadas:</strong>
-                <strong id="conte"> {{ total_usuarios }}</strong>
+                <strong id="conte">{{ total_usuarios }}</strong>
             </div>
         </aside>
     </main>

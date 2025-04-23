@@ -3,12 +3,12 @@
 {% block content %}
 <h1 id="perfil-titulo">Perfil de {{ usuario.username }}</h1>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user == usuario %}
     <p id="perfil-usuario-auth">
         Olá, <a href="{% url 'perfil_usuario' user.username %}" id="perfil-usuario-link">{{ user.username }}</a> |
         <a href="{% url 'logout' %}" id="perfil-logout">Sair</a> |
     </p>
-{% else %}
+{% elif not user.is_authenticated %}
     <p id="perfil-usuario-guest">
         <a href="{% url 'login' %}" id="perfil-login">Login</a> |
         <a href="{% url 'cadastro' %}" id="perfil-cadastro">Cadastro</a> |
@@ -23,6 +23,7 @@
         <img id="perfil-foto" src="/media/Icones/account.png" alt="Foto padrão">
     {% endif %}
 </div>
+
 <!-- Bio do usuário -->
 <p id="perfil-bio"> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
 
@@ -34,7 +35,7 @@
 
 <!-- Botão de editar bio (só para o dono do perfil) -->
 {% if request.user == usuario %}
-    <a href="{% url 'editar_perfil' %}" id="perfil-editar-bio">✏️ Editar Perfil</a>
+    <a href="{% url 'editar_perfil' %}" class="botao-editar-perfil">✏️ Editar Perfil</a>
 {% endif %}
 
 <!-- Botão de seguir/deixar de seguir (só para outros usuários) -->
@@ -57,10 +58,10 @@
 <h2 id="perfil-posts-titulo">Posts de {{ usuario.username }}</h2>
 <div id="perfil-posts-lista">
     {% for post in posts %}
-        {% include 'blog/post_resumo.html' with post=post %}
+        {% include 'blog/post_resumo.html' with post=post exibir_botao_seguir=False %}
     {% empty %}
         <p id="perfil-sem-posts">Este usuário ainda não publicou nada.</p>
     {% endfor %}
 </div>
 
-{% endblock %}      
+{% endblock %}

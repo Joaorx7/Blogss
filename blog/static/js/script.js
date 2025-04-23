@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const username = this.dataset.username;
                 const csrftoken = getCookie('csrftoken');
-                const botao = this.querySelector('.seguir-btn');
 
                 fetch(`/seguir_ou_nao/${username}/`, {
                     method: 'POST',
@@ -85,11 +84,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(res => res.json())
                 .then(data => {
-                    if (data.seguindo) {
-                        botao.textContent = 'Seguindo';
-                    } else {
-                        botao.textContent = 'Seguir +';
-                    }
+                    // Atualiza todos os botões de seguir com o mesmo username
+                    document.querySelectorAll(`.seguir-btn[data-username="${username}"]`).forEach(botao => {
+                        botao.textContent = data.seguindo ? 'Seguindo' : 'Seguir +';
+                    });
                 })
                 .catch(error => {
                     console.error('Erro ao seguir/desseguir:', error);
@@ -101,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     adicionarEventosCurtirSeguir();
     adicionarEventosSeguir();
 });
+
 
 
 

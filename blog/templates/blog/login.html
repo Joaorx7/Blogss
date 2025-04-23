@@ -3,13 +3,21 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-  <h2>Login</h2>
+  <h2 class="logitext">Login</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="form-campo">
+      <label for="{{ form.username.id_for_label }}">Usuário:</label>
+      {{ form.username }}
+    </div>
+    <div class="form-campo">
+      <label for="{{ form.password.id_for_label }}">Senha:</label>
+      {{ form.password }}
+    </div>
     <button type="submit">Entrar</button>
-  </form>
-  <p>Não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
+
+    <p>Não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
   <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
 
+  </form>
 {% endblock %}

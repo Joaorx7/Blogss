@@ -51,3 +51,5 @@ class CustomUserCreationForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise ValidationError("Este e-mail já está em uso.")
         return email
+    
+

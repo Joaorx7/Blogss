@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponseForbidden
 from blog.views import termos_uso
+from blog.views import CustomPasswordResetDoneView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,6 +40,17 @@ urlpatterns = [
     path('notificacoes/', views.notificacoes, name='notificacoes'),
     path('estatisticas/', views.estatisticas_usuario, name='estatisticas'),
     path('erro403/', lambda request: HttpResponseForbidden("Acesso negado")),
+    path('redefinir/', views.UsernamePasswordResetView.as_view(), name='password_reset'),
+
+    path('redefinir/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+        template_name='registration/password_reset_confirm.html',
+        success_url='/redefinir/completo/'
+    ), name='password_reset_confirm'),
+
+    path('redefinir/completo/', auth_views.PasswordResetCompleteView.as_view(
+        template_name='registration/password_reset_complete.html'
+    ), name='password_reset_complete'),
+    path('redefinir/enviado/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
 ]
 
 # Arquivos de mídia
