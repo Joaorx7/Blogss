@@ -1514,96 +1514,164 @@ button.seguir-btn:hover {
 }
 
 
-
-/* Estilo para o separador de comentários */
-.comentarios-separador {
-    margin-top: 30px;
-    border-top: 2px solid #ddd;
-    margin-bottom: 20px;
+/* Linha divisória entre post e comentários */
+.divisor-post-comentarios {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 30px 0;
 }
 
-/* Estilo para os comentários */
+/* Container de todos os comentários */
+.comentarios-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Cada comentário */
 .comentario {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc; /* <-- cor da borda mais escura */
+    border-radius: 6px;
+    padding: 15px;
     margin-bottom: 20px;
-    border-radius: 20px;
+    position: relative;
 }
 
-/* Estilo para as respostas aos comentários */
-.resposta-form {
-    margin-left: 20px;
-    display: none;
+/* Respostas dentro do comentário */
+.respostas-dentro-borda {
+    margin-top: 15px;
+    padding-left: 20px;
+    border-left: 2px solid #bbb; /* também um tom mais escuro */
 }
 
-/* Estilo para o link de responder */
+/* Usuário do comentário */
+.texto-comentario-usuario {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Conteúdo do comentário */
+.texto-comentario-conteudo {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+/* Data do comentário */
+.texto-comentario-data {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+/* Links de edição e exclusão */
+.comentario-edicao a {
+    font-size: 0.9rem;
+    color: #555;
+    margin-right: 12px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.comentario-edicao a:hover {
+    text-decoration: underline;
+    color: #222;
+}
+
+/* Link de responder */
 .responder-link {
-    color: #007BFF;
+    color: #555;
+    font-weight: 500;
     cursor: pointer;
+    text-decoration: none;
 }
 
-/* Estilo para o formulário de adicionar comentário */
-.form-comentario {
-    margin-top: 20px;
+.responder-link:hover {
+    text-decoration: underline;
+    color: #222;
 }
 
-/* Container que contém o formulário de comentário */
-/* Container que contém o formulário de comentário */
+/* Formulário de resposta */
+.resposta-form {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-left: 3px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Formulário principal */
 .comentario-principal-container {
-    width: 100%; /* Garante que o container ocupe 100% da largura */
-    max-width: 100%; /* Garantir que não ultrapasse a largura disponível */
-    margin: 0 auto; /* Centraliza o conteúdo horizontalmente, caso necessário */
-    padding: 20px; /* Ajuste de espaçamento interno, se necessário */
-    box-sizing: border-box; /* Faz o padding ser considerado dentro da largura */
+    margin-top: 30px;
 }
 
+/* Título do formulário */
 .adicionar-comentario-titulo {
     font-size: 1.3rem;
     margin-bottom: 10px;
+    color: #333;
 }
 
-.form-comentario {
-    width: 100%; /* Garantir que o formulário ocupe 100% da largura */
+/* Formulários */
+.form-comentario,
+.resposta-form form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
+.form-comentario {
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
 .form-comentario textarea,
 .form-comentario input,
-.form-comentario select {
-    width: 100%; /* Garantir que os inputs ocupem 100% da largura */
+.form-comentario select,
+.resposta-form textarea,
+.resposta-form input {
+    width: 100%;
     padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
     font-size: 1rem;
     box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
 }
 
-.botao-comentar {
-    width: 100%; /* Garantir que o botão ocupe 100% da largura */
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
+/* Botões */
+.botao-comentar,
+.botao-enviar-resposta {
+    background-color: #444;
+    color: #fff;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    text-align: center; /* Centraliza o texto do botão */
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
-.adicionar-comentario-separador {
-    border-top: 1px solid #ccc;
-    width: 100%;
-    margin-bottom: 20px;
+.botao-comentar:hover,
+.botao-enviar-resposta:hover {
+    background-color: #333;
 }
 
-.form-comentario {
-    background: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
+/* Login aviso */
+.login-para-comentar a {
+    color: #555;
+    font-weight: 500;
+    text-decoration: none;
 }
+
+.login-para-comentar a:hover {
+    text-decoration: underline;
+}
+
 /* Estilo para o link de voltar */
 /* Estilo para o link de voltar */
 /* Estilo para o link de voltar */
@@ -1651,12 +1719,7 @@ button.seguir-btn:hover {
     margin: 0 !important;
 }
 
-.comentarios-container {
-    max-width: 100%;
-    padding: 20px;
-    border-top: 1px solid #ccc;
-    text-align: left;
-}
+
 
 .comentarios-titulo {
     font-size: 24px;
@@ -1711,6 +1774,52 @@ button.seguir-btn:hover {
 .botao-comentar:hover {
     background-color: #666;
 }
+
+
+.texto-detalhes-nome {
+    font-size: 45px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.texto-detalhes-categoria {
+    font-size: 25px;
+    margin-top: 10px;
+    margin-left: 17px;
+    color: #303030;
+}
+
+.texto-detalhes-conteudo p,
+.texto-detalhes-conteudo div,
+.texto-detalhes-conteudo span {
+    font-size: 25px !important;
+    color: #303030;
+    line-height: 1.6;
+    margin-left: 17px;
+}
+
+.texto-detalhes-data {
+    font-size: 19px;
+    color: #585656;
+    margin-left: 17px;
+}
+
+.btn-edicao,
+.btn-excluir {
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+
+
+
+
+
 
 /*MODO DARK*/
 
@@ -1938,7 +2047,7 @@ form button[type="submit"]:hover {
 .curtir-btn {
     all: unset;
     cursor: pointer;
-    margin-left: -40px; /* Ajuste do botão */
+    margin-left: -33px; /* Ajuste do botão */
 }
 
 /* Animação de pulsar com sombra vermelha */

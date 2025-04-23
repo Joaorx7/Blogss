@@ -2,6 +2,7 @@ from .models import Categoria, Notificacao
 from .models import Perfil, Categoria
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.db.models import Count
 
 def categorias_disponiveis(request):
     return {
@@ -34,5 +35,5 @@ def media_url(request):
 
 def categorias_principais(request):
     return {
-        'categorias_principais': Categoria.objects.all()[:10]
+        'categorias_principais': Categoria.objects.annotate(num_posts=Count('post')).order_by('-num_posts')[:10]
     }

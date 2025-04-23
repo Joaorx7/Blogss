@@ -3,7 +3,6 @@
 {% block title %}{{ categoria.nome }} - Meu Blog{% endblock %}
 
 {% block content %}
-
     <h1 class="text32">Posts na categoria: {{ categoria.nome }}</h1>
 
     {% for post in posts %}
@@ -11,6 +10,4 @@
     {% empty %}
         <p>Não há posts nesta categoria ainda.</p>
     {% endfor %}
-
-
 {% endblock %}

@@ -274,6 +274,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.shortcuts import render
+
 def home(request):
     categoria_id = request.GET.get('categoria')
     ordenar = request.GET.get('ordenar', 'recentes')
@@ -298,40 +299,25 @@ def home(request):
 
         return JsonResponse({
             'posts_html': posts_html,
-            'tem_mais': pagina.has_next()
+            'tem_mais': False  # sem paginação
         })
-
-    categorias_populares = Categoria.objects.annotate(num_posts=Count('post')).order_by('-num_posts')[:10]
-
-    # Perfis recomendados
-    if request.user.is_authenticated:
-        todos_os_perfis = Perfil.objects.exclude(user=request.user)
-        perfis_recomendados = random.sample(list(todos_os_perfis), min(5, len(todos_os_perfis)))
-    else:
-        perfis_recomendados = []
-
-    total_usuarios = User.objects.count()
 
     return render(request, 'blog/home.html', {
         'posts': pagina,
-        'categorias_populares': categorias_populares,
         'categoria_id': int(categoria_id) if categoria_id else None,
         'ordenar': ordenar,
-        'perfis_recomendados': perfis_recomendados,
-        'total_usuarios': total_usuarios,
     })
+
 
 def posts_por_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, pk=categoria_id)
     posts = Post.objects.filter(categoria=categoria).order_by('-criado_em')
-    categorias = Categoria.objects.all()
 
     return render(request, 'blog/posts_por_categoria.html', {
         'posts': posts,
         'categoria': categoria,
-        'categorias': categorias
+        # Não precisa passar 'categorias_principais' aqui!
     })
-
 @login_required
 def seguir_usuario(request, username):
     usuario_para_seguir = get_object_or_404(User, username=username)
