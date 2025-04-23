@@ -12,6 +12,7 @@
         {% endif %}
         <strong><a href="{% url 'perfil_usuario' post.autor.username %}">{{ post.autor.username }}</a></strong>
 
+        <!-- Verifica se o usuário está logado e se não é o autor do post -->
         {% if user.is_authenticated and post.autor != user %}
             <div style="display: flex; justify-content: flex-end; overflow: hidden; width: 100%;">
                 <form method="post" class="seguir-form" data-username="{{ post.autor.username }}">

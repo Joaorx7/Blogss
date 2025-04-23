@@ -14,13 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return cookieValue;
     }
 
-    function adicionarEventosCurtirSeguir(contexto = document) {
-        contexto.querySelectorAll('.curtir-btn').forEach(btn => {
-            btn.removeEventListener('click', curtirHandler);
-            btn.addEventListener('click', curtirHandler);
-        });
-    }
-
     function curtirHandler(event) {
         const postId = this.dataset.id;
 
@@ -39,26 +32,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const imagemCurtiu = this.querySelector('img');
             if (imagemCurtiu) {
-                // Troca de imagem: se curtiu, usa "vermelho.png", caso contrário "like.png"
                 const imagem = data.curtido ? '/media/Icones/vermelho.png' : '/media/Icones/like.png';
                 imagemCurtiu.src = imagem;
                 imagemCurtiu.alt = data.curtido ? 'Descurtir' : 'Curtir';
 
-                // Impede que a imagem de curtir (vermelho.png) seja afetada por qualquer filtro
                 if (data.curtido) {
-                    imagemCurtiu.style.filter = 'none'; // Não aplica filtro
+                    imagemCurtiu.style.filter = 'none';
                 } else {
-                    imagemCurtiu.style.filter = 'invert(100%) brightness(200%)'; // Aplica filtro na imagem de curtir
+                    imagemCurtiu.style.filter = 'invert(100%) brightness(200%)';
                 }
 
-                // Adiciona animação de pulsar ao curtir
                 if (data.curtido) {
                     this.classList.add('pulsar');
                     setTimeout(() => {
                         this.classList.remove('pulsar');
                     }, 300);
                 } else {
-                    // Adiciona animação de descurtir
                     this.classList.add('descurtir');
                     setTimeout(() => {
                         this.classList.remove('descurtir');
@@ -71,9 +60,47 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    adicionarEventosCurtirSeguir();
-});
+    function adicionarEventosCurtirSeguir(contexto = document) {
+        contexto.querySelectorAll('.curtir-btn').forEach(btn => {
+            btn.removeEventListener('click', curtirHandler);
+            btn.addEventListener('click', curtirHandler);
+        });
+    }
 
+    function adicionarEventosSeguir(contexto = document) {
+        contexto.querySelectorAll('.seguir-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const username = this.dataset.username;
+                const csrftoken = getCookie('csrftoken');
+                const botao = this.querySelector('.seguir-btn');
+
+                fetch(`/seguir_ou_nao/${username}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrftoken,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.seguindo) {
+                        botao.textContent = 'Seguindo';
+                    } else {
+                        botao.textContent = 'Seguir +';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao seguir/desseguir:', error);
+                });
+            });
+        });
+    }
+
+    adicionarEventosCurtirSeguir();
+    adicionarEventosSeguir();
+});
 
 
 
