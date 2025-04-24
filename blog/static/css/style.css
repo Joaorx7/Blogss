@@ -7,6 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
+    
 }
 
 /* ======= NAVBAR SUPERIOR ======= */
@@ -242,6 +243,61 @@ main {
     position: relative;
     margin-top: 10px;
 }
+
+.botao-comentar {
+    margin-bottom: 0; /* tira o espaço */
+}
+
+.card-comentario {
+    padding-bottom: 20px; /* espaço interno só se quiser um respiro */
+}
+
+.scrollbase {
+    height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 80px; /* isso garante que o scroll desça além do botão */
+}
+  
+.form-comentario-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 10px 15px;
+    border: none; 
+    max-width: 100%;
+    overflow: hidden;
+    box-shadow: none; 
+    outline: none;      
+}
+
+.comentario-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+.botao-comentar-horizontal {
+    padding: 8px 16px;
+    background-color: #00e6e6;
+    border: none;
+    border-radius: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.botao-comentar-horizontal:hover {
+    background-color: #00cccc;
+}
+  
+  
+ 
+  
 
 /* Botão de seguir nos posts */
 .seguir-form {
@@ -1593,14 +1649,7 @@ button.seguir-btn:hover {
     color: #222;
 }
 
-/* Formulário de resposta */
-.resposta-form {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-left: 3px solid #ccc;
-    border-radius: 5px;
-}
+
 
 /* Formulário principal */
 .comentario-principal-container {
@@ -1615,12 +1664,7 @@ button.seguir-btn:hover {
 }
 
 /* Formulários */
-.form-comentario,
-.resposta-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+
 
 .form-comentario {
     padding: 15px;
@@ -1628,25 +1672,12 @@ button.seguir-btn:hover {
     border-radius: 8px;
 }
 
-.form-comentario textarea,
-.form-comentario input,
-.form-comentario select,
-.resposta-form textarea,
-.resposta-form input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    box-sizing: border-box;
-    background-color: #fff;
-    color: #333;
-}
+
 
 /* Botões */
 .botao-comentar,
 .botao-enviar-resposta {
-    background-color: #444;
+    background-color: #dd0000;
     color: #fff;
     padding: 10px;
     border: none;
@@ -2132,6 +2163,86 @@ form button[type="submit"]:hover {
     margin-top: 20px;
     font-size: 50px;
 }
+
+.resposta-form {
+    width: 100%;
+    margin-left: 0; /* você pode ajustar conforme necessário */
+}
+
+  .resposta-form form {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+.comentario-container, /* ou o nome da div pai */
+.resposta-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.resposta-form .comentario-actions {
+    display: flex;
+    justify-content: flex-start !important; /* Agora sim ele gruda na esquerda */
+    gap: 0.5rem;
+  }
+
+  .comentario-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    line-height: 1.4;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  
+ .resposta-form .comentar-btn {
+  margin-left: 0; /* Garante que não tá puxando pra direita */
+}
+  
+  .resposta-form .comentario-input::placeholder {
+    color: #888;
+  }
+  
+  .resposta-form .comentario-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  
+  .resposta-form .comentar-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    border-radius: 0.4rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .resposta-form .cancelar-btn {
+    background-color: #e5e5e5;
+    color: #333;
+  }
+  
+  .resposta-form .cancelar-btn:hover {
+    background-color: #d4d4d4;
+  }
+  
+  .resposta-form .comentar-btn {
+    background-color: #3b82f6; /* azul moderno */
+    color: #fff;
+  }
+  
+  .resposta-form .comentar-btn:hover {
+    background-color: #2563eb;
+  }
+  
 
 /*////////////////////////////////////////////////////////////////////////////*
 //////////////////////////////////////////////////////////////////////////////*

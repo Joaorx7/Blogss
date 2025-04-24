@@ -1,38 +1,59 @@
 {% for resposta in respostas %}
-    <div style="margin-left: {{ nivel|add:'1' }}0px; border-left: 1px solid #ccc; padding-left: 10px; margin-top: 10px;">
+    {% if forloop.first %}
         <p>
-            <strong>
-                <a href="{% url 'perfil_usuario' resposta.autor.username %}">
-                    {{ resposta.autor.username }}
-                </a>
-            </strong> respondeu:
+            <a href="#" onclick="alternarRespostas({{ resposta.resposta_a.id }}); return false;" id="btn-toggle-{{ resposta.resposta_a.id }}" style="color: #007BFF; text-decoration: none; font-weight: 500;">
+                ➕ Mostrar respostas
+            </a>
         </p>
-        <p>{{ resposta.conteudo }}</p>
-        <small>{{ resposta.criado_em|date:"d/m/Y H:i" }}</small>
+        <div id="respostas-do-{{ resposta.resposta_a.id }}" style="display: none;">
+    {% endif %}
+
+    <div style="margin-left: {{ nivel|add:'1' }}0px; padding-left: 10px; margin-top: 10px; background-color: #f6f6f6; border-radius: 6px; padding: 10px;">
+        <strong>
+            <a href="{% url 'perfil_usuario' resposta.autor.username %}" style="text-decoration: none; color: #333;">
+                {{ resposta.autor.username }}
+            </a>
+        </strong> respondeu:
+        <p style="margin: 5px 0;">{{ resposta.conteudo }}</p>
+        <small style="color: #777;">{{ resposta.criado_em|date:"d/m/Y H:i" }}</small>
 
         {% if user == resposta.autor %}
-            <p>
-                <a href="{% url 'editar_comentario' resposta.id %}">✏️ Editar</a> |
-                <a href="{% url 'deletar_comentario' resposta.id %}">🗑️ Excluir</a>
+            <p style="margin-top: 5px;">
+                <a href="{% url 'editar_comentario' resposta.id %}" style="color: #007BFF; text-decoration: none;">✏️ Editar</a> |
+                <a href="{% url 'deletar_comentario' resposta.id %}" style="color: #007BFF; text-decoration: none;">🗑️ Excluir</a>
             </p>
         {% endif %}
 
         {% if user.is_authenticated %}
             <p>
-                <a href="#" onclick="mostrarFormResposta({{ resposta.id }}); return false;">💬 Responder</a>
+                <a href="#" onclick="mostrarFormResposta({{ resposta.id }}); return false;" style="color: #007BFF; text-decoration: none;">💬 Responder</a>
             </p>
 
-            <div id="resposta-form-{{ resposta.id }}" style="display: none; margin-left: 20px;">
-                <form method="post">
+            <div id="resposta-form-{{ resposta.id }}" style="display: none; margin-left: 10px; padding: 10px;">
+                <form method="post" class="form-comentario-horizontal">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    <input type="text" name="conteudo" class="comentario-input" placeholder="Escreva uma resposta..." required>
                     <input type="hidden" name="resposta_a" value="{{ resposta.id }}">
-                    <button type="submit">Enviar resposta</button>
+                    <button type="submit" class="botao-comentar-horizontal">Responder</button>
                 </form>
             </div>
         {% endif %}
 
-        {# Chamando recursivamente para mostrar sub-respostas #}
         {% include "blog/respostas.html" with respostas=resposta.respostas.all nivel=nivel|add:"1" form=form %}
     </div>
+
+    {% if forloop.last %}
+        </div>
+    {% endif %}
 {% endfor %}
+
+<script>
+    function alternarRespostas(comentarioId) {
+        const container = document.getElementById(`respostas-do-${comentarioId}`);
+        const botao = document.getElementById(`btn-toggle-${comentarioId}`);
+        const aberto = container.style.display === 'block';
+
+        container.style.display = aberto ? 'none' : 'block';
+        botao.textContent = aberto ? '➕ Mostrar respostas' : '➖ Ocultar respostas';
+    }
+</script>

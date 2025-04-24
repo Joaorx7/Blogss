@@ -17,7 +17,10 @@ from blog.models import Perfil
 from .models import Post, Comentario, Categoria, Notificacao
 from .forms import CadastroForm
 import markdown
+from django.contrib.auth.views import PasswordResetDoneView
 import random
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -30,10 +33,43 @@ from django.utils.encoding import force_bytes
 from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.shortcuts import render
+from django.contrib.auth.views import PasswordResetDoneView
 from django.contrib.messages import get_messages
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from .forms import CustomUserCreationForm
+from django.contrib.auth.models import User
+from django.db.models import Count, Q
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import Post, Categoria, Perfil
+
+from django.shortcuts import render
+from django.db.models import Q, Count
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from .models import Post, Categoria, Perfil  # Ajuste se o import for diferente
+
+from django.core.paginator import Paginator
+from django.db.models import Count
+
+from django.core.paginator import Paginator
+from django.db.models import Count
+from django.shortcuts import render
+
+from django.core.paginator import Paginator
+from django.db.models import Count
+from django.shortcuts import render
+from django.shortcuts import render
+from .models import Post
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+import markdown
+from .models import Post, Comentario, Notificacao
+from .forms import ComentarioForm
+from .models import Categoria
 
 def buscar_usuarios(request):
     termo = request.GET.get('q', '')
@@ -101,16 +137,7 @@ def feed_personalizado(request):
 
     return render(request, 'blog/feed.html', {'posts': posts})
 
-from django.shortcuts import render
-from .models import Post
 
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-import markdown
-from .models import Post, Comentario, Notificacao
-from .forms import ComentarioForm
-from .models import Categoria
 
 def detalhes_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
@@ -252,28 +279,7 @@ def curtir_post(request, post_id):
         'total_curtidas': post.curtidas.count()
     })
 
-from django.contrib.auth.models import User
-from django.db.models import Count, Q
-from django.core.paginator import Paginator
-from django.shortcuts import render
-from .models import Post, Categoria, Perfil
 
-from django.shortcuts import render
-from django.db.models import Q, Count
-from django.core.paginator import Paginator
-from django.contrib.auth.models import User
-from .models import Post, Categoria, Perfil  # Ajuste se o import for diferente
-
-from django.core.paginator import Paginator
-from django.db.models import Count
-
-from django.core.paginator import Paginator
-from django.db.models import Count
-from django.shortcuts import render
-
-from django.core.paginator import Paginator
-from django.db.models import Count
-from django.shortcuts import render
 
 def home(request):
     categoria_id = request.GET.get('categoria')
@@ -406,8 +412,6 @@ def ver_post(request, post_id):
     }
     return render(request, 'blog/ver_post.html', context)
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 
 @login_required
 def editar_perfil(request):
@@ -473,50 +477,17 @@ def estatisticas_usuario(request):
 
 
 
-class PasswordResetViewDev(PasswordResetView):
-    template_name = 'blog/password_reset_form.html'  # alterado para evitar pasta registration
-    email_template_name = 'registration/password_reset_email.html'  # pode deixar assim se esse já existir
-    subject_template_name = 'registration/password_reset_subject.txt'
-    success_url = reverse_lazy('mostrar_link_reset')
-
-    def form_valid(self, form):
-        email = form.cleaned_data["email"]
-        users = User.objects.filter(email=email)
-        if users.exists():
-            user = users.first()
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
-            token = default_token_generator.make_token(user)
-            reset_link = self.request.build_absolute_uri(
-                reverse("password_reset_confirm", kwargs={"uidb64": uid, "token": token})
-            )
-            self.request.session["reset_link"] = reset_link
-        return super().form_valid(form)
-
-def mostrar_link_reset(request):
-    reset_link = request.session.get("reset_link")
-    if not reset_link:
-        reset_link = "Link de redefinição não disponível."
-    return render(request, 'blog/link_reset_mostrado.html', {'reset_link': reset_link})
-
-def cadastro(request):
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("login")
-    else:
-        form = CustomUserCreationForm()
-    return render(request, "blog/cadastro.html", {"form": form})
 
 
-def termos_uso(request):
-    return render(request, 'blog/termos_uso.html')
+
+# Redefinição por NOME DE USUÁRIO
+from django.urls import reverse_lazy
 
 class UsernamePasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset_username_form.html'
     email_template_name = 'registration/password_reset_email.html'
     subject_template_name = 'registration/password_reset_subject.txt'
-    success_url = '/redefinir/enviado/'
+    success_url = reverse_lazy('password_reset_done') # 👈 Aqui, certifique-se que vai pra sua view
 
     def post(self, request, *args, **kwargs):
         username = request.POST.get('username')
@@ -537,8 +508,5 @@ class UsernamePasswordResetView(PasswordResetView):
             messages.error(request, 'Usuário não encontrado.')
 
         return render(request, self.template_name)
-    
-from django.contrib.auth.views import PasswordResetDoneView
-
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
