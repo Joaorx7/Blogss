@@ -485,8 +485,8 @@ from django.urls import reverse_lazy
 
 class UsernamePasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset_username_form.html'
-    email_template_name = 'registration/password_reset_email.html'
-    subject_template_name = 'registration/password_reset_subject.txt'
+    email_template_name = 'registration/password_reset_emaile.html'
+    subject_template_name = 'registration/password_reset_subjecte.txt'
     success_url = reverse_lazy('password_reset_done') # 👈 Aqui, certifique-se que vai pra sua view
 
     def post(self, request, *args, **kwargs):
@@ -509,4 +509,4 @@ class UsernamePasswordResetView(PasswordResetView):
 
         return render(request, self.template_name)
 class CustomPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'registration/password_reset_done.html'
+    template_name = 'registration/password_reset_donee.html'

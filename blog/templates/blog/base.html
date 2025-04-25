@@ -1,19 +1,27 @@
 {% load static %}
+{% get_media_prefix as media_prefix %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Viventi</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ media_prefix }}Icones/V.png">
+
+    <!-- CSRF -->
     <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <!-- JS variável global -->
     <script>
-    const mediaPrefix = "{{ media_prefix }}";
+        const mediaPrefix = "{{ media_prefix }}";
     </script>
 </head>
 <body>
     <header>
-        {% load static %}
-        {% get_media_prefix as media_prefix %}
         <nav class="navbar">
             <div class="navbar-container">
                 <img src="{{ media_prefix }}img_resto/logo.png" alt="Logo">
@@ -22,7 +30,7 @@
             <div class="trilho" id="trilho">
                 <div class="indicador">
                     <img class="centered-image" src="{{ media_prefix }}img_resto/lua.png" alt="Título">
-                 </div>
+                </div>
             </div>
         </nav>
 
@@ -48,7 +56,7 @@
     </header>
 
     <!-- Conteúdo principal -->
-    <main style="display: flex; gap: 40px; align-items: flex-start;min-height: 100vh; height: 100vh; overflow: hidden;">
+    <main style="display: flex; gap: 40px; align-items: flex-start; min-height: 100vh; height: 100vh; overflow: hidden;">
         <!-- Feed com scroll ajustável manualmente -->
         <div class="scrollbase" style="flex: 3; height: 100vh; overflow-y: auto; margin-right: -40px; padding-right: 30px;">
             {% block content %}

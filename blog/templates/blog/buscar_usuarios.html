@@ -4,13 +4,26 @@
 {% block title %}Buscar Usuários{% endblock %}
 
 {% block content %}
-<div id="buscar-usuarios-container">
-  <h2 id="buscar-usuarios-titulo">Buscar usuários</h2>
-  <form method="get" action="{% url 'buscar_usuarios' %}" class="form-busca">
-      <input type="text" name="q" placeholder="Digite um nome de usuário..." value="{{ termo }}" class="campo-busca">
-      <button type="submit" class="botao-lupa">
-        <img src="/media/Icones/buscar.png" alt="Buscar" class="lupa-img">
-      </button>
+<div class="buscar-usuarios-container">
+  <h2 class="buscar-usuarios-titulo">Buscar usuários</h2>
+
+  <form method="get" action="{% url 'buscar_usuarios' %}" class="buscar-usuarios-form campo-busca-wrapper">
+    <div class="campo-busca-wrapper">
+      <input
+        type="text"
+        name="q"
+        value="{{ termo }}"
+        placeholder="Digite um nome de usuário..."
+        class="campo-busca"
+      >
+      <!-- input type=image usa o src /media direto e faz submit -->
+      <input
+        type="image"
+        src="/media/Icones/buscar.png"
+        alt="Buscar"
+        class="lupa-img"
+      >
+    </div>
   </form>
 </div>
 

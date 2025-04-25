@@ -1,35 +1,52 @@
+{% load static %}
+
 {% for resposta in respostas %}
     {% if forloop.first %}
         <p>
-            <a href="#" onclick="alternarRespostas({{ resposta.resposta_a.id }}); return false;" id="btn-toggle-{{ resposta.resposta_a.id }}" style="color: #007BFF; text-decoration: none; font-weight: 500;">
+            <a href="#" onclick="alternarRespostas({{ resposta.resposta_a.id }}); return false;" id="btn-toggle-{{ resposta.resposta_a.id }}" class="resposta-toggle-link">
                 ➕ Mostrar respostas
             </a>
         </p>
-        <div id="respostas-do-{{ resposta.resposta_a.id }}" style="display: none;">
+        <div id="respostas-do-{{ resposta.resposta_a.id }}" class="respostas-container" style="display: none;">
     {% endif %}
 
-    <div style="margin-left: {{ nivel|add:'1' }}0px; padding-left: 10px; margin-top: 10px; background-color: #f6f6f6; border-radius: 6px; padding: 10px;">
-        <strong>
-            <a href="{% url 'perfil_usuario' resposta.autor.username %}" style="text-decoration: none; color: #333;">
-                {{ resposta.autor.username }}
-            </a>
-        </strong> respondeu:
-        <p style="margin: 5px 0;">{{ resposta.conteudo }}</p>
-        <small style="color: #777;">{{ resposta.criado_em|date:"d/m/Y H:i" }}</small>
+    <div class="resposta-box-x8r29a" style="margin-left: {{ nivel|add:'1' }}0px;">
+        <div class="resposta-autor-info">
+            {% if resposta.autor.perfil.foto %}
+                <img src="{{ resposta.autor.perfil.foto.url }}" alt="Foto de perfil" class="resposta-avatar-img">
+            {% else %}
+                <img src="/media/Icones/account.png" alt="Foto padrão" class="resposta-avatar-img resposta-avatar-padrao">
+            {% endif %}
+
+            <strong>
+                <a href="{% url 'perfil_usuario' resposta.autor.username %}" class="autor-resposta-9hsf8q">
+                    {{ resposta.autor.username }}
+                </a>
+            </strong>
+            <span class="resposta-texto-label">respondeu:</span>
+        </div>
+
+        <div class="resposta-conteudo">
+            {{ resposta.conteudo|linebreaksbr }}
+        </div>
+
+        <small class="resposta-data">{{ resposta.criado_em|date:"d/m/Y H:i" }}</small>
 
         {% if user == resposta.autor %}
-            <p style="margin-top: 5px;">
-                <a href="{% url 'editar_comentario' resposta.id %}" style="color: #007BFF; text-decoration: none;">✏️ Editar</a> |
-                <a href="{% url 'deletar_comentario' resposta.id %}" style="color: #007BFF; text-decoration: none;">🗑️ Excluir</a>
-            </p>
+            <div class="resposta-links">
+                <a href="{% url 'editar_comentario' resposta.id %}" class="resposta-acao">✏️ Editar</a> |
+                <a href="{% url 'deletar_comentario' resposta.id %}" class="resposta-acao">🗑️ Excluir</a>
+            </div>
         {% endif %}
 
         {% if user.is_authenticated %}
             <p>
-                <a href="#" onclick="mostrarFormResposta({{ resposta.id }}); return false;" style="color: #007BFF; text-decoration: none;">💬 Responder</a>
+                <a href="#" onclick="mostrarFormResposta({{ resposta.id }}); return false;" class="resposta-acao">
+                    💬 Responder
+                </a>
             </p>
 
-            <div id="resposta-form-{{ resposta.id }}" style="display: none; margin-left: 10px; padding: 10px;">
+            <div id="resposta-form-{{ resposta.id }}" class="resposta-form-container" style="display:none;">
                 <form method="post" class="form-comentario-horizontal">
                     {% csrf_token %}
                     <input type="text" name="conteudo" class="comentario-input" placeholder="Escreva uma resposta..." required>

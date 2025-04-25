@@ -56,12 +56,12 @@ urlpatterns = [
     path('redefinir/', UsernamePasswordResetView.as_view(), name='password_reset'),
     path('redefinir/enviado/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('redefinir/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
-        template_name='registration/password_reset_confirm.html',
+        template_name='registration/password_reset_confirme.html',
         success_url='/redefinir/completo/'
     ), name='password_reset_confirm'),
     path('redefinir/completo/', auth_views.PasswordResetCompleteView.as_view(
-        template_name='registration/password_reset_complete.html'
-    ), name='password_reset_complete'),
+        template_name='registration/password_reset_completee.html'
+    ), name='password_reset_completee'),
 
 ]
 

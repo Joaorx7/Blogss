@@ -313,11 +313,6 @@ main {
     border: 1px solid #ddd;
 }
 
-.imagem-post {
-    max-width: 100%;
-    height: auto;
-    margin: 10px 0;
-}
 
 /* ======= FORMULÁRIO DE NOVO POST ======= */
 
@@ -394,6 +389,34 @@ button[type="submit"]:hover {
     margin-top: 10px;
 }
 
+button, .btn-cancelar {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #444;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 17px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+.editarcomentario{
+    margin-top: 10px;
+}
+
+.btn-cancelar {
+    background-color: #444;
+    color: white;
+}
+
+.btn-cancelar:hover,
+button:hover {
+    background-color: #222;
+    cursor: pointer;
+}
 
 
 /* ==========================================
@@ -506,7 +529,7 @@ form input, form button {
 }
 
 form button {
-    background-color: #4CAF50;
+    background-color: #242b24;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -522,7 +545,7 @@ form p {
 }
 
 form a {
-    color: #4CAF50;
+    color: #424d43;
     text-decoration: none;
 }
 
@@ -615,7 +638,7 @@ a[href*="editar_perfil"]:hover {
 
 
 form button:hover {
-    background-color: #27ae60;
+    background-color: #313733;
 }
 
 form button:active {
@@ -977,126 +1000,131 @@ button.seguir-btn:hover {
 
 /* ---------- Buscar Usuários ---------- */
 
-/* ---------- Corrigindo estilo do formulário ---------- */
-#buscar-usuarios-container form {
-    background: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 auto 30px auto;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#buscar-usuarios-container {
-    max-width: 500px;
+/* Container principal da busca */
+/* container e título (inalterado) */
+.buscar-usuarios-container {
+    max-width: 600px;
     margin: 40px auto;
     padding: 0 20px;
-}
-
-#buscar-usuarios-titulo {
+  }
+  .buscar-usuarios-titulo {
     font-size: 1.8rem;
     text-align: center;
     margin-bottom: 20px;
-}
-
-#buscar-usuarios-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-#buscar-usuarios-container input[type="text"] {
-    padding: 10px;
-    font-size: 1rem;
+  }
+  
+  /* wrapper do campo + lupa */
+  .campo-busca-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 30px;
+  }
+  
+  /* o próprio input de texto */
+  .campo-busca {
+    width: 100%;
+    padding: 10px 45px 10px 15px;  /* espaço p/ a lupa */
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 25px;
     outline: none;
-    transition: 0.3s;
-}
-
-#buscar-usuarios-container input[type="text"]:focus {
+    transition: border-color 0.2s;
+  }
+  
+  /* foco no input */
+  .campo-busca:focus {
     border-color: #666;
-}
-
-#buscar-usuarios-container button {
-    background-color: #444;
-    color: white;
-    border: none;
-    border-radius: 999px;
-    padding: 10px;
-    font-size: 1rem;
+  }
+  
+  /* lupa clicável */
+  .lupa-img {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
     cursor: pointer;
-    transition: 0.3s;
-}
-
-#buscar-usuarios-lista {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  
+  /* ================================
+     Lista de usuários (inalterado)
+     ================================ */
+  #buscar-usuarios-lista {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.buscar-usuarios-item {
+  }
+  
+  .buscar-usuarios-item {
     display: flex;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
-}
-
-.buscar-usuarios-foto {
+  }
+  
+  .buscar-usuarios-item .buscar-usuarios-foto {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    margin-right: 10px;
     object-fit: cover;
-}
-
-.buscar-usuarios-link {
+    margin-right: 10px;
+  }
+  
+  .buscar-usuarios-link {
     font-weight: 500;
     text-decoration: none;
     color: #000;
-}
-
-.buscar-usuarios-link:hover {
+  }
+  
+  .buscar-usuarios-link:hover {
     text-decoration: underline;
-}
+  }
 
-/* Estilizando a área de busca com input + botão com imagem */
-#buscar-usuarios-container form {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Campo de texto da busca */
-#buscar-usuarios-container input[type="text"] {
-    flex: 1;
-    padding: 10px 15px;
+  .campo-busca-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0 auto 30px;
+  }
+  
+  /* o próprio input de texto */
+  .campo-busca {
+    width: 100%;
+    padding: 10px 45px 10px 15px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 25px;
-    width: 100%;
-}
-
-/* Botão com a imagem da lupa */
-#buscar-usuarios-container button {
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  /* lupa clicável */
+  .lupa-img {
+    position: absolute;
+    top: 48%; /* <--- Sobe um pouquinho (antes tava 50%) */
+    right: 12px;
+    transform: translateY(-80%);
+    width: 18px; /* ajustei tamanho para combinar melhor */
+    height: 18px;
+    cursor: pointer;
     background: none;
     border: none;
     padding: 0;
-    cursor: pointer;
-    border-radius: 0;
-}
+  }
 
-/* Imagem da lupa */
-#buscar-usuarios-container .lupa-img {
-    width: 24px;
-    height: 24px;
-    display: block;
-}
+  .buscar-usuarios-form {
+    background: transparent; /* ou mesma cor do body */
+    border: none;
+    box-shadow: none; /* se tiver sombra */
+  }
+  
+
 
 #notificacoes-title {
   font-size: 24px;
@@ -1214,7 +1242,7 @@ button.seguir-btn:hover {
 }
 
 #perfil-botao-seguir {
-    background-color: #4CAF50;
+    background-color: #272c27;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -1225,7 +1253,7 @@ button.seguir-btn:hover {
 }
 
 #perfil-botao-seguir:hover {
-    background-color: #45a049;
+    background-color: #212621;
 }
 
 /* ======= FOTO DE PERFIL ======= */
@@ -1351,7 +1379,7 @@ button.seguir-btn:hover {
 }
 
 #botao-salvar:hover {
-    background-color: #45a049;
+    background-color: #262b27;
 }
 
 /* Estilo para o link de voltar ao perfil */
@@ -1554,15 +1582,14 @@ button.seguir-btn:hover {
 
 /* Estilo para a imagem do post */
 .imagem-post {
-    display: block;  /* Faz a imagem ser um bloco para que possamos usar margin para centralizar */
-    margin-left: auto;  /* Margem automática à esquerda */
-    margin-right: auto;  /* Margem automática à direita */
-    max-width: 100%;  /* A imagem não ultrapassa a largura do container */
-    height: auto;  /* A altura é ajustada automaticamente para manter a proporção */
-    border-radius: 8px;  /* Bordas arredondadas, opcional */
-    margin-top: 20px;  /* Adiciona um espaçamento acima da imagem */
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 1000px; /* ou o tamanho real da imagem */
+    height: auto;
+    border-radius: 8px;
+    image-rendering: auto; /* ou high-quality se precisar */
 }
-
 /* Estilo para o container de curtidas */
 .curtidas-container {
     margin-top: 20px;
@@ -1613,7 +1640,7 @@ button.seguir-btn:hover {
 .texto-comentario-conteudo {
     font-size: 1rem;
     margin-bottom: 8px;
-    color: #444;
+    color: #000000;
 }
 
 /* Data do comentário */
@@ -1668,7 +1695,7 @@ button.seguir-btn:hover {
 
 .form-comentario {
     padding: 15px;
-    background-color: #fafafa;
+    background-color: #ff0000;
     border-radius: 8px;
 }
 
@@ -1817,21 +1844,21 @@ button.seguir-btn:hover {
     font-size: 25px;
     margin-top: 10px;
     margin-left: 17px;
-    color: #303030;
+    color: #535353;
 }
 
 .texto-detalhes-conteudo p,
 .texto-detalhes-conteudo div,
 .texto-detalhes-conteudo span {
     font-size: 25px !important;
-    color: #303030;
+    color: #535353;
     line-height: 1.6;
     margin-left: 17px;
 }
 
 .texto-detalhes-data {
     font-size: 19px;
-    color: #585656;
+    color: #535353;
     margin-left: 17px;
 }
 
@@ -1957,7 +1984,7 @@ form button[type="submit"] {
 
 
 form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #343c35;
 }
 
 
@@ -2079,6 +2106,10 @@ form button[type="submit"]:hover {
     all: unset;
     cursor: pointer;
     margin-left: -33px; /* Ajuste do botão */
+}
+.curtir-btn:hover {
+    background: none;
+    filter: none;
 }
 
 /* Animação de pulsar com sombra vermelha */
@@ -2243,12 +2274,187 @@ form button[type="submit"]:hover {
     background-color: #2563eb;
   }
   
+  .resposta-box-x8r29a {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
+    color: #000000; /* texto claro */
+}
+
+.resposta-box-x8r29a a {
+    color: #4ea3ff; /* links azul suave */
+    text-decoration: none;
+}
+
+.resposta-box-x8r29a small {
+    color: #aaa;
+}
+
+.resposta-box-x8r29a {
+    background-color: #f6f6f6;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+
+
+.resposta-autor-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.resposta-avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.resposta-avatar-padrao {
+    background-color: #ddd;
+    object-fit: contain;
+}
+
+.resposta-conteudo {
+    margin: 5px 0;
+}
+
+.resposta-data {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+.resposta-acao {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.resposta-form-container {
+    margin-top: 10px;
+}
+
+.resposta-texto-label {
+    margin-left: 5px;
+    font-weight: normal;
+    color: #000000;
+}
+
+
+.excluir-container {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.excluir-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-excluir {
+    padding: 12px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-excluir:hover {
+    background-color: #222;
+}
+
+.btn-cancelar {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #535353;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-cancelar:hover {
+    background-color: #222;
+}
+
+.imagem-centralizada {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
+    height: auto;
+}
+
+.botao-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.botao-upload:hover {
+    background-color: #666;
+}
+
+#nome-arquivo {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.form-editar-post {
+    max-width: 800px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+.tiedit{
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.icon-social {
+    width: 60px;  /* ou o tamanho que quiser, tipo 32px, 24px etc */
+    height: auto;
+}
 
 /*////////////////////////////////////////////////////////////////////////////*
 //////////////////////////////////////////////////////////////////////////////*
 //////////////////////////////TEMA ESCURO/////////////////////////////////////*
 //////////////////////////////////////////////////////////////////////////////*
 //////////////////////////////////////////////////////////////////////////////*
+*/
+
 
 /* SCROLLBAR BASE - TEMA ESCURO */
 body.dark .scrollbase::-webkit-scrollbar {
@@ -2976,3 +3182,49 @@ body.dark form a {
 body.dark .botao-editar-perfil{
     background-color: #4c4c4c;
 }
+
+body.dark .comentarios-container {
+    background-color: #121212;
+}
+body.dark .texto-comentario-conteudo {
+    color: white;
+}
+
+body.dark .resposta-box-x8r29a {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+body.dark .resposta-texto-label {
+    margin-left: 5px;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+body.dark .form-comentario-horizontal{
+    background-color: #1e1e1e;
+}
+
+body.dark .form-comentario-horizontal{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #121212;
+    padding: 10px 15px;
+    border: none; 
+    max-width: 100%;
+    overflow: hidden;
+    box-shadow: none; 
+    outline: none; 
+}
+
+body.dark .lupa-img,
+body.dark .buscar-usuarios-foto {
+  filter: invert(1);
+}
+
+body.dark .buscar-usuarios-form {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }

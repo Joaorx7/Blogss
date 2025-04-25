@@ -3,13 +3,46 @@
 {% block title %}Editar Post{% endblock %}
 
 {% block content %}
-    <h2>Editar Post</h2>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <p><label for="{{ form.titulo.id_for_label }}">Título:</label> {{ form.titulo }}</p>
-        <p><label for="{{ form.conteudo.id_for_label }}">Conteúdo:</label> {{ form.conteudo }}</p>
-        <p><label for="{{ form.categoria.id_for_label }}">Categoria:</label> {{ form.categoria }}</p>
-        <p><label for="{{ form.imagem.id_for_label }}">Imagem:</label> {{ form.imagem }}</p> <!-- novo campo -->
-        <button type="submit">Salvar alterações</button>
-    </form>
+<h2 class="tiedit">Editar Post</h2>
+
+<form method="POST" enctype="multipart/form-data" class="form-editar-post">
+    {% csrf_token %}
+
+    <p>
+        <label for="{{ form.conteudo.id_for_label }}">Conteúdo:</label>
+        {{ form.conteudo }}
+    </p>
+
+    <p>
+        <label for="{{ form.categoria.id_for_label }}">Categoria:</label>
+        {{ form.categoria }}
+    </p>
+
+    <p>
+        <label>Imagem:</label>
+        {% if form.instance.imagem %}
+            <div>
+                <img src="{{ form.instance.imagem.url }}" alt="Imagem atual" class="imagem-centralizada">
+            </div>
+        {% endif %}
+        <label for="id_imagem" class="botao-upload">Escolher imagem</label>
+        <input type="file" name="imagem" id="id_imagem" hidden>
+        <span id="nome-arquivo"></span>
+    </p>
+
+    <button type="submit">Salvar alterações</button>
+</form>
+
+<script>
+    const input = document.getElementById('id_imagem');
+    const nomeArquivo = document.getElementById('nome-arquivo');
+
+    input.addEventListener('change', function () {
+        if (this.files.length > 0) {
+            nomeArquivo.textContent = this.files[0].name;
+        } else {
+            nomeArquivo.textContent = '';
+        }
+    });
+</script>
 {% endblock %}

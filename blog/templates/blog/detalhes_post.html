@@ -32,12 +32,12 @@
   {% if user == post.autor %}
     <div class="opcoes-edicao texto-detalhes-edicao">
       <a href="{% url 'editar_post' post.id %}" class="btn-edicao">✏️ Editar</a>
-      <a href="{% url 'deletar_post' post.id %}" class="btn-excluir">🗑️ Excluir</a>
+      <a href="{% url 'deletar_post' post.id %}" class="btn-excluire">🗑️ Excluir</a>
     </div>
   {% endif %}
 
   {% if post.imagem %}
-    <img src="{{ post.imagem.url }}" alt="Imagem do post" class="imagem-post">
+  <img src="{{ post.imagem.url }}" alt="Imagem do post" class="imagem-post">
   {% endif %}
 
   <hr class="divisor-post-comentarios">
@@ -104,7 +104,7 @@
 
     {% if user.is_authenticated %}
       <div class="comentario-principal-container">
-        <form method="post" class="form-comentario-horizontal">
+        <form method="post" class="form-comentario-horizontal" >
           {% csrf_token %}
           <textarea name="conteudo" class="comentario-textarea comentario-linha" rows="3"
                     placeholder="Escreva um comentário..." required></textarea>
