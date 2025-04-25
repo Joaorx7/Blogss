@@ -1,21 +1,23 @@
 from django.contrib import admin
 from django.urls import path
-from blog import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponseForbidden
+
+from blog import views
 from blog.views import (
-    CustomPasswordResetDoneView,
+    home, cadastro,
     UsernamePasswordResetView,
+    CustomPasswordResetDoneView,
+    CustomPasswordResetConfirmView,
 )
-from blog.views import home, cadastro
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Páginas principais
-    path('', views.home, name='home'),
+    path('', home, name='home'),
     path('sobre/', views.sobre, name='sobre'),
 
     # Postagens
@@ -29,7 +31,7 @@ urlpatterns = [
     # Autenticação
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
     path('logout/', views.sair, name='logout'),
-    path('cadastro/', views.cadastro, name='cadastro'),
+    path('cadastro/', cadastro, name='cadastro'),
 
     # Perfil e redes sociais
     path('buscar-usuarios/', views.buscar_usuarios, name='buscar_usuarios'),
@@ -55,14 +57,10 @@ urlpatterns = [
     # Fluxo de redefinição de senha por NOME DE USUÁRIO
     path('redefinir/', UsernamePasswordResetView.as_view(), name='password_reset'),
     path('redefinir/enviado/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('redefinir/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
-        template_name='registration/password_reset_confirme.html',
-        success_url='/redefinir/completo/'
-    ), name='password_reset_confirm'),
+    path('redefinir/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirme'),
     path('redefinir/completo/', auth_views.PasswordResetCompleteView.as_view(
         template_name='registration/password_reset_completee.html'
     ), name='password_reset_completee'),
-
 ]
 
 # Arquivos de mídia

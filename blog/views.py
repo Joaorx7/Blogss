@@ -71,6 +71,7 @@ from .models import Post, Comentario, Notificacao
 from .forms import ComentarioForm
 from .models import Categoria
 
+@login_required
 def buscar_usuarios(request):
     termo = request.GET.get('q', '')
     usuarios = User.objects.filter(username__icontains=termo)
@@ -280,7 +281,7 @@ def curtir_post(request, post_id):
     })
 
 
-
+@login_required
 def home(request):
     categoria_id = request.GET.get('categoria')
     ordenar = request.GET.get('ordenar', 'recentes')
@@ -483,11 +484,28 @@ def estatisticas_usuario(request):
 # Redefinição por NOME DE USUÁRIO
 from django.urls import reverse_lazy
 
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView
+from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView
+from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.forms import PasswordResetForm
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.models import User
+
 class UsernamePasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset_username_form.html'
     email_template_name = 'registration/password_reset_emaile.html'
     subject_template_name = 'registration/password_reset_subjecte.txt'
-    success_url = reverse_lazy('password_reset_done') # 👈 Aqui, certifique-se que vai pra sua view
+    success_url = reverse_lazy('password_reset_done')
 
     def post(self, request, *args, **kwargs):
         username = request.POST.get('username')
@@ -500,6 +518,7 @@ class UsernamePasswordResetView(PasswordResetView):
                     use_https=request.is_secure(),
                     from_email=None,
                     email_template_name=self.email_template_name,
+                    html_email_template_name=self.email_template_name,
                     subject_template_name=self.subject_template_name,
                 )
                 messages.success(request, 'Um e-mail de redefinição foi enviado.')
@@ -508,5 +527,31 @@ class UsernamePasswordResetView(PasswordResetView):
             messages.error(request, 'Usuário não encontrado.')
 
         return render(request, self.template_name)
+
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_donee.html'
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirme.html'
+    success_url = reverse_lazy('password_reset_complete')
+
+    def dispatch(self, *args, **kwargs):
+        # Verifica se o token é válido antes de mostrar o formulário
+        self.validlink = False
+        uidb64 = kwargs.get('uidb64')
+        token = kwargs.get('token')
+
+        if uidb64 and token:
+            try:
+                uid = urlsafe_base64_decode(uidb64).decode()
+                user = get_user_model().objects.get(pk=uid)
+            except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
+                user = None
+
+            if user is not None and default_token_generator.check_token(user, token):
+                self.validlink = True
+
+        if not self.validlink:
+            return render(self.request, 'registration/password_reset_link_invalid.html')
+
+        return super().dispatch(*args, **kwargs)

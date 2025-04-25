@@ -4,7 +4,7 @@
     {% if forloop.first %}
         <p>
             <a href="#" onclick="alternarRespostas({{ resposta.resposta_a.id }}); return false;" id="btn-toggle-{{ resposta.resposta_a.id }}" class="resposta-toggle-link">
-                ➕ Mostrar respostas
+                <span class="toggle-icon" style="font-weight: 900; font-size: 18px; color: black;">+</span> Mostrar respostas
             </a>
         </p>
         <div id="respostas-do-{{ resposta.resposta_a.id }}" class="respostas-container" style="display: none;">
@@ -71,6 +71,8 @@
         const aberto = container.style.display === 'block';
 
         container.style.display = aberto ? 'none' : 'block';
-        botao.textContent = aberto ? '➕ Mostrar respostas' : '➖ Ocultar respostas';
+        botao.innerHTML = aberto
+            ? '<span class="toggle-icon" style="font-weight: 900; font-size: 18px; color: black;">+</span> Mostrar respostas'
+            : '<span class="toggle-icon" style="font-weight: 900; font-size: 18px; color: black;">-</span> Ocultar respostas';
     }
 </script>

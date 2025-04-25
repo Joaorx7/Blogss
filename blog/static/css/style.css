@@ -695,15 +695,15 @@ li.empty {
 /* ===================== */
 /* imagem do post        */
 /* ===================== */
+
 .img-resumo {
-    max-width: 100%;
+    width: 100%;
     height: auto;
+    max-height: 600px; /* define um limite pra não ficar gigante */
+    object-fit: contain; /* preserva a resolução sem cortar nem distorcer */
     border-radius: 10px;
     margin-top: 10px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+  }
 
 /* Navbar do lado direito */
 .navbar-direita {
@@ -795,6 +795,17 @@ button.seguir-btn:hover {
     font-size: 30px;
     color: rgb(0, 0, 0);
 }
+
+.resposta-toggle-link {
+    color: black;
+    text-decoration: none;
+}
+
+.resposta-toggle-link:visited {
+    color: black;
+}
+
+
 
 #conte{
     font-size: 45px;
@@ -1064,8 +1075,8 @@ button.seguir-btn:hover {
     display: flex;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #eee;
-  }
+    border-bottom: 1px solid #717070;  /* <<< ESSA LINHA */
+}
   
   .buscar-usuarios-item .buscar-usuarios-foto {
     width: 35px;
@@ -2283,13 +2294,15 @@ form button[type="submit"]:hover {
 }
 
 .resposta-box-x8r29a a {
-    color: #4ea3ff; /* links azul suave */
+    color: #000000; /* links azul suave */
     text-decoration: none;
 }
 
 .resposta-box-x8r29a small {
     color: #aaa;
 }
+
+
 
 .resposta-box-x8r29a {
     background-color: #f6f6f6;
@@ -2329,7 +2342,7 @@ form button[type="submit"]:hover {
 }
 
 .resposta-acao {
-    color: #007BFF;
+    color: #000000;
     text-decoration: none;
     font-weight: 500;
 }
