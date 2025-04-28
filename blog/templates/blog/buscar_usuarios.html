@@ -30,8 +30,11 @@
 <ul id="buscar-usuarios-lista">
   {% for usuario in usuarios %}
     <li class="buscar-usuarios-item">
-      <img src="{% if usuario.perfil.foto %}{{ usuario.perfil.foto.url }}{% else %}/media/img_resto/Account.png{% endif %}"
-           alt="Foto de perfil" class="buscar-usuarios-foto">
+      {% if usuario.perfil.foto %}
+        <img src="{{ usuario.perfil.foto.url }}" alt="Foto de perfil" class="buscar-usuarios-foto">
+      {% else %}
+        <img src="/media/Icones/Account.png" alt="Foto de perfil padrão" class="buscar-usuarios-foto foto-padrao">
+      {% endif %}
       <a href="{% url 'perfil_usuario' usuario.username %}" class="buscar-usuarios-link">{{ usuario.username }}</a>
     </li>
   {% empty %}

@@ -11,14 +11,16 @@ class CadastroForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['conteudo', 'categoria', 'imagem']
+        fields = ['titulo', 'conteudo', 'categoria', 'imagem']
         widgets = {
             'conteudo': forms.Textarea(attrs={'class': 'form-control'}),
             'categoria': forms.Select(attrs={'class': 'form-control'}),
             'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o título aqui'})
         }
 
     def __init__(self, *args, **kwargs):

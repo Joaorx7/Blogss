@@ -6,6 +6,10 @@
 <form method="POST" enctype="multipart/form-data" id="form-novo-post">
     {% csrf_token %}
     <div class="campo-form">
+        <label for="{{ form.titulo.id_for_label }}" class="label-form">Título:</label>
+        {{ form.titulo }}
+    </div>
+    <div class="campo-form">
         <label for="{{ form.conteudo.id_for_label }}" class="label-form">Conteúdo:</label>
         {{ form.conteudo }}
     </div>
@@ -24,5 +28,5 @@
         <img id="preview-image" src="#" alt="Prévia da imagem" class="preview-image" style="display: none;">
     </div>
     <button type="submit">Publicar</button>
-</form>  
+</form>
 {% endblock %}

@@ -1,16 +1,16 @@
-/* ======= GERAL (reset e fontes) ======= */
+/* Reset básico para remover margens, paddings e ajustar box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilização global do corpo do site */
 body {
     font-family: Arial, sans-serif;
-    
 }
 
-/* ======= NAVBAR SUPERIOR ======= */
+/* Barra de navegação fixa no topo */
 .navbar {
     position: fixed;
     top: 0;
@@ -21,6 +21,7 @@ body {
     z-index: 1000;
 }
 
+/* Container interno da navbar, alinhando logo e links */
 .navbar-container {
     display: flex;
     justify-content: space-between;
@@ -28,39 +29,43 @@ body {
     width: 100%;
 }
 
+/* Estilo da logo na navbar */
 .logo {
     color: #fff;
     font-size: 24px;
     text-decoration: none;
 }
 
+/* Lista de links da navbar */
 .nav-links {
     list-style: none;
     display: flex;
 }
 
+/* Espaçamento entre os itens do menu */
 .nav-links li {
     margin-left: 20px;
 }
 
+/* Estilo dos links da navbar */
 .nav-links a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
 }
 
+/* Hover nos links da navbar */
 .nav-links a:hover {
     color: #f1f1f1;
 }
 
+/* Centralizar imagem */
 .centered-image {
     margin: 0 auto;
     display: block;
 }
 
-
-
-/* ======= SIDEBAR ESQUERDA ======= */
+/* Sidebar (menu lateral esquerdo) fixa */
 .sidebar {
     position: fixed;
     top: 80px;
@@ -76,6 +81,7 @@ body {
     justify-content: space-between;
 }
 
+/* Menu dentro da sidebar */
 .menu {
     display: flex;
     flex-direction: column;
@@ -83,6 +89,7 @@ body {
     height: 100%;
 }
 
+/* Parte de cima e parte de baixo do menu */
 .menu-topo,
 .menu-baixo {
     display: flex;
@@ -90,11 +97,13 @@ body {
     align-items: center;
 }
 
+/* Estilo dos itens do menu */
 .menu li {
     list-style: none;
     margin: 10px 0;
 }
 
+/* Links do menu centralizados */
 .menu a {
     text-decoration: none;
     display: flex;
@@ -103,18 +112,19 @@ body {
     padding: 0;
 }
 
+/* Estilo dos ícones do menu */
 .icon {
     width: 40px;
     height: 40px;
     transition: transform 0.2s ease;
-    bottom: 10px;
 }
 
+/* Aumentar o ícone no hover */
 .icon:hover {
     transform: scale(1.1);
 }
 
-/* ======= SIDEBAR DIREITA ======= */
+/* Sidebar da direita (informações adicionais) */
 .sidebar-right {
     position: fixed;
     top: 80px;
@@ -132,12 +142,14 @@ body {
     border-left: 1px solid #ccc;
 }
 
+/* Seções internas da sidebar direita */
 .sidebar-right > div {
     margin-bottom: 5px;
     padding-bottom: 5px;
     position: relative;
 }
 
+/* Linha separadora entre seções */
 .sidebar-right > div::after {
     content: "";
     position: absolute;
@@ -148,16 +160,19 @@ body {
     background-color: #ccc;
 }
 
+/* Remove linha separadora do último item */
 .sidebar-right > div:last-child::after {
     display: none;
 }
 
+/* Lista na sidebar direita */
 .sidebar-right ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+/* Links da sidebar direita */
 .sidebar-right ul li a {
     color: blue;
     text-decoration: none;
@@ -165,43 +180,50 @@ body {
     transition: background 0.3s;
 }
 
+/* Hover nos links da sidebar direita */
 .sidebar-right ul li a:hover {
     background-color: #ddd;
 }
 
+/* Títulos na sidebar direita */
 .sidebar-right strong {
     display: block;
     margin-bottom: 0px;
     font-weight: bold;
 }
 
+/* Hover nos nomes de usuário e categoria */
 .nameuser:hover,
 .namecat:hover {
     color: darkblue;
 }
 
+/* Estilo padrão de nomes de usuários e categorias */
 .namecat, .nameuser {
     color: blue;
     text-decoration: none;
     font-size: 26px;
 }
 
+/* Texto final da sidebar direita */
 .sidebar-right > div:last-child {
     font-size: 18px;
     font-weight: bold;
     color: #333;
 }
 
+/* Estilo de textos destacados na sidebar */
 #creco, #preco, #contasc {
     font-size: 30px;
 }
 
+/* Estilo de um contador grande */
 #contador {
     font-size: 80px;
     text-align: center;
 }
 
-/* ======= MAIN (Conteúdo Principal) ======= */
+/* Área principal (main) do site */
 main {
     margin-left: 80px;
     padding: 20px;
@@ -212,11 +234,12 @@ main {
     align-items: flex-start;
 }
 
-/* ======= HOME & CATEGORIA: post e navegação ======= */
+/* Barra de navegação de categorias */
 .categorias-nav {
     margin-bottom: 20px;
 }
 
+/* Botão de editar perfil */
 .botao-editar-perfil {
     display: inline-block;
     background-color: #333;
@@ -229,12 +252,13 @@ main {
     transition: background-color 0.3s ease;
 }
 
+/* Hover no botão de editar perfil */
 .botao-editar-perfil:hover {
     background-color: #555;
-    text-decoration: none; /* isso garante que não fique sublinhado no hover */
+    text-decoration: none;
 }
 
-
+/* Resumo dos posts */
 .post-resumo {
     margin-bottom: 20px;
     padding: 10px;
@@ -244,33 +268,38 @@ main {
     margin-top: 10px;
 }
 
+/* Estilo básico do botão comentar */
 .botao-comentar {
-    margin-bottom: 0; /* tira o espaço */
+    margin-bottom: 0;
 }
 
+/* Cartão de comentário */
 .card-comentario {
-    padding-bottom: 20px; /* espaço interno só se quiser um respiro */
+    padding-bottom: 20px;
 }
 
+/* Área com rolagem */
 .scrollbase {
     height: 100vh;
     overflow-y: auto;
-    padding-bottom: 80px; /* isso garante que o scroll desça além do botão */
+    padding-bottom: 80px;
 }
-  
+
+/* Formulário de comentário em linha */
 .form-comentario-horizontal {
     display: flex;
     align-items: center;
     gap: 10px;
     background-color: #ffffff;
     padding: 10px 15px;
-    border: none; 
+    border: none;
     max-width: 100%;
     overflow: hidden;
-    box-shadow: none; 
-    outline: none;      
+    box-shadow: none;
+    outline: none;
 }
 
+/* Imagem do avatar no comentário */
 .comentario-avatar {
     width: 40px;
     height: 40px;
@@ -278,8 +307,7 @@ main {
     object-fit: cover;
 }
 
-
-
+/* Botão de comentar horizontal */
 .botao-comentar-horizontal {
     padding: 8px 16px;
     background-color: #00e6e6;
@@ -291,31 +319,26 @@ main {
     transition: background 0.3s;
 }
 
+/* Hover no botão de comentar */
 .botao-comentar-horizontal:hover {
     background-color: #00cccc;
 }
-  
-  
- 
-  
 
-/* Botão de seguir nos posts */
+/* Formulário de seguir na página */
 .seguir-form {
     position: absolute;
     right: 10px;
     top: 10px;
 }
 
-/* ======= DETALHES DO POST (comentários e imagem) ======= */
+/* Estilo dos comentários */
 .comentario {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ddd;
 }
 
-
-/* ======= FORMULÁRIO DE NOVO POST ======= */
-
+/* Estilização geral dos formulários */
 form {
     max-width: 600px;
     margin: 30px auto;
@@ -325,17 +348,20 @@ form {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Espaçamento interno dos campos do formulário */
 form p {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
 }
 
+/* Rótulos (labels) do formulário */
 form label {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
+/* Inputs, áreas de texto, selects e uploads */
 form input[type="text"],
 form textarea,
 form select,
@@ -346,11 +372,13 @@ form input[type="file"] {
     font-size: 16px;
 }
 
+/* Área de texto do formulário */
 form textarea {
     resize: vertical;
     min-height: 100px;
 }
 
+/* Botão de enviar o formulário */
 button[type="submit"] {
     background-color: #535353;
     color: #fff;
@@ -362,25 +390,27 @@ button[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
+/* Hover no botão de envio */
 button[type="submit"]:hover {
     background-color: #000000;
 }
 
-/* ======= PREVIEW DA IMAGEM ======= */
-
+/* Container de preview de imagem */
 #preview-container {
     margin-top: 20px;
     text-align: center;
 }
 
+/* Conteúdo de post formatado */
 .cont_post {
-    white-space: pre-wrap; /* Garante que quebre linhas quando necessário */
-    word-wrap: break-word; /* Quebra palavras longas */
-    overflow-wrap: break-word; /* Quebra palavras longas quando necessário */
-    line-height: 1.5; /* Espaçamento entre as linhas */
-    word-break: break-all; /* Quebra qualquer palavra se necessário */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    word-break: break-all;
 }
 
+/* Preview da imagem enviada */
 #preview-image {
     max-width: 100%;
     height: auto;
@@ -389,6 +419,7 @@ button[type="submit"]:hover {
     margin-top: 10px;
 }
 
+/* Botões padrão e botão de cancelar */
 button, .btn-cancelar {
     display: block;
     width: 100%;
@@ -403,40 +434,33 @@ button, .btn-cancelar {
     margin: 10px 0;
 }
 
-.editarcomentario{
+/* Estilo de botão de edição de comentário */
+.editarcomentario {
     margin-top: 10px;
 }
 
-.btn-cancelar {
-    background-color: #444;
-    color: white;
-}
-
+/* Estilo hover para botão cancelar */
 .btn-cancelar:hover,
 button:hover {
     background-color: #222;
     cursor: pointer;
 }
 
-
-/* ==========================================
-   Estilo para a página: buscar_usuarios.html
-   ========================================== */
-
-/* Seção: Título da página */
+/* Títulos (h2) */
 h2 {
     font-size: 28px;
     margin-bottom: 20px;
     color: #333;
 }
 
-/* Seção: Formulário de busca */
+/* Estilo de formulários simples */
 form {
     margin-bottom: 30px;
     display: flex;
     gap: 10px;
 }
 
+/* Inputs de texto dentro de formulário */
 form input[type="text"] {
     padding: 8px 12px;
     border: 1px solid #ccc;
@@ -445,6 +469,7 @@ form input[type="text"] {
     font-size: 16px;
 }
 
+/* Botão de formulário */
 form button {
     background-color: #535353;
     color: white;
@@ -456,17 +481,19 @@ form button {
     transition: background-color 0.3s ease;
 }
 
+/* Hover no botão */
 form button:hover {
     background-color: #434343;
 }
 
-/* Seção: Lista de usuários */
+/* Lista de usuários */
 ul.usuario-lista {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+/* Itens da lista de usuários */
 ul.usuario-lista li {
     display: flex;
     align-items: center;
@@ -476,11 +503,12 @@ ul.usuario-lista li {
     transition: background-color 0.2s ease;
 }
 
+/* Hover nos itens da lista de usuários */
 ul.usuario-lista li:hover {
     background-color: #f0f0f0;
 }
 
-/* Seção: Imagem do usuário */
+/* Avatares na lista de usuários */
 ul.usuario-lista img {
     width: 35px;
     height: 35px;
@@ -489,7 +517,7 @@ ul.usuario-lista img {
     object-fit: cover;
 }
 
-/* Seção: Link do nome do usuário */
+/* Links na lista de usuários */
 ul.usuario-lista a {
     font-size: 18px;
     color: #007bff;
@@ -497,11 +525,12 @@ ul.usuario-lista a {
     transition: color 0.2s ease;
 }
 
+/* Hover nos links da lista */
 ul.usuario-lista a:hover {
     color: #0056b3;
 }
 
-/* Estilo para a página de cadastro */
+/* Estilização geral de formulários para login/cadastro */
 form {
     display: flex;
     flex-direction: column;
@@ -514,12 +543,14 @@ form {
     background-color: #f9f9f9;
 }
 
+/* Título dentro do formulário */
 form h2 {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
 }
 
+/* Inputs e botões do formulário */
 form input, form button {
     font-size: 16px;
     padding: 10px;
@@ -528,6 +559,7 @@ form input, form button {
     border-radius: 5px;
 }
 
+/* Botão de envio */
 form button {
     background-color: #242b24;
     color: white;
@@ -535,32 +567,36 @@ form button {
     transition: background-color 0.3s;
 }
 
+/* Hover no botão */
 form button:hover {
     background-color: #45a049;
 }
 
+/* Parágrafos dentro do formulário */
 form p {
     text-align: center;
     font-size: 16px;
 }
 
+/* Links dentro do formulário */
 form a {
     color: #424d43;
     text-decoration: none;
 }
 
+/* Hover nos links do formulário */
 form a:hover {
     text-decoration: underline;
 }
 
-/* Ajustando os campos de formulário */
+/* Ajuste de inputs */
 form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
     width: 100%;
 }
 
-/* Mobile */
+/* Responsividade para telas pequenas */
 @media (max-width: 600px) {
     form {
         padding: 15px;
@@ -572,54 +608,56 @@ form input[type="password"] {
     }
 }
 
-/* Estilos gerais para o perfil */
+/* Título principal (h1) */
 h1 {
     font-size: 28px;
     margin-bottom: 15px;
 }
 
+/* Parágrafos gerais */
 p {
     font-size: 16px;
     line-height: 1.6;
 }
 
+/* Estilo de texto forte */
 strong {
     font-weight: bold;
 }
 
-/* Foto do perfil */
+/* Imagem de perfil */
 #perfilf {
-    width: 150px;  /* Ajuste o tamanho conforme necessário */
-    height: 150px; /* Manter a altura igual à largura para ser redonda */
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    object-fit: cover; /* Garante que a imagem seja ajustada corretamente dentro do círculo */
+    object-fit: cover;
     margin-bottom: 20px;
 }
 
-
-/* Estilo para os links de login/cadastro */
+/* Links padrão */
 a {
     color: #3498db;
     text-decoration: none;
 }
 
+/* Hover nos links */
 a:hover {
     text-decoration: underline;
 }
-
-/* Estilos para a bio e contagem de seguidores */
+/* Estilo da bio do perfil */
 .bio {
     font-size: 16px;
     color: #333;
     margin-top: 15px;
 }
 
+/* Estilo dos contadores de seguidores e seguindo */
 .seguidores, .seguindo {
     font-size: 16px;
     color: #555;
 }
 
-/* Estilo para o botão de editar bio */
+/* Link para editar perfil */
 a[href*="editar_perfil"] {
     font-size: 16px;
     color: #f39c12;
@@ -629,23 +667,23 @@ a[href*="editar_perfil"] {
     transition: background-color 0.3s;
 }
 
+/* Efeito hover no link de editar perfil */
 a[href*="editar_perfil"]:hover {
     background-color: #f39c12;
     color: white;
 }
 
-/* Estilo para o botão de seguir/deixar de seguir */
-
-
+/* Estilo do botão do formulário ao passar o mouse */
 form button:hover {
     background-color: #313733;
 }
 
+/* Estilo do botão do formulário quando clicado */
 form button:active {
     background-color: #16a085;
 }
 
-/* Estilo para os links de navegação */
+/* Estilo dos links da navegação */
 nav a {
     color: #3498db;
     font-size: 16px;
@@ -654,58 +692,60 @@ nav a {
     border-radius: 4px;
 }
 
-/* Estilo para a lista de posts */
+/* Remover marcadores da lista */
 ul {
     list-style: none;
     padding: 0;
 }
 
+/* Estilo dos itens da lista */
 ul li {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
+/* Estilo dos links dentro de lista */
 ul li a {
     color: #2980b9;
     text-decoration: none;
     font-size: 16px;
 }
 
+/* Efeito hover nos links da lista */
 ul li a:hover {
     text-decoration: underline;
 }
 
-/* Estilo para a mensagem quando não há posts */
+/* Estilo para itens de lista vazios */
 li.empty {
     color: #7f8c8d;
     font-style: italic;
 }
 
-
-/* Estilo para a foto de perfil do autor */
+/* Estilo para fotos de perfil */
 .foto-perfil {
     width: 35px;
     height: 35px;
-    border-radius: 50%; /* Deixa a foto de perfil redonda */
-    border: 2px solid #ddd; /* Borda ao redor da imagem de perfil */
-    object-fit: cover; /* Ajusta a imagem para preencher o espaço sem distorcer */
-    display: block; /* Garante que o elemento seja tratado como um bloco */
-    margin: 0 auto; /* Centraliza a imagem dentro do contêiner */
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
 }
-/* ===================== */
-/* imagem do post        */
-/* ===================== */
 
+/* Estilo das imagens de resumo de post */
 .img-resumo {
-    width: 100%;
+    width: 1200px; /* Define uma largura fixa, por exemplo 400px */
+    max-width: 100%; /* Garante que não ultrapasse o espaço disponível */
     height: auto;
-    max-height: 600px; /* define um limite pra não ficar gigante */
-    object-fit: contain; /* preserva a resolução sem cortar nem distorcer */
-    border-radius: 10px;
+    border-radius: 15px; /* Arredondamento da imagem */
     margin-top: 10px;
-  }
+    display: block; /* Garante que possa centralizar se quiser */
+    margin-left: auto;
+    margin-right: auto;
+}
 
-/* Navbar do lado direito */
+/* Sidebar fixa à direita */
 .navbar-direita {
     position: fixed;
     right: 0;
@@ -716,50 +756,53 @@ li.empty {
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo do formulário de seguir */
 .seguir-form {
     background: transparent;
     box-shadow: none;
     border: none;
     padding: 0;
-    margin: 0;             /* Remove a margem */
+    margin: 0;
 }
 
-
-
-/* Estilo geral do post */
+/* Resumo de um post */
 .post-resumo {
     font-family: 'Arial', sans-serif;
     color: #333;
     background-color: #d9d9d9;
     border-radius: 35px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
 }
 
-/* Nome do autor */
+/* Estilo de links fortes em posts */
 .post-resumo strong a {
     font-size: 25px;
     color: #000000;
     text-decoration: none;
 }
 
+/* Efeito hover no título do post */
 .post-resumo h2 a:hover {
     text-decoration: underline;
 }
 
-/* Categoria */
+/* Estilo de links e textos fortes dentro de parágrafos de post */
 .post-resumo p strong,
 .post-resumo p a {
     font-size: 14px;
     color: #555;
 }
 
-/* Conteúdo do post (resumo) */
+/* Estilo de parágrafos nos posts */
 .post-resumo p {
     font-size: 30px;
     color: #444;
     line-height: 1.5;
 }
 
-/* Botão Seguir */
+/* Botão de seguir */
 button.seguir-btn {
     font-size: 13px;
     background-color: #535353;
@@ -769,50 +812,55 @@ button.seguir-btn {
     margin-top: 10px;
 }
 
+/* Efeito hover no botão seguir */
 button.seguir-btn:hover {
     background-color: #ffffff;
 }
 
-
-.iconc{
+/* Ícones pequenos */
+.iconc {
     width: 30px;
     height: 30px;
     vertical-align: middle;
-    margin-top: 10px; /* Ajuste o valor conforme necessário */
+    margin-top: 10px;
 }
 
-
+/* Margem à esquerda dos detalhes de post */
 .detalhes-post {
-    margin-left: 200px; /* Ajuste o valor conforme necessário */
+    margin-left: 200px;
 }
 
-.cont_post{
+/* Margem à esquerda de conteúdo de post */
+.cont_post {
     margin-left: 45px;
 }
 
-#contador-contas{
+/* Estilo do contador de contas */
+#contador-contas {
     text-decoration: none;
     font-size: 30px;
     color: rgb(0, 0, 0);
 }
 
+/* Links para abrir/fechar respostas */
 .resposta-toggle-link {
     color: black;
     text-decoration: none;
 }
 
+/* Estilo para links de resposta já visitados */
 .resposta-toggle-link:visited {
     color: black;
 }
 
-
-
-#conte{
+/* Estilo do título "Conteúdo" */
+#conte {
     font-size: 45px;
     text-align: center;
     color: rgb(0, 0, 0);
 }
 
+/* Container da página Sobre */
 .sobre {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
@@ -823,37 +871,42 @@ button.seguir-btn:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Cabeçalho da página Sobre */
 .sobre-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* Título principal da página Sobre */
 .sobre-header h1 {
     font-size: 2.5em;
     color: #333;
 }
 
+/* Subtítulo da página Sobre */
 .sobre-header .subtitulo {
     font-size: 1.2em;
     color: #777;
 }
 
+/* Conteúdo da página Sobre */
 .sobre-conteudo {
     line-height: 1.6;
     color: #555;
 }
 
+/* Parágrafos do conteúdo Sobre */
 .sobre-conteudo p {
-    margin-bottom: 1.2em; /* espaçamento entre parágrafos */
+    margin-bottom: 1.2em;
 }
 
-/* Para destacar trechos no lugar do <strong> */
+/* Destaques em azul no conteúdo Sobre */
 .sobre-conteudo .destaque {
-    color: #0077cc; /* cor personalizada */
+    color: #0077cc;
     font-weight: bold;
 }
 
-/* Blockquote com estilo */
+/* Estilo de citações no conteúdo Sobre */
 .sobre-conteudo blockquote {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
@@ -863,41 +916,38 @@ button.seguir-btn:hover {
     font-style: italic;
 }
 
-
+/* Lista de redes sociais */
 .redes-sociais {
     list-style: none;
     padding: 0;
 }
 
+/* Itens da lista de redes sociais */
 .redes-sociais li {
     display: inline;
     margin: 0 10px;
 }
 
+/* Links das redes sociais */
 .redes-sociais li a {
     text-decoration: none;
     color: #0073e6;
     font-size: 1.2em;
 }
 
+/* Efeito hover nos links de redes sociais */
 .redes-sociais li a:hover {
     text-decoration: underline;
 }
-.post-resumo {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-}
 
+/* Imagens dos posts no resumo */
 .post-resumo img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
 }
 
-
-/*NOVOPOST*/
-
+/* Formulário para criar novo post */
 #form-novo-post {
     margin-top: 100px;
     max-width: 1500px;
@@ -908,6 +958,7 @@ button.seguir-btn:hover {
     font-family: 'Arial', sans-serif;
 }
 
+/* Título do formulário de novo post */
 #form-novo-post h2 {
     font-size: 24px;
     text-align: center;
@@ -915,10 +966,12 @@ button.seguir-btn:hover {
     margin-bottom: 20px;
 }
 
+/* Campo individual no formulário */
 #form-novo-post .campo-form {
     margin-bottom: 20px;
 }
 
+/* Label dos campos do formulário */
 #form-novo-post .label-form {
     display: block;
     font-size: 16px;
@@ -927,6 +980,7 @@ button.seguir-btn:hover {
     text-align: left !important;
 }
 
+/* Inputs, textareas, selects e upload de arquivos no formulário */
 #form-novo-post input[type="text"],
 #form-novo-post textarea,
 #form-novo-post select,
@@ -939,12 +993,14 @@ button.seguir-btn:hover {
     box-sizing: border-box;
 }
 
+/* Estilo específico para textarea */
 #form-novo-post textarea {
     min-height: 150px;
     resize: vertical;
     background-color: #f0f0f0;
 }
 
+/* Botão de enviar do formulário */
 #form-novo-post button[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -958,20 +1014,24 @@ button.seguir-btn:hover {
     box-sizing: border-box;
 }
 
+/* Efeito hover no botão enviar */
 #form-novo-post button[type="submit"]:hover {
     background-color: #535353;
 }
 
+/* Container da prévia da imagem */
 #form-novo-post .preview-container {
     text-align: center;
     margin-top: 20px;
 }
 
+/* Label da prévia da imagem */
 #form-novo-post .preview-label {
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+/* Imagem da prévia */
 #form-novo-post .preview-image {
     display: block;
     margin: 0 auto;
@@ -981,11 +1041,30 @@ button.seguir-btn:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.campo-forma{
+.preview-container {
+    max-width: 600px; /* Limita a largura do container da imagem */
+    margin: 20px auto; /* Centraliza */
+    padding: 10px;
+    background-color: #222; /* Opcional: fundo para destacar a imagem */
+    border-radius: 10px;
+}
+
+.preview-container img {
+    width: 100%; /* Imagem ocupa 100% do container */
+    height: auto;
+    border: 3px solid #555; /* Borda cinza escura */
+    border-radius: 10px; /* Bordas arredondadas */
+    display: block;
+    object-fit: contain; /* Mantém proporção da imagem */
+}
+
+/* Ajuste de alinhamento nos campos */
+.campo-forma {
     justify-items: center;
 }
 
-.custom-file-uploade{
+/* Estilo personalizado para botão de upload de arquivo */
+.custom-file-uploade {
     display: inline-block;
     padding: 10px 20px;
     background-color: #535353;
@@ -1001,55 +1080,56 @@ button.seguir-btn:hover {
     box-sizing: border-box;
 }
 
+/* Estilo do botão de upload de arquivos no formulário de novo post ao passar o mouse */
 #form-novo-post .custom-file-upload:hover {
     background-color: #535353;
 }
 
+/* Esconde o input real de upload de arquivo */
 #form-novo-post input[type="file"] {
     display: none;
 }
 
-/* ---------- Buscar Usuários ---------- */
-
-/* Container principal da busca */
-/* container e título (inalterado) */
+/* Container principal da busca de usuários */
 .buscar-usuarios-container {
     max-width: 600px;
     margin: 40px auto;
     padding: 0 20px;
-  }
-  .buscar-usuarios-titulo {
+}
+
+/* Título da seção de busca de usuários */
+.buscar-usuarios-titulo {
     font-size: 1.8rem;
     text-align: center;
     margin-bottom: 20px;
-  }
-  
-  /* wrapper do campo + lupa */
-  .campo-busca-wrapper {
+}
+
+/* Wrapper do campo de busca */
+.campo-busca-wrapper {
     position: relative;
     width: 100%;
     max-width: 500px;
     margin: 0 auto 30px;
-  }
-  
-  /* o próprio input de texto */
-  .campo-busca {
+}
+
+/* Campo de entrada da busca de usuários */
+.campo-busca {
     width: 100%;
-    padding: 10px 45px 10px 15px;  /* espaço p/ a lupa */
+    padding: 10px 45px 10px 15px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 25px;
     outline: none;
     transition: border-color 0.2s;
-  }
-  
-  /* foco no input */
-  .campo-busca:focus {
+}
+
+/* Cor da borda muda quando o campo de busca está focado */
+.campo-busca:focus {
     border-color: #666;
-  }
-  
-  /* lupa clicável */
-  .lupa-img {
+}
+
+/* Ícone da lupa dentro do campo de busca */
+.lupa-img {
     position: absolute;
     top: 50%;
     right: 12px;
@@ -1060,52 +1140,55 @@ button.seguir-btn:hover {
     background: none;
     border: none;
     padding: 0;
-  }
-  
-  /* ================================
-     Lista de usuários (inalterado)
-     ================================ */
-  #buscar-usuarios-lista {
+}
+
+/* Lista de usuários buscados */
+#buscar-usuarios-lista {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .buscar-usuarios-item {
+}
+
+/* Item individual da lista de usuários */
+.buscar-usuarios-item {
     display: flex;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #717070;  /* <<< ESSA LINHA */
+    border-bottom: 1px solid #717070;
 }
-  
-  .buscar-usuarios-item .buscar-usuarios-foto {
+
+/* Foto do usuário na lista de busca */
+.buscar-usuarios-item .buscar-usuarios-foto {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
-  }
-  
-  .buscar-usuarios-link {
+}
+
+/* Link do nome do usuário na busca */
+.buscar-usuarios-link {
     font-weight: 500;
     text-decoration: none;
     color: #000;
-  }
-  
-  .buscar-usuarios-link:hover {
-    text-decoration: underline;
-  }
+}
 
-  .campo-busca-wrapper {
+/* Estilo do link ao passar o mouse */
+.buscar-usuarios-link:hover {
+    text-decoration: underline;
+}
+
+/* Ajuste adicional no wrapper do campo de busca */
+.campo-busca-wrapper {
     background: transparent;
     border: none;
     box-shadow: none;
     padding: 0;
     margin: 0 auto 30px;
-  }
-  
-  /* o próprio input de texto */
-  .campo-busca {
+}
+
+/* Campo de busca (repetido) */
+.campo-busca {
     width: 100%;
     padding: 10px 45px 10px 15px;
     font-size: 16px;
@@ -1113,41 +1196,45 @@ button.seguir-btn:hover {
     border-radius: 25px;
     outline: none;
     transition: border-color 0.2s;
-  }
-  
-  /* lupa clicável */
-  .lupa-img {
+}
+
+/* Ícone da lupa (ajuste de posição e tamanho) */
+.lupa-img {
     position: absolute;
-    top: 48%; /* <--- Sobe um pouquinho (antes tava 50%) */
+    top: 48%;
     right: 12px;
     transform: translateY(-80%);
-    width: 18px; /* ajustei tamanho para combinar melhor */
+    width: 18px;
     height: 18px;
     cursor: pointer;
     background: none;
     border: none;
     padding: 0;
-  }
+}
 
-  .buscar-usuarios-form {
-    background: transparent; /* ou mesma cor do body */
+/* Formulário de busca com estilo transparente */
+.buscar-usuarios-form {
+    background: transparent;
     border: none;
-    box-shadow: none; /* se tiver sombra */
-  }
-  
+    box-shadow: none;
+}
 
+/* --- Notificações --- */
 
+/* Título da seção de notificações */
 #notificacoes-title {
   font-size: 24px;
   color: #333333;
   margin-bottom: 10px;
 }
 
+/* Lista de notificações sem marcadores */
 #notificacoes-list {
   list-style-type: none;
   padding: 0;
 }
 
+/* Estilo de cada notificação */
 .notificacao {
   margin-bottom: 8px;
   padding: 10px;
@@ -1157,12 +1244,14 @@ button.seguir-btn:hover {
   align-items: center;
 }
 
+/* Cabeçalho da notificação */
 .notificacao-header {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
+/* Foto do usuário dentro da notificação */
 .notificacao-foto {
   width: 40px;
   height: 40px;
@@ -1170,73 +1259,89 @@ button.seguir-btn:hover {
   margin-right: 10px;
 }
 
+/* Nome do usuário na notificação */
 .notificacao-usuario {
   font-weight: bold;
   margin-right: 10px;
 }
 
+/* Link na notificação */
 .notificacao-link {
   color: #007bff;
   text-decoration: none;
 }
 
+/* Hover no link da notificação */
 .notificacao-link:hover {
   text-decoration: underline;
 }
 
+/* Status de notificação (ex: nova mensagem) */
 .notificacao-status {
-  color: #e74c3c; 
+  color: #e74c3c;
   font-weight: bold;
 }
 
+/* Mensagem exibida quando não há notificações */
 #no-notifications-msg {
   font-size: 18px;
   color: #999;
 }
 
+/* --- Perfil de Usuário --- */
+
+/* Foto de perfil */
 #perfil-foto {
-    width: 150px;  /* Tamanho fixo para a foto */
-    height: 150px;  /* Altura para dar forma oval */
-    border-radius: 50%;  /* Ajuste suave para oval */
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
     object-fit: cover;
 }
 
+/* Título principal do perfil */
 #perfil-titulo {
     font-size: 28px;
     color: #333;
     margin: 20px 0;
 }
 
+/* Nome do usuário autenticado ou visitante */
 #perfil-usuario-auth, #perfil-usuario-guest {
     font-size: 16px;
     color: #555;
 }
 
+/* Links no perfil (seguindo, login, logout, cadastro) */
 #perfil-usuario-link, #perfil-logout, #perfil-login, #perfil-cadastro {
     color: #007bff;
     text-decoration: none;
 }
 
+/* Efeito hover nos links */
 #perfil-usuario-link:hover, #perfil-logout:hover, #perfil-login:hover, #perfil-cadastro:hover {
     text-decoration: underline;
 }
 
+/* Biografia do usuário */
 #perfil-bio {
     font-size: 18px;
     margin: 20px 0;
     color: #555;
 }
 
+/* Seção de seguidores */
 #perfil-seguidores {
     font-size: 18px;
     margin-top: 20px;
     color: #333;
 }
 
+/* Parágrafos dentro da seção de seguidores */
 #perfil-seguidores p {
     margin: 5px 0;
 }
 
+/* Link para editar a biografia */
 #perfil-editar-bio {
     font-size: 16px;
     color: #007bff;
@@ -1244,14 +1349,17 @@ button.seguir-btn:hover {
     display: block;
 }
 
+/* Hover no link de editar biografia */
 #perfil-editar-bio:hover {
     text-decoration: underline;
 }
 
+/* Formulário de seguir usuário */
 #perfil-form-seguir {
     margin-top: 20px;
 }
 
+/* Botão de seguir */
 #perfil-botao-seguir {
     background-color: #272c27;
     color: white;
@@ -1263,38 +1371,36 @@ button.seguir-btn:hover {
     transition: background-color 0.3s ease;
 }
 
+/* Hover no botão de seguir */
 #perfil-botao-seguir:hover {
     background-color: #212621;
 }
 
-/* ======= FOTO DE PERFIL ======= */
-
-
-
-
-/* ======= POSTAGEM E LISTA DE POSTS ======= */
+/* Lista de posts do usuário */
 #perfil-posts-lista {
     margin-top: 40px;
 }
 
+/* Título da lista de posts */
 #perfil-posts-titulo {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
 }
 
+/* Mensagem quando não há posts */
 #perfil-sem-posts {
     font-size: 18px;
     color: #777;
 }
 
-/* ======= ESTILOS DE SEPARADOR ======= */
+/* Linha separadora no perfil */
 #perfil-separador {
     margin-top: 30px;
     border: 1px solid #ddd;
 }
 
-/* ======= RESPONSIVO (Mobile) ======= */
+/* Responsividade para telas menores que 600px */
 @media (max-width: 600px) {
     #perfil-titulo {
         font-size: 24px;
@@ -1322,14 +1428,16 @@ button.seguir-btn:hover {
     }
 }
 
-/* Estilo para o título da página de edição de perfil */
+/* --- Editar Perfil --- */
+
+/* Título da página de editar perfil */
 #editar-perfil-titulo {
     font-size: 2rem;
     margin-bottom: 20px;
     text-align: center;
 }
 
-/* Estilos para o formulário de edição */
+/* Formulário de edição de perfil */
 #form-editar-perfil {
     max-width: 600px;
     margin: 0 auto;
@@ -1339,14 +1447,14 @@ button.seguir-btn:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para os rótulos dos campos */
+/* Labels do formulário de edição */
 #label-bio, #label-foto {
     font-size: 18px;
     margin-bottom: 10px;
     display: inline-block;
 }
 
-/* Estilo para o campo de texto da bio */
+/* Área de texto da biografia */
 #bio-textarea {
     width: 100%;
     padding: 8px;
@@ -1355,10 +1463,10 @@ button.seguir-btn:hover {
     font-size: 16px;
 }
 
-/* Estilo para a imagem de perfil */
+/* Foto atual exibida no formulário */
 #foto-atual {
     display: block;
-    margin: 0 auto 15px; 
+    margin: 0 auto 15px;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -1367,13 +1475,13 @@ button.seguir-btn:hover {
     margin-bottom: 15px;
 }
 
-/* Estilo para o campo de upload de foto */
+/* Campo de upload de foto */
 #foto-input {
     display: block;
     margin-top: 10px;
 }
 
-/* Estilo para o botão de salvar */
+/* Botão para salvar alterações */
 #botao-salvar {
     background-color: #000000;
     color: white;
@@ -1389,11 +1497,12 @@ button.seguir-btn:hover {
     margin-right: auto;
 }
 
+/* Hover no botão salvar */
 #botao-salvar:hover {
     background-color: #262b27;
 }
 
-/* Estilo para o link de voltar ao perfil */
+/* Link para voltar ao perfil */
 #voltar-perfil {
     display: inline-block;
     margin-top: 20px;
@@ -1403,17 +1512,21 @@ button.seguir-btn:hover {
     text-align: center;
 }
 
+/* Hover no link de voltar */
 #voltar-perfil:hover {
     text-decoration: underline;
 }
+
+/* Container para centralizar a imagem de upload */
 .container-imagem-upload {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* Isso aqui garante que a div ocupa toda a largura disponível */
+    width: 100%;
     margin-bottom: 16px;
 }
 
+/* Estilo customizado do botão de upload */
 .custom-file-upload {
     background-color: #000000;
     color: white;
@@ -1426,6 +1539,7 @@ button.seguir-btn:hover {
     text-align: center;
 }
 
+/* Wrapper da foto de perfil */
 .foto-perfil-wrapper {
     width: 100px;
     height: 100px;
@@ -1438,6 +1552,7 @@ button.seguir-btn:hover {
     background-color: transparent;
 }
 
+/* Ícone/foto dentro do wrapper */
 .perfil-icon {
     width: 100%;
     height: 100%;
@@ -1446,13 +1561,13 @@ button.seguir-btn:hover {
     display: block;
 }
 
-
-
+/* Esconde novamente o input de foto */
 #foto-input {
     display: none;
 }
 
-#perfil-form-seguir {
+/* Estilos extras para formulários de seguir e botão de voltar sem aparência de formulário */
+#perfil-form-seguir, .seguir-form, .voltarfor {
     background: none !important;
     box-shadow: none !important;
     border: none !important;
@@ -1460,22 +1575,9 @@ button.seguir-btn:hover {
     margin: 0 !important;
 }
 
-.seguir-form {
-    background: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
+/* --- Página VXKZZ (provavelmente login, cadastro ou algo similar) --- */
 
-.voltarfor{
-    background: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-/*///////////////////////*/
+/* Estilo geral do corpo da página */
 .vxkzz-body {
     margin: 0;
     padding: 0;
@@ -1485,63 +1587,71 @@ button.seguir-btn:hover {
     align-items: center;
     justify-content: center;
     height: 100vh;
-  }
-  
-  .vxkzz-container {
+}
+
+/* Container principal da página VXKZZ */
+.vxkzz-container {
     width: 100%;
     max-width: 400px;
     padding: 20px;
-  }
-  
-  .vxkzz-card {
+}
+
+/* Cartão de conteúdo (formulário, etc) */
+.vxkzz-card {
     background: #fff;
     border-radius: 12px;
     padding: 30px 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-  }
-  
-  .vxkzz-title {
+}
+
+/* Título principal do cartão */
+.vxkzz-title {
     font-size: 1.5rem;
     margin-bottom: 10px;
     color: #222;
-  }
-  
-  .vxkzz-subtitle {
+}
+
+/* Subtítulo do cartão */
+.vxkzz-subtitle {
     font-size: 0.95rem;
     color: #666;
     margin-bottom: 25px;
-  }
-  
-  .vxkzz-form {
+}
+
+/* Formulário dentro do cartão */
+.vxkzz-form {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-  }
-  
-  .vxkzz-label {
+}
+/* Estilo para labels de formulários */
+.vxkzz-label {
     text-align: left;
     font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 6px;
     color: #333;
-  }
-  
-  .vxkzz-input {
+}
+
+/* Estilo para inputs de formulários */
+.vxkzz-input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;
     margin-bottom: 20px;
     transition: border 0.3s;
-  }
-  
-  .vxkzz-input:focus {
+}
+
+/* Estilo ao focar no input */
+.vxkzz-input:focus {
     border-color: #007bff;
     outline: none;
-  }
-  
-  .vxkzz-button {
+}
+
+/* Estilo para botões de formulários */
+.vxkzz-button {
     background-color: #333;
     color: white;
     border: none;
@@ -1551,64 +1661,73 @@ button.seguir-btn:hover {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .vxkzz-button:hover {
+}
+
+/* Hover nos botões de formulários */
+.vxkzz-button:hover {
     background-color: #555;
-  }
-  
-/*///////////////////////*/
-/* Estilo para o título do post */
+}
+
+/* Título principal da postagem */
 .post-titulo {
     font-size: 2.5rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
-/* Estilo para informações do autor e categoria */
+/* Estilo para autor e categoria da postagem */
 .post-autor, .post-categoria {
     font-size: 1rem;
     color: #555;
 }
 
-/* Estilo para conteúdo do post */
+/* Estilo do conteúdo do post */
 .post-conteudo {
     font-size: 1.2rem;
     line-height: 1.6;
     margin-top: 20px;
 }
 
-/* Estilo para a data de publicação */
+/* Data de publicação do post */
 .post-data-publicacao {
     font-size: 0.9rem;
     color: #777;
 }
 
-/* Estilo para as opções de edição (visível apenas para o autor) */
+/* Estilo para links de edição do post */
 .opcoes-edicao a {
     color: #007BFF;
     text-decoration: none;
     margin-right: 10px;
 }
 
-/* Estilo para a imagem do post */
+/* Imagem da postagem */
 .imagem-post {
     display: block;
     margin: 20px auto;
     width: 100%;
-    max-width: 1000px; /* ou o tamanho real da imagem */
+    max-width: 1000px;
     height: auto;
     border-radius: 8px;
-    image-rendering: auto; /* ou high-quality se precisar */
+    image-rendering: auto;
 }
-/* Estilo para o container de curtidas */
+
+/* Container de curtidas */
 .curtidas-container {
     margin-top: 20px;
-    text-align: left; /* Alinha o conteúdo à esquerda */
+    text-align: left;
+}
+
+.divducomen span {
+    font-size: 20px; /* tamanho do número */
+    font-weight: bold; /* deixa o número mais "forte" */
+    position: relative;
+    top: 5px; /* desce o número levemente */
 }
 
 
-/* Linha divisória entre post e comentários */
+
+/* Divisor entre post e comentários */
 .divisor-post-comentarios {
     border: none;
     border-top: 1px solid #ddd;
@@ -1623,31 +1742,31 @@ button.seguir-btn:hover {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Cada comentário */
+/* Estilo individual de cada comentário */
 .comentario {
     background-color: #f9f9f9;
-    border: 1px solid #ccc; /* <-- cor da borda mais escura */
+    border: 1px solid #ccc;
     border-radius: 6px;
     padding: 15px;
     margin-bottom: 20px;
     position: relative;
 }
 
-/* Respostas dentro do comentário */
+/* Respostas dentro dos comentários */
 .respostas-dentro-borda {
     margin-top: 15px;
     padding-left: 20px;
-    border-left: 2px solid #bbb; /* também um tom mais escuro */
+    border-left: 2px solid #bbb;
 }
 
-/* Usuário do comentário */
+/* Nome do autor do comentário */
 .texto-comentario-usuario {
     font-weight: 600;
     margin-bottom: 5px;
     color: #333;
 }
 
-/* Conteúdo do comentário */
+/* Texto do comentário */
 .texto-comentario-conteudo {
     font-size: 1rem;
     margin-bottom: 8px;
@@ -1660,7 +1779,7 @@ button.seguir-btn:hover {
     color: #999;
 }
 
-/* Links de edição e exclusão */
+/* Opções de edição no comentário */
 .comentario-edicao a {
     font-size: 0.9rem;
     color: #555;
@@ -1669,12 +1788,13 @@ button.seguir-btn:hover {
     font-weight: 500;
 }
 
+/* Hover nas opções de edição */
 .comentario-edicao a:hover {
     text-decoration: underline;
     color: #222;
 }
 
-/* Link de responder */
+/* Link para responder comentário */
 .responder-link {
     color: #555;
     font-weight: 500;
@@ -1682,37 +1802,32 @@ button.seguir-btn:hover {
     text-decoration: none;
 }
 
+/* Hover no link de resposta */
 .responder-link:hover {
     text-decoration: underline;
     color: #222;
 }
 
-
-
-/* Formulário principal */
+/* Container do comentário principal */
 .comentario-principal-container {
     margin-top: 30px;
 }
 
-/* Título do formulário */
+/* Título da seção de adicionar comentário */
 .adicionar-comentario-titulo {
     font-size: 1.3rem;
     margin-bottom: 10px;
     color: #333;
 }
 
-/* Formulários */
-
-
+/* Formulário de adicionar comentário */
 .form-comentario {
     padding: 15px;
     background-color: #ff0000;
     border-radius: 8px;
 }
 
-
-
-/* Botões */
+/* Botões de comentar e responder */
 .botao-comentar,
 .botao-enviar-resposta {
     background-color: #dd0000;
@@ -1725,61 +1840,60 @@ button.seguir-btn:hover {
     transition: background-color 0.3s;
 }
 
+/* Hover dos botões de comentário */
 .botao-comentar:hover,
 .botao-enviar-resposta:hover {
     background-color: #333;
 }
 
-/* Login aviso */
+/* Link para login se necessário para comentar */
 .login-para-comentar a {
     color: #555;
     font-weight: 500;
     text-decoration: none;
 }
 
+/* Hover no link de login */
 .login-para-comentar a:hover {
     text-decoration: underline;
 }
 
-/* Estilo para o link de voltar */
-/* Estilo para o link de voltar */
-/* Estilo para o link de voltar */
+/* Botão de voltar na página */
 .voltarfor .voltar-home {
     font-size: 1.2rem;
-    color: #007BFF !important; /* Cor azul */
-    text-decoration: none; /* Retira o sublinhado */
+    color: #007BFF !important;
+    text-decoration: none;
     padding: 10px 20px;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s; /* Efeito de transição */
+    transition: background-color 0.3s, color 0.3s;
 }
 
+/* Hover no botão de voltar */
 .voltarfor .voltar-home:hover {
-    background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
-    color: #fefefe; /* Cor mais escura ao passar o mouse */
+    background-color: #f0f0f0;
+    color: #fefefe;
 }
 
+/* Foco no botão de voltar */
 .voltarfor .voltar-home:focus {
-    outline: none; /* Remove o contorno padrão ao focar no link */
-    background-color: #e0e0e0; /* Cor de fundo ao focar */
+    outline: none;
+    background-color: #e0e0e0;
 }
 
+/* Esconder labels dentro do form de comentários */
 .form-comentario label {
     display: none;
 }
 
-/* Quebra de linha para textos longos */
-.post-conteudo, .comentario p, .form-comentario textarea {
-    word-break: break-word; /* Quebra as palavras longas */
-    overflow-wrap: break-word; /* Garante que o texto seja quebrado corretamente */
-    white-space: normal;  /* Permite que o texto se quebre ao atingir o limite */
-}
-/* Quebra de linha para o conteúdo do comentário */
+/* Quebra de linha e normalização de espaços no texto de posts e comentários */
+.post-conteudo, .comentario p, .form-comentario textarea,
 .comentario-conteudo {
-    word-break: break-word; /* Quebra palavras longas */
-    overflow-wrap: break-word; /* Garante que o texto seja quebrado corretamente */
-    white-space: normal;  /* Permite que o texto se quebre ao atingir o limite */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
+/* Formulário de exclusão sem estilização */
 .formdelete {
     background: none !important;
     box-shadow: none !important;
@@ -1788,14 +1902,13 @@ button.seguir-btn:hover {
     margin: 0 !important;
 }
 
-
-
+/* Título da seção de comentários */
 .comentarios-titulo {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-
+/* Comentário individual - versão duplicada (atenção: está repetido no seu código) */
 .comentario {
     background-color: #f9f9f9;
     padding: 15px;
@@ -1803,23 +1916,28 @@ button.seguir-btn:hover {
     border-radius: 10px;
 }
 
+/* Texto interno dos comentários */
 .comentario p {
     margin: 5px 0;
 }
 
+/* Edição de comentários */
 .comentario-edicao {
     font-size: 14px;
     margin-top: 5px;
 }
 
-.text32{
+/* Margem em textos */
+.text32 {
     margin-top: 20px;
 }
 
+/* Container principal do comentário */
 .comentario-principal-container {
     margin-top: 20px;
 }
 
+/* Área de texto no formulário de comentário */
 .form-comentario textarea {
     width: 100%;
     height: 100px;
@@ -1830,6 +1948,7 @@ button.seguir-btn:hover {
     border: 1px solid #ccc;
 }
 
+/* Botão de comentar */
 .botao-comentar {
     background-color: #444;
     color: #fff;
@@ -1840,11 +1959,12 @@ button.seguir-btn:hover {
     cursor: pointer;
 }
 
+/* Hover do botão comentar */
 .botao-comentar:hover {
     background-color: #666;
 }
 
-
+/* Estilo dos detalhes da página de post */
 .texto-detalhes-nome {
     font-size: 45px;
     color: #000000;
@@ -1873,6 +1993,7 @@ button.seguir-btn:hover {
     margin-left: 17px;
 }
 
+/* Botões de editar e excluir */
 .btn-edicao,
 .btn-excluir {
     padding: 8px 16px;
@@ -1884,18 +2005,7 @@ button.seguir-btn:hover {
     transition: background-color 0.3s;
 }
 
-
-
-
-
-
-
-/*MODO DARK*/
-
-/* ======= BOTÃO DE TEMA (modo claro/escuro) ======= */
-/* ======= BOTÃO DE TEMA (modo claro/escuro) ======= */
-/* Estilo do botão de tema (modo claro/escuro) */
-/* Estilos para o botão de tema (modo claro/escuro) */
+/* Botão de alternar modo claro/escuro */
 .trilho {
     width: 50px;
     height: 20px;
@@ -1905,9 +2015,10 @@ button.seguir-btn:hover {
     right: 20px;
     top: 35%;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Transição suave */
+    transition: background-color 0.3s ease;
 }
 
+/* Indicador do trilho */
 .trilho .indicador {
     width: 20px;
     height: 20px;
@@ -1920,33 +2031,34 @@ button.seguir-btn:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: left 0.5s ease, background-color 0.3s ease; /* Transição suave */
+    transition: left 0.5s ease, background-color 0.3s ease;
 }
 
+/* Trilho no modo escuro */
 .trilho.dark {
     background-color: #000000;
 }
 
+/* Indicador no modo escuro */
 .trilho.dark .indicador {
     left: 30px;
     background-color: black;
 }
 
+/* Estilo da imagem do indicador */
 .trilho .indicador img {
     width: 18px;
     height: 21px;
 }
 
-/* Estilos para o corpo */
+/* Estilo do modo claro */
 body.light {
     background-color: #ffffff;
     color: #000000;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
-
-/* Remove o efeito de contorno (outline), sombra (box-shadow) e fundo (background) */
+/* Estilos gerais da sidebar */
 .sidebar-right ul li a,
 .sidebar-right ul li a:focus,
 .sidebar-right ul li a:active {
@@ -1955,7 +2067,7 @@ body.light {
     box-shadow: none !important;
 }
 
-/* Remove qualquer estilo em <li> quando clicado ou focado */
+/* Remover efeitos em links da sidebar */
 .sidebar-right ul li:focus,
 .sidebar-right ul li:active {
     outline: none !important;
@@ -1963,15 +2075,12 @@ body.light {
     box-shadow: none !important;
 }
 
-/* Se o problema for em links em dispositivos móveis, remove highlight de toque */
+/* Remover destaque ao tocar nos links em mobile */
 .sidebar-right ul li a {
-    -webkit-tap-highlight-color: transparent !important; /* Mobile */
+    -webkit-tap-highlight-color: transparent !important;
 }
 
-
-
-
-/* Estilo para os campos de entrada e textarea */
+/* Estilo geral de formulários */
 form input[type="text"],
 form textarea,
 form select {
@@ -1983,7 +2092,7 @@ form select {
     box-sizing: border-box;
 }
 
-/* Estilo para o botão de submissão */
+/* Estilo para botões de envio de formulários */
 form button[type="submit"] {
     background-color: #535353;
     color: white;
@@ -1993,13 +2102,12 @@ form button[type="submit"] {
     cursor: pointer;
 }
 
-
+/* Hover no botão submit */
 form button[type="submit"]:hover {
     background-color: #343c35;
 }
 
-
-/* Estilos específicos para a página inicial */
+/* Página inicial - container de posts */
 .pagina-inicial #posts-container {
     display: flex;
     flex-direction: column;
@@ -2007,6 +2115,7 @@ form button[type="submit"]:hover {
     margin-top: 20px;
 }
 
+/* Postagem resumida na página inicial */
 .pagina-inicial .post-resumo {
     background-color: #db0000;
     border: 1px solid #ddd;
@@ -2014,12 +2123,14 @@ form button[type="submit"]:hover {
     border-radius: 5px;
 }
 
+/* Título de post resumido */
 .pagina-inicial .post-resumo h3 {
     margin-top: 0;
     font-size: 22px;
     color: #222;
 }
 
+/* Links dentro do resumo de post */
 .pagina-inicial .post-resumo h3 a {
     text-decoration: none;
     color: #ffffff;
@@ -2029,16 +2140,19 @@ form button[type="submit"]:hover {
     text-decoration: underline;
 }
 
+/* Texto do resumo de post */
 .pagina-inicial .post-resumo p {
     color: #555;
     margin: 10px 0;
 }
 
+/* Texto pequeno no resumo */
 .pagina-inicial .post-resumo small {
     color: #999;
     font-size: 12px;
 }
 
+/* Loader de carregamento */
 .pagina-inicial #loader {
     text-align: center;
     margin-top: 20px;
@@ -2046,7 +2160,7 @@ form button[type="submit"]:hover {
     font-style: italic;
 }
 
-/* Estilos específicos para a página de redefinição de senha */
+/* Página de redefinir senha */
 .pagina-redefinir-senha .container {
     max-width: 600px;
     margin: 40px auto;
@@ -2057,18 +2171,21 @@ form button[type="submit"]:hover {
     font-family: Arial, sans-serif;
 }
 
+/* Título da página de redefinir senha */
 .pagina-redefinir-senha h2 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
 }
 
+/* Texto da página de redefinir senha */
 .pagina-redefinir-senha p {
     font-size: 16px;
     color: #555;
     margin-bottom: 15px;
 }
 
+/* Links da página de redefinir senha */
 .pagina-redefinir-senha a {
     color: #ffffff;
     text-decoration: none;
@@ -2079,88 +2196,74 @@ form button[type="submit"]:hover {
     text-decoration: underline;
 }
 
-
-/* A animação de pulsar deve afetar o tamanho e a sombra da imagem, mas sem alterar a cor */
+/* Botão de curtir pulsando */
 .curtir-btn.pulsar img {
     transform: scale(1.3);
     transition: transform 0.3s ease;
-    filter: drop-shadow(0 0 5px red) !important; /* Aplica sombra vermelha, sem afetar a cor */
+    filter: drop-shadow(0 0 5px red) !important;
 }
 
-/* No modo claro, a imagem "like.png" deve ficar inalterada (preta) */
-.curtir-btn img[src*="like.png"] {
+/* Estilos de imagem para curtir/descurtir */
+.curtir-btn img[src*="like.png"],
+.curtir-btn img[src*="vermelho.png"] {
     filter: none !important;
 }
 
-/* Estilo para a imagem de "vermelho.png" não ser alterada */
-.curtir-btn img[src*="vermelho.png"] {
-    filter: none !important; /* Garante que não altere a cor */
-}
-
-/* Quando o botão de curtir é desfeito (descurtir), mantém a cor original sem alterações */
 .curtir-btn.descurtir img {
     transform: scale(0.8);
-    filter: none !important; /* Não aplica filtro */
+    filter: none !important;
 }
 
-/* Tamanho e posicionamento das imagens de curtir */
+/* Imagens dentro do botão de curtir */
 .curtir-btn img {
     width: 40px;
     height: 40px;
     vertical-align: middle;
     margin-left: 45px;
-    transition: transform 0.3s ease, filter 0.3s ease; /* Transição suave */
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-/* Estilo do botão de curtir */
+/* Botão de curtir */
 .curtir-btn {
     all: unset;
     cursor: pointer;
-    margin-left: -33px; /* Ajuste do botão */
+    margin-left: -33px;
 }
+
+/* Hover no botão de curtir */
 .curtir-btn:hover {
     background: none;
     filter: none;
 }
 
-/* Animação de pulsar com sombra vermelha */
-.curtir-btn.pulsar img {
-    transform: scale(1.3);
-    filter: drop-shadow(0 0 5px red); /* Aplica a sombra vermelha */
-}
-
-/* Efeito de descurtir, com redução de brilho */
-.curtir-btn.descurtir img {
-    transform: scale(0.8);
-    filter: brightness(0.7); /* Reduz o brilho */
-}
-
-
-#perfil-bio{
+/* Bio do perfil */
+#perfil-bio {
     white-space: pre-line;
 }
-
-
-/* SCROLLBAR BASE - TEMA CLARO */
+/* Personalização da barra de rolagem padrão */
 .scrollbase::-webkit-scrollbar {
     width: 12px;
     background-color: transparent;
 }
 
+/* Fundo da trilha da barra de rolagem */
 .scrollbase::-webkit-scrollbar-track {
-    background-color: #f0f0f0; /* fundo do scroll no claro */
+    background-color: #f0f0f0;
 }
 
+/* Estilo da "alça" da barra de rolagem */
 .scrollbase::-webkit-scrollbar-thumb {
     background-color: #bbb;
     border-radius: 10px;
 }
 
+/* Botões da barra de rolagem */
 .scrollbase::-webkit-scrollbar-button {
     background-color: #f0f0f0;
     height: 10px;
 }
 
+/* Botão de editar perfil */
 #perfil-botao-editar {
     display: inline-block;
     background-color: #007bff;
@@ -2173,12 +2276,14 @@ form button[type="submit"]:hover {
     margin-top: 10px;
 }
 
+/* Efeito hover no botão de editar perfil */
 #perfil-botao-editar:hover {
     background-color: #0056b3;
 }
 
+/* Ícone de perfil na sidebar */
 .sidebar .icon.perfil-icon {
-    width: 70px; /* aumenta o tamanho */
+    width: 70px;
     height: 70px;
     border-radius: 50%;
     object-fit: cover;
@@ -2186,10 +2291,12 @@ form button[type="submit"]:hover {
     transition: transform 0.2s ease;
 }
 
+/* Efeito hover no ícone de perfil */
 .sidebar .icon.perfil-icon:hover {
     transform: scale(1.05);
 }
 
+/* Botão para remover foto de perfil */
 #botao-remover-foto {
     background-color: #231f1f;
     color: white;
@@ -2201,39 +2308,45 @@ form button[type="submit"]:hover {
     margin-top: 8px;
 }
 
-.logitext{
+/* Estilização do texto do logo */
+.logitext {
     margin-top: 20px;
     font-size: 50px;
 }
 
+/* Estilo do formulário de resposta de comentário */
 .resposta-form {
     width: 100%;
-    margin-left: 0; /* você pode ajustar conforme necessário */
+    margin-left: 0;
 }
 
-  .resposta-form form {
+/* Resetando estilos do form dentro do formulário de resposta */
+.resposta-form form {
     background: none;
     border: none;
     box-shadow: none;
     padding: 0;
     margin: 0;
-  }
-
-.comentario-container, /* ou o nome da div pai */
-.resposta-wrapper {
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  justify-content: flex-start;
 }
 
+/* Container para comentário e respostas */
+.comentario-container, 
+.resposta-wrapper {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Estilização das ações do formulário de resposta */
 .resposta-form .comentario-actions {
     display: flex;
-    justify-content: flex-start !important; /* Agora sim ele gruda na esquerda */
+    justify-content: flex-start !important;
     gap: 0.5rem;
-  }
+}
 
-  .comentario-textarea {
+/* Estilo da área de texto dos comentários */
+.comentario-textarea {
     width: 100%;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -2242,68 +2355,78 @@ form button[type="submit"]:hover {
     line-height: 1.4;
     resize: vertical;
     box-sizing: border-box;
-  }
-  
- .resposta-form .comentar-btn {
-  margin-left: 0; /* Garante que não tá puxando pra direita */
 }
-  
-  .resposta-form .comentario-input::placeholder {
+
+/* Alinhamento do botão de comentar no formulário de resposta */
+.resposta-form .comentar-btn {
+    margin-left: 0;
+}
+
+/* Estilo do placeholder no input de comentário */
+.resposta-form .comentario-input::placeholder {
     color: #888;
-  }
-  
-  .resposta-form .comentario-actions {
+}
+
+/* Ações do formulário de resposta ajustadas para a direita */
+.resposta-form .comentario-actions {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
-  }
-  
-  .resposta-form .comentar-btn {
+}
+
+/* Botões gerais de ação no formulário de resposta */
+.resposta-form .comentar-btn {
     padding: 0.5rem 1.25rem;
     font-size: 0.9rem;
     border-radius: 0.4rem;
     border: none;
     cursor: pointer;
     transition: background 0.2s ease;
-  }
-  
-  .resposta-form .cancelar-btn {
+}
+
+/* Botão de cancelar comentário */
+.resposta-form .cancelar-btn {
     background-color: #e5e5e5;
     color: #333;
-  }
-  
-  .resposta-form .cancelar-btn:hover {
+}
+
+/* Hover no botão cancelar */
+.resposta-form .cancelar-btn:hover {
     background-color: #d4d4d4;
-  }
-  
-  .resposta-form .comentar-btn {
-    background-color: #3b82f6; /* azul moderno */
+}
+
+/* Botão de enviar comentário */
+.resposta-form .comentar-btn {
+    background-color: #323438;
     color: #fff;
-  }
-  
-  .resposta-form .comentar-btn:hover {
+}
+
+/* Hover no botão de enviar comentário */
+.resposta-form .comentar-btn:hover {
     background-color: #2563eb;
-  }
-  
-  .resposta-box-x8r29a {
+}
+
+/* Estilo do box da resposta */
+.resposta-box-x8r29a {
     background-color: #f9f9f9;
     border-radius: 6px;
     padding: 10px;
     margin-top: 10px;
-    color: #000000; /* texto claro */
+    color: #000000;
 }
 
+/* Links dentro da resposta */
 .resposta-box-x8r29a a {
-    color: #000000; /* links azul suave */
+    color: #000000;
     text-decoration: none;
 }
 
+/* Pequenos textos dentro da resposta */
 .resposta-box-x8r29a small {
     color: #aaa;
 }
 
-
-
+/* Estilo alternativo para o box da resposta */
 .resposta-box-x8r29a {
     background-color: #f6f6f6;
     padding: 10px;
@@ -2311,8 +2434,7 @@ form button[type="submit"]:hover {
     border-radius: 8px;
 }
 
-
-
+/* Informações do autor da resposta */
 .resposta-autor-info {
     display: flex;
     align-items: center;
@@ -2320,6 +2442,7 @@ form button[type="submit"]:hover {
     margin-bottom: 5px;
 }
 
+/* Avatar da resposta */
 .resposta-avatar-img {
     width: 32px;
     height: 32px;
@@ -2327,37 +2450,44 @@ form button[type="submit"]:hover {
     object-fit: cover;
 }
 
+/* Avatar padrão caso não tenha foto */
 .resposta-avatar-padrao {
     background-color: #ddd;
     object-fit: contain;
 }
 
+/* Conteúdo da resposta */
 .resposta-conteudo {
     margin: 5px 0;
 }
 
+/* Data da resposta */
 .resposta-data {
     color: #777;
     font-size: 0.85rem;
 }
 
+/* Ação (como editar ou excluir) da resposta */
 .resposta-acao {
     color: #000000;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 100;
+    width: 100px;
 }
 
+/* Container do formulário de resposta */
 .resposta-form-container {
     margin-top: 10px;
 }
 
+/* Texto do label no campo de resposta */
 .resposta-texto-label {
     margin-left: 5px;
     font-weight: normal;
     color: #000000;
 }
 
-
+/* Container da tela de confirmação de exclusão */
 .excluir-container {
     max-width: none;
     margin: 0;
@@ -2370,7 +2500,7 @@ form button[type="submit"]:hover {
     margin-top: 10px;
 }
 
-
+/* Formulário de confirmação de exclusão */
 .excluir-form {
     display: flex;
     flex-direction: column;
@@ -2378,6 +2508,7 @@ form button[type="submit"]:hover {
     margin-top: 20px;
 }
 
+/* Botão para confirmar exclusão */
 .btn-excluir {
     padding: 12px 20px;
     background-color: #444;
@@ -2389,10 +2520,12 @@ form button[type="submit"]:hover {
     transition: background-color 0.3s ease;
 }
 
+/* Hover no botão de excluir */
 .btn-excluir:hover {
     background-color: #222;
 }
 
+/* Botão para cancelar exclusão */
 .btn-cancelar {
     display: inline-block;
     padding: 12px 20px;
@@ -2403,13 +2536,14 @@ form button[type="submit"]:hover {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    text-decoration: none;
 }
 
+/* Hover no botão de cancelar */
 .btn-cancelar:hover {
     background-color: #222;
 }
 
+/* Imagem centralizada */
 .imagem-centralizada {
     display: block;
     margin: 0 auto;
@@ -2417,6 +2551,7 @@ form button[type="submit"]:hover {
     height: auto;
 }
 
+/* Botão de upload de imagem ou arquivo */
 .botao-upload {
     display: inline-block;
     padding: 10px 20px;
@@ -2430,10 +2565,12 @@ form button[type="submit"]:hover {
     margin-top: 10px;
 }
 
+/* Hover no botão de upload */
 .botao-upload:hover {
     background-color: #666;
 }
 
+/* Nome do arquivo selecionado no upload */
 #nome-arquivo {
     display: block;
     margin-top: 8px;
@@ -2441,6 +2578,7 @@ form button[type="submit"]:hover {
     color: #333;
 }
 
+/* Formulário de edição de post */
 .form-editar-post {
     max-width: 800px;
     width: 90%;
@@ -2450,305 +2588,308 @@ form button[type="submit"]:hover {
     border-radius: 10px;
 }
 
-.tiedit{
+/* Título de edição */
+.tiedit {
     text-align: center;
     margin-bottom: 20px;
     margin-top: 10px;
 }
 
+/* Ícones de redes sociais */
 .icon-social {
-    width: 60px;  /* ou o tamanho que quiser, tipo 32px, 24px etc */
+    width: 60px;
     height: auto;
 }
 
-/*////////////////////////////////////////////////////////////////////////////*
-//////////////////////////////////////////////////////////////////////////////*
-//////////////////////////////TEMA ESCURO/////////////////////////////////////*
-//////////////////////////////////////////////////////////////////////////////*
-//////////////////////////////////////////////////////////////////////////////*
-*/
+/* Tema Escuro - Estilizações para modo noturno */
 
-
-/* SCROLLBAR BASE - TEMA ESCURO */
+/* Barra de rolagem em tema escuro */
 body.dark .scrollbase::-webkit-scrollbar {
     width: 12px;
     background-color: transparent;
 }
 
+/* Trilha da barra de rolagem no escuro */
 body.dark .scrollbase::-webkit-scrollbar-track {
-    background-color: #000 !important; /* fundo do scroll no escuro */
+    background-color: #000 !important;
 }
 
+/* Alça da barra de rolagem no escuro */
 body.dark .scrollbase::-webkit-scrollbar-thumb {
     background-color: #666;
     border-radius: 10px;
 }
 
+/* Botões da barra de rolagem no escuro */
 body.dark .scrollbase::-webkit-scrollbar-button {
     background-color: #000;
     height: 10px;
 }
 
+/* Avatar de usuário no escuro */
 body.dark .user-avatar {
     background-color: transparent !important;
 }
 
-body.dark #perfil-titulo{
+/* Títulos e textos de perfil no escuro */
+body.dark #perfil-titulo,
+body.dark #perfil-usuario-auth {
     color: white;
 }
 
-body.dark #perfil-usuario-auth{
-    color: white;
-}
-
-/* Modo escuro: transforma a imagem de 'account.png' para branco */
+/* Inversão de cor de imagens específicas */
 body.dark img[src*="account.png"] {
     filter: invert(100%) brightness(200%);
     transition: filter 0.3s ease;
 }
 
+/* Bio do perfil no escuro */
 body.dark #perfil-bio {
     color: white;
-    white-space: pre-line; /* Preserva as quebras de linha */
+    white-space: pre-line;
 }
 
-/* Estilos para o modo escuro */
-
-/* Estilos gerais para o modo escuro */
+/* Cor de fundo e texto do site no tema escuro */
 body.dark {
-    background-color: #121212; /* Fundo escuro */
-    color: #e0e0e0; /* Cor do texto claro */
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
-/* Estilo para a seção sobre */
+/* Seções "sobre" no escuro */
 body.dark .sobre {
-    background-color: #1e1e1e; /* Fundo escuro para a seção */
+    background-color: #1e1e1e;
 }
 
+/* Cabeçalho da seção "sobre" */
 body.dark .sobre-header h1,
 body.dark .sobre-header .subtitulo {
-    color: #ffffff; /* Títulos e subtítulos em branco */
+    color: #ffffff;
 }
 
+/* Conteúdo da seção "sobre" */
 body.dark .sobre-conteudo p {
-    color: #ddd; /* Cor dos parágrafos em cinza claro */
+    color: #ddd;
 }
 
-/* Links dentro da seção */
+/* Links dentro da seção "sobre" */
 body.dark .sobre-conteudo p a {
-    color: white; /* Cor de links no modo escuro */
+    color: white;
 }
 
+/* Hover nos links da seção "sobre" */
 body.dark .sobre-conteudo p a:hover {
-    color: #ffffff; /* Cor ao passar o mouse sobre links */
+    color: #ffffff;
 }
 
-/* Garantir contraste nos botões */
-body.dark button[type="submit"], body.dark #botao-salvar {
+/* Botões de envio e salvar no escuro */
+body.dark button[type="submit"], 
+body.dark #botao-salvar {
     background-color: #333;
     color: white;
     border: 1px solid #444;
 }
 
-body.dark button[type="submit"]:hover, body.dark #botao-salvar:hover {
+/* Hover dos botões de envio/salvar */
+body.dark button[type="submit"]:hover, 
+body.dark #botao-salvar:hover {
     background-color: #444;
 }
 
-/* Estilo para a barra de navegação no modo escuro */
+/* Navbar no escuro */
 body.dark .navbar {
-    background-color: #333; /* Fundo da navbar */
-    color: #e0e0e0; /* Cor do texto na navbar */
+    background-color: #333;
+    color: #e0e0e0;
 }
 
+/* Links da navbar no escuro */
 body.dark .navbar a {
-    color: #90caf9; /* Links na navbar */
+    color: #90caf9;
 }
 
+/* Hover nos links da navbar */
 body.dark .navbar a:hover {
-    color: #bbdefb; /* Cor ao passar o mouse sobre links da navbar */
+    color: #bbdefb;
 }
 
-/* Estilo para as bordas e caixas de texto */
-body.dark input[type="text"], body.dark textarea, body.dark select {
-    background-color: #2c2c2c; /* Fundo escuro para campos de entrada */
-    color: #e0e0e0; /* Cor do texto nos campos */
+/* Inputs, selects e textareas no tema escuro */
+body.dark input[type="text"], 
+body.dark textarea, 
+body.dark select {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
     border: 1px solid #444;
 }
 
-body.dark input[type="text"]:focus, body.dark textarea:focus {
-    border-color: #90caf9; /* Cor de borda ao focar nos campos */
-    outline: none; /* Remove o contorno padrão */
+/* Inputs focados no escuro */
+body.dark input[type="text"]:focus, 
+body.dark textarea:focus {
+    border-color: #90caf9;
+    outline: none;
 }
 
-/* Ajustes para o fundo das postagens */
+/* Resumo dos posts no escuro */
 body.dark .post-resumo {
-    background-color: #333; /* Fundo escuro para postagens */
-    color: #e0e0e0; /* Cor do texto nas postagens */
+    background-color: #333;
+    color: #e0e0e0;
     border: 1px solid #444;
 }
 
-body.dark .post-resumo h3 {
-    color: #ffffff; /* Títulos das postagens em branco */
-}
-
+/* Títulos dos resumos dos posts */
+body.dark .post-resumo h3, 
 body.dark .post-resumo h3 a {
-    color: #ffffff; /* Cor dos links dentro das postagens */
+    color: #ffffff;
 }
 
+/* Hover nos títulos de posts */
 body.dark .post-resumo h3 a:hover {
-    color: #bbdefb; /* Cor ao passar o mouse sobre os links */
+    color: #bbdefb;
 }
 
+/* Texto dos resumos dos posts */
 body.dark .post-resumo p {
-    color: #ddd; /* Cor dos parágrafos nas postagens */
+    color: #ddd;
 }
 
+/* Informações pequenas nos posts */
 body.dark .post-resumo small {
-    color: #aaa; /* Cor das pequenas informações nas postagens */
+    color: #aaa;
 }
 
+/* Loader de carregamento no escuro */
 body.dark #loader {
-    color: #bbb; /* Cor do texto do loader */
+    color: #bbb;
 }
 
+/* Título de notificações */
 body.dark #notificacoes-title {
     color: white;
 }
 
-/* Fundo e cor padrão do formulário */
+/* Formulário de novo post no escuro */
 body.dark #form-novo-post {
     background-color: #2c2c2c;
     color: #e0e0e0;
 }
 
-/* Espaçamento entre campos */
+/* Campos de formulários no escuro */
 body.dark .campo-form {
     margin-bottom: 15px;
 }
 
-/* Label */
+/* Label dos campos */
 body.dark .label-form {
     color: #e0e0e0 !important;
 }
 
-/* Input de arquivo */
-body.dark .campo-form input[type="file"] {
-    background-color: #333;
-    color: #e0e0e0 !important;
-    border: 1px solid #444;
-
-}
-
-/* Botão estilizado para upload */
+/* Input file no escuro */
+body.dark .campo-form input[type="file"],
 body.dark .campo-form .custom-file-upload {
     background-color: #333;
     color: #e0e0e0 !important;
- 
+    border: 1px solid #444;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
+/* Hover no upload personalizado */
 body.dark .campo-form .custom-file-upload:hover {
     background-color: #444;
 }
 
-
-
-/* Input, textarea, select */
+/* Campos de texto e seleção no escuro */
 body.dark .campo-form textarea,
 body.dark .campo-form select,
 body.dark .campo-form input[type="text"],
 body.dark .campo-form input,
-body.dark .campo-form select,
 body.dark .campo-form textarea {
     background-color: #333 !important;
     color: #e0e0e0 !important;
     border: 1px solid #444;
 }
 
-/* Placeholder (textinho dentro dos inputs) */
+/* Placeholder em tema escuro */
 body.dark ::placeholder {
     color: #bbbbbb;
-
 }
-
-body.dark #perfil-posts-titulo{
+/* Estiliza o título de posts no modo escuro */
+body.dark #perfil-posts-titulo {
     color: white;
 }
 
-/* Selecionando todas as imagens dentro da sidebar */
+/* Aplica filtro de inversão aos ícones da sidebar no modo escuro */
 body.dark .sidebar .icon {
     filter: invert(1);
-    transition: filter 0.3s ease; /* Adiciona uma transição suave ao efeito */
+    transition: filter 0.3s ease;
 }
 
-/* Para um efeito ao passar o mouse */
+/* Mantém o filtro aplicado ao passar o mouse no ícone */
 body.dark .sidebar .icon:hover {
     filter: invert(1);
 }
-/* Para o modo escuro, aplica o filtro nas imagens do tipo "like.png" */
-/* No modo escuro, altera a cor da imagem "like.png" para branca */
-/* No modo escuro, altera a cor da imagem "comentar.png" para branca */
+
+/* Inverte cores do ícone de comentar no modo escuro */
 body.dark .iconc[src*="comentar.png"] {
     filter: invert(100%) brightness(200%) !important;
     transition: filter 0.3s ease;
 }
 
-/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
-/* No modo escuro, altera a cor da imagem "like.png" para branca */
+/* Inverte cores dos ícones de curtir e comentar no modo escuro */
 body.dark .curtir-btn img[src*="like.png"],
 body.dark .iconc[src*="comentar.png"] {
     filter: invert(100%) brightness(200%) !important;
     transition: filter 0.3s ease;
 }
 
-/* No modo escuro, mantém a cor original da imagem "vermelho.png" */
+/* Remove filtro da imagem de like vermelha no modo escuro */
 body.dark .curtir-btn img[src*="vermelho.png"] {
-    filter: none !important; /* Sem filtro */
+    filter: none !important;
 }
 
-body.dark form button[type="submit"]{
+/* Estiliza botões de submit de formulários no modo escuro */
+body.dark form button[type="submit"] {
     background-color: rgb(89, 88, 88);
     border-radius: 15px;
 }
 
-/* Estilo para os links no modo escuro */
+/* Estiliza links no modo escuro */
 body.dark a {
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
+/* Mantém cor branca ao passar o mouse sobre links */
 body.dark a:hover {
     color: #ffffff;
 }
 
-/* Ícones no modo escuro */
+/* Ajusta brilho de todos ícones no modo escuro */
 body.dark .icon {
     filter: brightness(0.8);
 }
 
-/* Ajustes para o botão de alternância (trilho) no modo escuro */
+/* Estiliza trilho (provavelmente switch de tema) no modo escuro */
 body.dark .trilho {
     background-color: #868686;
 }
 
+/* Estiliza o indicador do switch de tema no modo escuro */
 body.dark .trilho .indicador {
     background-color: black;
 }
 
-/* Estilos gerais para o container de busca de usuários */
+/* Estiliza container de busca de usuários no modo escuro */
 body.dark #buscar-usuarios-container {
     background-color: #1e1e1e;
     color: #e0e0e0;
 }
 
-/* Estilo para o título da página de busca de usuários */
+/* Estiliza título da busca de usuários no modo escuro */
 body.dark #buscar-usuarios-titulo {
-    color: #ffffff;  /* Alterado para branco no modo escuro */
+    color: #ffffff;
 }
 
-/* Estilos para o formulário de busca no modo escuro */
+/* Estiliza formulário de busca de usuários */
 body.dark .form-busca {
     background-color: #333;
     border-radius: 5px;
@@ -2758,139 +2899,141 @@ body.dark .form-busca {
     border: 1px solid #444;
 }
 
+/* Estiliza caixa de comentários no modo escuro */
 body.dark .comentario {
     background-color: #1e1e1e;
     color: #e0e0e0;
 }
 
+/* Estiliza texto dos comentários */
 body.dark .comentario p {
     color: #e0e0e0;
 }
 
+/* Estiliza links dentro dos comentários */
 body.dark .comentario a {
-    color: #ffffff;  /* Links em branco */
+    color: #ffffff;
 }
 
+/* Estiliza hover dos links nos comentários */
 body.dark .comentario a:hover {
-    color: #ffffff;  /* Hover em branco */
+    color: #ffffff;
 }
 
-/* Formulário de resposta */
+/* Estiliza formulário de resposta nos comentários */
 body.dark .resposta-form {
     background-color: #1e1e1e;
 }
 
+/* Estiliza botão de enviar resposta */
 body.dark .botao-enviar-resposta {
     background-color: #333;
     color: #ffffff;
     border: 1px solid #444;
 }
 
+/* Estiliza hover do botão de enviar resposta */
 body.dark .botao-enviar-resposta:hover {
     background-color: #444;
 }
 
-/* Comentário principal */
+/* Estiliza formulário de novo comentário */
 body.dark .form-comentario {
     background-color: #1e1e1e;
 }
 
+/* Estiliza botão de comentar */
 body.dark .botao-comentar {
     background-color: #333;
     color: #ffffff;
     border: 1px solid #444;
 }
 
+/* Estiliza hover do botão de comentar */
 body.dark .botao-comentar:hover {
     background-color: #444;
 }
 
-/* Mensagem de login para comentar */
+/* Estiliza link para login no campo de comentários */
 body.dark .login-para-comentar a {
     color: #ffffff;
 }
 
+/* Estiliza hover do link para login */
 body.dark .login-para-comentar a:hover {
-    color: #ffffff;  /* Hover em branco */
+    color: #ffffff;
 }
 
-/* Estilo geral para o post */
+/* Estiliza textos principais (h1, p) no modo escuro */
 body.dark h1,
 body.dark p {
-    color: #e0e0e0;  /* Texto em cinza claro */
+    color: #e0e0e0;
 }
 
+/* Estiliza textos pequenos */
 body.dark small {
-    color: #ffffff;  /* Data de publicação em branco */
+    color: #ffffff;
 }
 
+/* Força links a serem brancos */
 body.dark a {
-    color: #ffffff;  /* Links em branco */
+    color: #ffffff;
 }
 
-body.dark a:hover {
-    color: #ffffff;  /* Hover em branco */
-}
-
+/* Estiliza strong dentro de parágrafos */
 body.dark p strong {
-    color: #ffffff;  /* Título em branco */
+    color: #ffffff;
 }
 
+/* Estiliza conteúdo do post */
 body.dark .post-conteudo {
-    background-color: #121212;  /* Fundo escuro para o conteúdo do post */
-    color: #e0e0e0;  /* Texto claro */
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
-/* Estilos para o post */
+/* Estiliza autor e data da publicação */
 body.dark .post-autor,
 body.dark .post-data-publicacao {
-    color: #e0e0e0;  /* Autor e data em cinza claro */
+    color: #e0e0e0;
 }
 
+/* Estiliza links de opções de edição */
 body.dark .opcoes-edicao a {
-    color: #ffffff;  /* Links de edição em branco */
+    color: #ffffff;
 }
 
+/* Estiliza hover dos links de edição */
 body.dark .opcoes-edicao a:hover {
-    color: #ffffff;  /* Hover em branco */
+    color: #ffffff;
 }
 
-/* Navbar no modo escuro */
+/* Estiliza navbar */
 body.dark .navbar {
     background-color: #333;
 }
 
+/* Estiliza logo da navbar */
 body.dark .navbar .navbar-container img {
-    filter: brightness(0) invert(1);  /* Logo visível no modo escuro */
+    filter: brightness(0) invert(1);
 }
 
-/* Links de ação (Voltar, Editar, Excluir) */
-body.dark a {
-    color: #ffffff;  /* Links em branco */
-}
-
-body.dark a:hover {
-    color: #ffffff;  /* Hover em branco */
-}
-
-/* Definições gerais para o corpo */
+/* Define fundo e cor geral no modo escuro */
 body.dark {
-    background-color: #121212;  /* Fundo escuro para o corpo */
-    color: #e0e0e0;  /* Texto claro */
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
-
-/* Ajustes de margens */
+/* Ajusta margem dos parágrafos */
 body.dark p {
     margin-bottom: 15px;
 }
 
-/* Título da página */
+/* Estiliza subtítulos */
 body.dark h2 {
     color: #ffffff;
 }
 
-/* Formulário de edição */
+/* Estiliza formulários no modo escuro */
 body.dark form {
     background-color: #1e1e1e;
     color: #e0e0e0;
@@ -2899,7 +3042,7 @@ body.dark form {
     border: 1px solid #444;
 }
 
-/* Botão de salvar */
+/* Estiliza botões de formulário */
 body.dark form button {
     background-color: #333;
     color: #ffffff;
@@ -2909,27 +3052,29 @@ body.dark form button {
     cursor: pointer;
 }
 
+/* Estiliza hover dos botões de formulário */
 body.dark form button:hover {
     background-color: #444;
 }
 
-/* Link de cancelar */
+/* Estiliza links em parágrafos */
 body.dark p a {
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
+/* Hover dos links em parágrafos */
 body.dark p a:hover {
     color: #bbdefb;
 }
 
-/* Título da página */
+/* Estiliza título da página de edição de perfil */
 body.dark #editar-perfil-titulo {
     color: #ffffff;
 }
 
-/* Formulário principal */
+/* Estiliza formulário de edição de perfil */
 body.dark #form-editar-perfil {
     background-color: #1e1e1e;
     color: #e0e0e0;
@@ -2938,12 +3083,12 @@ body.dark #form-editar-perfil {
     border: 1px solid #444;
 }
 
-/* Rótulos do formulário */
+/* Estiliza labels no formulário de edição */
 body.dark #form-editar-perfil label {
     color: #e0e0e0;
 }
 
-/* Campo de bio */
+/* Estiliza área de texto da biografia */
 body.dark #bio-textarea {
     background-color: #2c2c2c;
     color: #e0e0e0;
@@ -2954,18 +3099,19 @@ body.dark #bio-textarea {
     resize: vertical;
 }
 
+/* Foco na área de texto */
 body.dark #bio-textarea:focus {
     border-color: #ffffff;
     outline: none;
 }
 
-/* Foto atual */
+/* Estiliza imagem de perfil atual */
 body.dark #foto-atual {
     border-radius: 5px;
     margin: 10px 0;
 }
 
-/* Botão de upload de imagem */
+/* Estiliza botão de upload de imagem */
 body.dark .custom-file-upload {
     background-color: #333;
     color: #ffffff;
@@ -2977,11 +3123,12 @@ body.dark .custom-file-upload {
     transition: background-color 0.3s ease;
 }
 
+/* Hover no botão de upload */
 body.dark .custom-file-upload:hover {
     background-color: #444;
 }
 
-/* Botão salvar */
+/* Estiliza botão de salvar alterações */
 body.dark #botao-salvar {
     background-color: #333;
     color: #ffffff;
@@ -2992,11 +3139,12 @@ body.dark #botao-salvar {
     transition: background-color 0.3s ease;
 }
 
+/* Hover no botão de salvar */
 body.dark #botao-salvar:hover {
     background-color: #444;
 }
 
-/* Link "Voltar ao perfil" */
+/* Estiliza link para voltar ao perfil */
 body.dark #voltar-perfil {
     color: #ffffff;
     text-decoration: none;
@@ -3005,14 +3153,16 @@ body.dark #voltar-perfil {
     transition: color 0.3s ease;
 }
 
+/* Hover no link de voltar */
 body.dark #voltar-perfil:hover {
     color: #bbdefb;
 }
 
+/* Fundo e transição geral do modo escuro */
 body.dark {
     background-color: #000000;
     color: #e0e0e0;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Navbar no modo escuro */
@@ -3020,7 +3170,7 @@ body.dark {
     background-color: #000000;
 }
 
-/* Posts, comentários e aside no modo escuro */
+/* Estiliza resumo de post, comentário e aside no modo escuro */
 .post-resumo.dark,
 .comentario.dark,
 aside.dark {
@@ -3029,11 +3179,12 @@ aside.dark {
     color: #e0e0e0;
 }
 
-/* Links no modo escuro */
+/* Estiliza links no modo escuro */
 a.dark {
     color: #ffffff;
 }
 
+/* Reforço de estilos para links */
 body.dark a {
     color: #ffffff;
     text-decoration: none;
@@ -3044,33 +3195,31 @@ body.dark a:hover {
     color: #ffffff;
 }
 
-/* Estilos para páginas de erro - 403, 404 e 500 */
-
-/* Página de Acesso Negado (403) */
+/* Estiliza página de acesso negado */
 body.dark .acesso-negado h2 {
-    color: #e57373;  /* Cor de alerta suave */
+    color: #e57373;
 }
 
 body.dark .acesso-negado p {
-    color: #ffffff;  /* Texto em cinza claro */
+    color: #ffffff;
 }
 
-/* Página Não Encontrada (404) */
+/* Estiliza página não encontrada */
 body.dark .pagina-nao-encontrada h2 {
-    color: #ff7043;  /* Cor de erro suave para destaque */
+    color: #ff7043;
 }
 
 body.dark .pagina-nao-encontrada p {
-    color: #b0bec5;  /* Texto em cinza claro */
+    color: #b0bec5;
 }
 
-/* Página de Erro no Servidor (500) */
+/* Estiliza página de erro no servidor */
 body.dark .erro-servidor h2 {
-    color: #ffffff;  /* Cor de alerta amarela */
+    color: #ffffff;
 }
 
 body.dark .erro-servidor p {
-    color: #b0bec5;  /* Texto em cinza claro */
+    color: #b0bec5;
 }
 
 body.dark .erro-servidor a {
@@ -3083,31 +3232,28 @@ body.dark .erro-servidor a:hover {
     color: #ffffff;
 }
 
-/* Contas Criadas no modo escuro */
-body.dark #contador-contas {
-    color: #ffffff;  /* Texto branco */
-}
-
+/* Estiliza contador de contas e número total */
+body.dark #contador-contas,
 body.dark #conte {
-    color: #ffffff;  /* Conteúdo em branco também */
+    color: #ffffff;
 }
 
-/* Navbar no modo escuro */
+/* Estiliza novamente navbar */
 body.dark .navbar {
     background-color: #333;
 }
 
 body.dark .navbar .navbar-container img {
-    filter: brightness(0) invert(1); /* Ajusta a logo para visibilidade no modo escuro */
+    filter: brightness(0) invert(1);
 }
 
-/* Sidebar no modo escuro */
+/* Estiliza sidebar esquerda */
 body.dark .sidebar {
     background-color: #2c2c2c;
     border-right: 1px solid #444;
 }
 
-
+/* Estiliza links da sidebar */
 body.dark .sidebar .menu a {
     color: #e0e0e0;
 }
@@ -3116,17 +3262,18 @@ body.dark .sidebar .menu a:hover {
     color: #ffffff;
 }
 
-/* Estilo para o conteúdo principal (modo escuro) */
+/* Estiliza área principal */
 body.dark main {
     background-color: #121212;
     color: #e0e0e0;
 }
 
-/* Sidebar direita (modo escuro) */
+/* Estiliza sidebar direita */
 body.dark .sidebar-right {
     background-color: #333;
 }
 
+/* Estiliza links da sidebar direita */
 body.dark .sidebar-right a {
     color: #e0e0e0;
 }
@@ -3135,12 +3282,13 @@ body.dark .sidebar-right a:hover {
     color: #ffffff;
 }
 
+/* Estiliza bloco de citações da página Sobre */
 body.dark .sobre-conteudo blockquote {
     color: rgb(205, 201, 201);
     border-left: 4px solid #c8bfbf;
 }
 
-/* Para modo escuro */
+/* Estiliza conteúdo da página Sobre */
 body.dark-mode .sobre {
     background-color: #1e1e1e;
     color: #ddd;
@@ -3168,57 +3316,68 @@ body.dark-mode .sobre-conteudo blockquote {
     color: #bbb;
 }
 
+/* Estiliza campos de formulários */
 body.dark .form-campo input {
-    background-color: #2c2c2c; /* cinza escuro */
-    color: #f1f1f1; /* texto claro */
+    background-color: #2c2c2c;
+    color: #f1f1f1;
     border: 1px solid #444;
 }
-
+/* Estiliza o campo de input em foco no modo escuro */
 body.dark .form-campo input:focus {
     outline: none;
     border-color: #000000;
     background-color: #333;
 }
 
+/* Estiliza links dentro de campos de formulário no modo claro */
 .form-campo a,
 form a {
     color: #000000;
     text-decoration: underline;
 }
 
+/* Estiliza links dentro de campos de formulário no modo escuro */
 body.dark .form-campo a,
 body.dark form a {
     color: #ccc;
     text-decoration: underline;
 }
 
-body.dark .botao-editar-perfil{
+/* Estiliza o botão de editar perfil no modo escuro */
+body.dark .botao-editar-perfil {
     background-color: #4c4c4c;
 }
 
+/* Define o fundo do container de comentários no modo escuro */
 body.dark .comentarios-container {
     background-color: #121212;
 }
+
+/* Define a cor do texto dos comentários no modo escuro */
 body.dark .texto-comentario-conteudo {
     color: white;
 }
 
+/* Define fundo e cor de texto da caixa de respostas no modo escuro */
 body.dark .resposta-box-x8r29a {
     background-color: #1e1e1e;
     color: white;
 }
 
+/* Estiliza o label do texto da resposta no modo escuro */
 body.dark .resposta-texto-label {
     margin-left: 5px;
     font-weight: normal;
     color: #ffffff;
 }
 
-body.dark .form-comentario-horizontal{
+/* Define fundo do formulário de comentário horizontal no modo escuro */
+body.dark .form-comentario-horizontal {
     background-color: #1e1e1e;
 }
 
-body.dark .form-comentario-horizontal{
+/* Estiliza formulário de comentário horizontal no modo escuro (layout flexível) */
+body.dark .form-comentario-horizontal {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -3231,13 +3390,18 @@ body.dark .form-comentario-horizontal{
     outline: none; 
 }
 
-body.dark .lupa-img,
-body.dark .buscar-usuarios-foto {
+body.dark .foto-padrao {
+    filter: invert(1);
+}
+
+/* Inverte as cores das imagens de lupa e fotos de usuários no modo escuro */
+body.dark .lupa-img {
   filter: invert(1);
 }
 
+/* Remove borda e sombra do formulário de busca de usuários no modo escuro */
 body.dark .buscar-usuarios-form {
     background: transparent;
     border: none;
     box-shadow: none;
-  }
+}

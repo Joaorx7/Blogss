@@ -414,6 +414,8 @@ def ver_post(request, post_id):
     return render(request, 'blog/ver_post.html', context)
 
 
+from PIL import Image
+
 @login_required
 def editar_perfil(request):
     perfil = request.user.perfil
@@ -421,21 +423,43 @@ def editar_perfil(request):
     if request.method == 'POST':
         bio = request.POST.get('bio')
         foto = request.FILES.get('foto')
-        remover_foto = request.POST.get('remover_foto')  # verifica se a opção foi marcada
+        remover_foto = request.POST.get('remover_foto')
 
         perfil.bio = bio
 
         if remover_foto:
             if perfil.foto:
-                perfil.foto.delete(save=False)  # remove a foto do sistema de arquivos
+                perfil.foto.delete(save=False)
                 perfil.foto = None
+
         elif foto:
             perfil.foto = foto
+            perfil.save()  # Salva primeiro para ter o caminho do arquivo
 
-        perfil.save()
-        return redirect('perfil_usuario', username=request.user.username)
+            # Agora corta a imagem
+            if perfil.foto:
+                img = Image.open(perfil.foto.path)
+
+                width, height = img.size
+                min_dim = min(width, height)
+                left = (width - min_dim) / 2
+                top = (height - min_dim) / 2
+                right = (width + min_dim) / 2
+                bottom = (height + min_dim) / 2
+
+                img = img.crop((left, top, right, bottom))
+                img = img.resize((300, 300))  # ou o tamanho que quiser
+
+                img.save(perfil.foto.path)
+
+            return redirect('perfil_usuario', username=request.user.username)
+
+        else:
+            perfil.save()
+            return redirect('perfil_usuario', username=request.user.username)
 
     return render(request, 'blog/editar_perfil.html', {'perfil': perfil})
+
 
 
 @login_required

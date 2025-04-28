@@ -9,6 +9,11 @@
     {% csrf_token %}
 
     <p>
+        <label for="{{ form.titulo.id_for_label }}">Título:</label>
+        {{ form.titulo }}
+    </p>
+
+    <p>
         <label for="{{ form.conteudo.id_for_label }}">Conteúdo:</label>
         {{ form.conteudo }}
     </p>
@@ -32,6 +37,7 @@
 
     <button type="submit">Salvar alterações</button>
 </form>
+
 
 <script>
     const input = document.getElementById('id_imagem');

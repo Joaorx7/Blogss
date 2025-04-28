@@ -4,7 +4,6 @@
 {% block title %}{{ post.titulo }} – Meu Blog{% endblock %}
 
 {% block content %}
-  <h1 class="post-titulo texto-detalhes-titulo">{{ post.titulo }}</h1>
 
   <p class="post-autor texto-detalhes-autor" style="display:flex; align-items:center; gap:10px;">
     <a href="{% url 'perfil_usuario' post.autor.username %}" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
@@ -16,6 +15,8 @@
       <span class="texto-detalhes-nome"><strong>{{ post.autor.username }}</strong></span>
     </a>
   </p>
+
+  <h1 class="post-titulo texto-detalhes-titulo">{{ post.titulo }}</h1>
 
   <p class="post-categorias texto-detalhes-categoria">
     <strong>Categoria:</strong> {{ post.categoria.nome }}
@@ -37,8 +38,17 @@
   {% endif %}
 
   {% if post.imagem %}
-  <img src="{{ post.imagem.url }}" alt="Imagem do post" class="imagem-post">
+    <img src="{{ post.imagem.url }}" alt="Imagem do post" class="imagem-post">
   {% endif %}
+
+  {% if user.is_authenticated %}
+<div class="divducomen" style="margin-top: 10px;">
+  <button class="curtir-btn" data-id="{{ post.id }}">
+    <img src="{% if user in post.curtidas.all %}{{ media_prefix }}Icones/vermelho.png{% else %}{{ media_prefix }}Icones/like.png{% endif %}" alt="Curtir">
+  </button>
+  <span id="total-curtidas-{{ post.id }}">{{ post.curtidas.count }}</span> <!-- Com ID para JS -->
+</div>
+{% endif %}
 
   <hr class="divisor-post-comentarios">
 
@@ -85,9 +95,6 @@
                         placeholder="Escreva uma resposta..." required></textarea>
               <input type="hidden" name="resposta_a" value="{{ comentario.id }}">
               <div class="comentario-actions">
-                <button type="button" class="cancelar-btn" onclick="mostrarFormResposta({{ comentario.id }})">
-                  Cancelar
-                </button>
                 <button type="submit" class="comentar-btn">Comentar</button>
               </div>
             </form>
@@ -104,7 +111,7 @@
 
     {% if user.is_authenticated %}
       <div class="comentario-principal-container">
-        <form method="post" class="form-comentario-horizontal" >
+        <form method="post" class="form-comentario-horizontal">
           {% csrf_token %}
           <textarea name="conteudo" class="comentario-textarea comentario-linha" rows="3"
                     placeholder="Escreva um comentário..." required></textarea>

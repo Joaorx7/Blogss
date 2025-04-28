@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(res => res.json())
                 .then(data => {
-                    // Atualiza todos os botões de seguir com o mesmo username
                     document.querySelectorAll(`.seguir-btn[data-username="${username}"]`).forEach(botao => {
                         botao.textContent = data.seguindo ? 'Seguindo' : 'Seguir +';
                     });
@@ -99,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     adicionarEventosCurtirSeguir();
     adicionarEventosSeguir();
 });
+
 
 
 
