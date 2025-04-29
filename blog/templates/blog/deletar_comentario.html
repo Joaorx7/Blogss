@@ -2,13 +2,21 @@
 {% block title %}Deletar Comentário{% endblock %}
 
 {% block content %}
-<h2>Tem certeza que deseja excluir este comentário?</h2>
-<p class="comentario-conteudo">{{ comentario.conteudo }}</p>
-<form class="formdelete"  method="post">
-    {% csrf_token %}
-    <button type="submit">Sim, excluir</button>
-    <button type="submit"><a style="color: #fff;" href="{% url 'detalhes_post' comentario.post.id %}">Cancelar</a></button>
+<h2 class="exluircomentario">Tem certeza que deseja excluir este comentário?</h2>
 
-    
+<!-- Mostra o conteúdo do comentário que será deletado -->
+<p class="comentario-conteudo">{{ comentario.conteudo }}</p>
+
+<!-- Formulário de confirmação de exclusão -->
+<form class="formdelete" method="post">
+    {% csrf_token %}  <!-- Proteção contra CSRF -->
+
+    <!-- Botão para confirmar a exclusão -->
+    <button type="submit">Sim, excluir</button>
+
+    <!-- Botão para cancelar e voltar ao post -->
+    <button type="submit">
+        <a style="color: #fff;" href="{% url 'detalhes_post' comentario.post.id %}">Cancelar</a>
+    </button>
 </form>
 {% endblock %}

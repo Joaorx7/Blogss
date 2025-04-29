@@ -4,7 +4,12 @@
 {% block title %}Página não encontrada - 404{% endblock %}
 
 {% block content %}
+    <!-- Título da página exibindo o erro 404 -->
     <h2>❌ Página não encontrada (404)</h2>
+
+    <!-- Mensagem explicando que a página acessada não existe -->
     <p>A página que você tentou acessar não existe.</p>
+
+    <!-- Link para retornar à página inicial -->
     <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
 {% endblock %}

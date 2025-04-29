@@ -1,13 +1,19 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+
 {% block title %}{{ categoria.nome }} - Meu Blog{% endblock %}
 
 {% block content %}
+    <!-- Título principal da página exibindo o nome da categoria atual -->
     <h1 class="text32">Posts na categoria: {{ categoria.nome }}</h1>
 
+    <!-- Início do loop que percorre todos os posts associados a essa categoria -->
     {% for post in posts %}
+        <!-- Inclui o template reutilizável que mostra um resumo do post -->
         {% include 'blog/post_resumo.html' %}
     {% empty %}
+        <!-- Caso não existam posts nessa categoria, exibe uma mensagem para o usuário -->
         <p>Não há posts nesta categoria ainda.</p>
     {% endfor %}
+    <!-- Fim do loop -->
 {% endblock %}

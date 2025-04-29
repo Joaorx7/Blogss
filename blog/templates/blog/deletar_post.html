@@ -5,14 +5,23 @@
 
 {% block content %}
     <div class="excluir-container">
+        <!-- Pergunta de confirmação -->
         <h2>
             Você tem certeza que<br>
             deseja excluir este post?
-          </h2>
+        </h2>
+
+        <!-- Exibe o título do post a ser excluído -->
         <p><strong>{{ post.titulo }}</strong></p>
+
+        <!-- Formulário para confirmar ou cancelar a exclusão -->
         <form method="POST" class="excluir-form">
-            {% csrf_token %}
+            {% csrf_token %}  <!-- Proteção contra CSRF -->
+
+            <!-- Botão para confirmar -->
             <button type="submit" class="btn-excluir">Sim, excluir</button>
+
+            <!-- Link para cancelar e voltar à página do post -->
             <a href="{% url 'detalhes_post' post.id %}" class="btn-cancelar">Cancelar</a>
         </form>
     </div>

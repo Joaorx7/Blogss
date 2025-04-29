@@ -14,3 +14,5 @@ from django.core.asgi import get_asgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'meu_blog.settings')
 
 application = get_asgi_application()
+
+#Responsável pela interface ASGI (caso queira usar o Django com WebSockets ou servidores assíncronos).

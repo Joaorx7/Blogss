@@ -5,6 +5,7 @@
 
 {% block content %}
 
+  <!-- Informações do autor -->
   <p class="post-autor texto-detalhes-autor" style="display:flex; align-items:center; gap:10px;">
     <a href="{% url 'perfil_usuario' post.autor.username %}" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
       {% if post.autor.perfil.foto %}
@@ -16,20 +17,25 @@
     </a>
   </p>
 
+  <!-- Título do post -->
   <h1 class="post-titulo texto-detalhes-titulo">{{ post.titulo }}</h1>
 
+  <!-- Categoria do post -->
   <p class="post-categorias texto-detalhes-categoria">
     <strong>Categoria:</strong> {{ post.categoria.nome }}
   </p>
 
+  <!-- Conteúdo do post (HTML seguro) -->
   <div class="post-conteudo texto-detalhes-conteudo">
     {{ post_conteudo_html|safe }}
   </div>
 
+  <!-- Data de publicação -->
   <small class="post-data-publicacao texto-detalhes-data">
     Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}
   </small>
 
+  <!-- Botões de editar e excluir, visíveis apenas para o autor -->
   {% if user == post.autor %}
     <div class="opcoes-edicao texto-detalhes-edicao">
       <a href="{% url 'editar_post' post.id %}" class="btn-edicao">✏️ Editar</a>
@@ -37,26 +43,30 @@
     </div>
   {% endif %}
 
+  <!-- Imagem do post, se houver -->
   {% if post.imagem %}
     <img src="{{ post.imagem.url }}" alt="Imagem do post" class="imagem-post">
   {% endif %}
 
+  <!-- Botão de curtir com contagem -->
   {% if user.is_authenticated %}
-<div class="divducomen" style="margin-top: 10px;">
-  <button class="curtir-btn" data-id="{{ post.id }}">
-    <img src="{% if user in post.curtidas.all %}{{ media_prefix }}Icones/vermelho.png{% else %}{{ media_prefix }}Icones/like.png{% endif %}" alt="Curtir">
-  </button>
-  <span id="total-curtidas-{{ post.id }}">{{ post.curtidas.count }}</span> <!-- Com ID para JS -->
-</div>
-{% endif %}
+    <div class="divducomen" style="margin-top: 10px;">
+      <button class="curtir-btn" data-id="{{ post.id }}">
+        <img src="{% if user in post.curtidas.all %}{{ media_prefix }}Icones/vermelho.png{% else %}{{ media_prefix }}Icones/like.png{% endif %}" alt="Curtir">
+      </button>
+      <span id="total-curtidas-{{ post.id }}">{{ post.curtidas.count }}</span>
+    </div>
+  {% endif %}
 
   <hr class="divisor-post-comentarios">
 
+  <!-- Seção de comentários -->
   <div class="comentarios-container texto-detalhes-comentarios">
     <h3 class="comentarios-titulo">Comentários</h3>
 
     {% for comentario in comentarios %}
       <div class="comentario" id="comentario-{{ comentario.id }}">
+        <!-- Autor do comentário -->
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px;">
           {% if comentario.autor.perfil.foto %}
             <img src="{{ comentario.autor.perfil.foto.url }}" alt="Foto de perfil" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
@@ -70,11 +80,15 @@
           </strong>
         </div>
 
+        <!-- Conteúdo do comentário -->
         <div class="texto-comentario-conteudo">
           {{ comentario.conteudo|linebreaksbr }}
         </div>
+
+        <!-- Data do comentário -->
         <small class="comentario-data texto-comentario-data">{{ comentario.criado_em|date:"d/m/Y H:i" }}</small>
 
+        <!-- Ações de edição/exclusão (apenas do autor) -->
         {% if user == comentario.autor %}
           <div class="comentario-edicao">
             <a href="{% url 'editar_comentario' comentario.id %}" class="editar-comentario">✏️ Editar</a> |
@@ -82,17 +96,13 @@
           </div>
         {% endif %}
 
+        <!-- Responder comentário -->
         {% if user.is_authenticated %}
-          <p>
-            <a href="#" onclick="mostrarFormResposta({{ comentario.id }}); return false;" class="responder-link">
-              💬 Responder
-            </a>
-          </p>
+          <p><a href="#" onclick="mostrarFormResposta({{ comentario.id }}); return false;" class="responder-link">💬 Responder</a></p>
           <div class="resposta-form" id="resposta-form-{{ comentario.id }}" style="display:none; width:100%;">
             <form method="post" class="comentario-box">
               {% csrf_token %}
-              <textarea name="conteudo" class="comentario-textarea" rows="3"
-                        placeholder="Escreva uma resposta..." required></textarea>
+              <textarea name="conteudo" class="comentario-textarea" rows="3" placeholder="Escreva uma resposta..." required></textarea>
               <input type="hidden" name="resposta_a" value="{{ comentario.id }}">
               <div class="comentario-actions">
                 <button type="submit" class="comentar-btn">Comentar</button>
@@ -101,6 +111,7 @@
           </div>
         {% endif %}
 
+        <!-- Respostas do comentário -->
         <div class="respostas-dentro-borda">
           {% include "blog/respostas.html" with respostas=comentario.respostas.all nivel=1 form=form %}
         </div>
@@ -109,12 +120,12 @@
       <p class="comentarios-vazio texto-comentario-vazio">Seja o primeiro a comentar!</p>
     {% endfor %}
 
+    <!-- Novo comentário -->
     {% if user.is_authenticated %}
       <div class="comentario-principal-container">
         <form method="post" class="form-comentario-horizontal">
           {% csrf_token %}
-          <textarea name="conteudo" class="comentario-textarea comentario-linha" rows="3"
-                    placeholder="Escreva um comentário..." required></textarea>
+          <textarea name="conteudo" class="comentario-textarea comentario-linha" rows="3" placeholder="Escreva um comentário..." required></textarea>
           <button type="submit" class="botao-comentar-horizontal">Comentar</button>
         </form>
       </div>
@@ -125,6 +136,7 @@
     {% endif %}
   </div>
 
+  <!-- Script JS para mostrar/ocultar formulário de resposta -->
   <script>
     function mostrarFormResposta(id) {
       const form = document.getElementById('resposta-form-' + id);

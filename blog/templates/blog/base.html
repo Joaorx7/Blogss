@@ -6,16 +6,16 @@
     <meta charset="UTF-8">
     <title>Viventi</title>
 
-    <!-- CSS -->
+    <!-- Importa o CSS principal do projeto -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
 
-    <!-- Favicon -->
+    <!-- Ícone da aba do navegador -->
     <link rel="icon" type="image/png" href="{{ media_prefix }}Icones/Vvicon.png">
 
-    <!-- CSRF -->
+    <!-- Token CSRF para segurança em requisições -->
     <meta name="csrf-token" content="{{ csrf_token }}">
 
-    <!-- JS variável global -->
+    <!-- Variável global para usar o caminho da pasta media em JS -->
     <script>
         const mediaPrefix = "{{ media_prefix }}";
     </script>
@@ -24,9 +24,14 @@
     <header>
         <nav class="navbar">
             <div class="navbar-container">
-                <img class="vlogo"src="{{ media_prefix }}Icones/V.png" alt="Logo">
+                <!-- Logo da esquerda -->
+                <img class="vlogo" src="{{ media_prefix }}Icones/V.png" alt="Logo">
+
+                <!-- Título central -->
                 <img class="centered-image" src="{{ media_prefix }}Icones/titulo.png" alt="Titulo">
             </div>
+
+            <!-- Botão de troca de tema (claro/escuro) -->
             <div class="trilho" id="trilho">
                 <div class="indicador">
                     <img class="centered-imagee" src="{{ media_prefix }}Icones/lua.png" alt="Título">
@@ -34,7 +39,7 @@
             </div>
         </nav>
 
-        <!-- Sidebar esquerda -->
+        <!-- Menu lateral esquerdo com os ícones de navegação -->
         <nav class="sidebar">
             <ul class="menu">
                 <div class="menu-topo">
@@ -44,6 +49,7 @@
                     <li><a href="{% url 'notificacoes' %}"><img class="icon" src="{{ media_prefix }}Icones/noti.png" alt="Notificações"></a></li>
                 </div>
                 <div class="menu-baixo">
+                    <!-- Mostra conta do usuário se estiver logado -->
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'perfil_usuario' user.username %}"><img class="icon" src="{{ media_prefix }}Icones/account.png" alt="Conta"></a></li>
                     {% else %}
@@ -55,15 +61,14 @@
         </nav>
     </header>
 
-    <!-- Conteúdo principal -->
+    <!-- Área principal do conteúdo -->
     <main style="display: flex; gap: 40px; align-items: flex-start; min-height: 100vh; height: 100vh; overflow: hidden;">
-        <!-- Feed com scroll ajustável manualmente -->
         <div class="scrollbase" style="flex: 3; height: 100vh; overflow-y: auto; margin-right: -40px; padding-right: 30px;">
             {% block content %}
             {% endblock %}
         </div>
 
-        <!-- Sidebar direita fixa -->
+        <!-- Sidebar direita com recomendações e estatísticas -->
         <aside class="sidebar-right">
             {% if user.is_authenticated %}
                 <div style="margin-bottom: 20px;">
@@ -83,6 +88,7 @@
                 </div>
             {% endif %}
 
+            <!-- Lista de categorias mais usadas -->
             <div style="margin-bottom: 20px;">
                 <strong id="creco">Categorias populares:</strong>
                 <ul>
@@ -92,6 +98,7 @@
                 </ul>
             </div>
 
+            <!-- Total de usuários registrados no site -->
             <div style="margin-bottom: 20px;">
                 <strong id="contador-contas">Contas criadas:</strong>
                 <strong id="conte">{{ total_usuarios }}</strong>
@@ -99,6 +106,7 @@
         </aside>
     </main>
 
+    <!-- Script principal do site -->
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

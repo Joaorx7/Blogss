@@ -1,15 +1,33 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<!-- Título da página de estatísticas pessoais -->
 <h2>📊 Minhas Estatísticas</h2>
+
+<!-- Lista com várias estatísticas do usuário logado -->
 <ul>
+    <!-- Total de posts publicados pelo usuário -->
     <li><strong>Posts publicados:</strong> {{ total_posts }}</li>
+
+    <!-- Total de comentários feitos pelo usuário -->
     <li><strong>Comentários feitos:</strong> {{ total_comentarios }}</li>
+
+    <!-- Total de curtidas que o usuário recebeu em seus posts -->
     <li><strong>Total de curtidas recebidas:</strong> {{ total_curtidas }}</li>
+
+    <!-- Número de pessoas que seguem o usuário -->
     <li><strong>Seguidores:</strong> {{ seguidores }}</li>
+
+    <!-- Número de perfis que o usuário está seguindo -->
     <li><strong>Seguindo:</strong> {{ seguindo }}</li>
+
+    <!-- Total de mensagens que o usuário enviou -->
     <li><strong>Mensagens enviadas:</strong> {{ mensagens_enviadas }}</li>
+
+    <!-- Total de mensagens que o usuário recebeu -->
     <li><strong>Mensagens recebidas:</strong> {{ mensagens_recebidas }}</li>
+
+    <!-- Quantidade de notificações que o usuário ainda não leu -->
     <li><strong>Notificações não lidas:</strong> {{ notificacoes_nao_lidas }}</li>
 </ul>
 {% endblock %}

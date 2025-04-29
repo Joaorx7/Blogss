@@ -1,23 +1,31 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+  <!-- Título da página de notificações -->
   <h2 id="notificacoes-title">Notificações</h2>
+
   {% if notificacoes %}
+    <!-- Lista de notificações do usuário -->
     <ul id="notificacoes-list">
       {% for notificacao in notificacoes %}
         <li class="notificacao">
           {% if notificacao.link %}
+            <!-- Se a notificação tiver um link, mostra como link clicável -->
             <a href="{{ notificacao.link }}" style="color: #000000" class="notificacao-link">{{ notificacao.texto }}</a>
           {% else %}
+            <!-- Caso contrário, exibe o texto da notificação como texto estático -->
             <span class="notificacao-texto" style="color: #000000">{{ notificacao.texto }}</span>
           {% endif %}
+
           {% if not notificacao.lida %}
+            <!-- Destaque para notificações ainda não lidas -->
             <strong class="notificacao-status">(Nova)</strong>
           {% endif %}
         </li>
       {% endfor %}
     </ul>
   {% else %}
+    <!-- Mensagem exibida caso não existam notificações -->
     <p id="no-notifications-msg">Você não tem notificações.</p>
   {% endif %}
 {% endblock %}

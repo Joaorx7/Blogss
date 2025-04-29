@@ -1,29 +1,37 @@
 {% extends 'blog/base.html' %}
 {% block content %}
+
+<!-- Título da página de edição de perfil -->
 <h2 id="editar-perfil-titulo">Editar Perfil</h2>
 
+<!-- Formulário para editar a bio e foto do perfil -->
 <form method="post" enctype="multipart/form-data" id="form-editar-perfil">
+    <!-- Proteção contra CSRF -->
     {% csrf_token %}
-    
+
+    <!-- Campo de texto para a bio do perfil -->
     <label for="bio" id="label-bio">Bio:</label><br>
     <textarea class="biotext" name="bio" rows="4" cols="50" id="bio-textarea">{{ perfil.bio }}</textarea><br><br>
 
+    <!-- Label para a seção da foto -->
     <label id="label-foto">Foto de perfil:</label><br>
 
+    <!-- Mostra a foto atual do perfil, ou uma imagem padrão se não houver foto -->
     <div class="foto-perfil-wrapper">
         <img src="{% if perfil.foto %}{{ perfil.foto.url }}{% else %}/media/Icones/account.png{% endif %}"
              alt="Foto de perfil" class="perfil-icon">
     </div>
 
+    <!-- Se o perfil tiver uma foto, mostra botão para removê-la -->
     {% if perfil.foto %}
-        <!-- Botão para remover foto -->
         <button type="submit" name="remover_foto" value="1" id="botao-remover-foto">Remover Foto</button><br><br>
     {% endif %}
-    
-    <!-- Input oculto e botão customizado -->
+
+    <!-- Campo oculto de upload de imagem e rótulo estilizado que age como botão -->
     <input type="file" name="foto" id="foto-input" accept="image/*" style="display: none;">
     <label for="foto-input" class="custom-file-upload">Escolher imagem</label><br><br>
 
+    <!-- Botão para salvar as alterações no perfil -->
     <button type="submit" id="botao-salvar">Salvar</button>
 </form>
 

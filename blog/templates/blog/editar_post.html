@@ -3,42 +3,55 @@
 {% block title %}Editar Post{% endblock %}
 
 {% block content %}
+<!-- Título da página de edição -->
 <h2 class="tiedit">Editar Post</h2>
 
+<!-- Formulário de edição do post -->
 <form method="POST" enctype="multipart/form-data" class="form-editar-post">
-    {% csrf_token %}
+    {% csrf_token %}  <!-- Proteção contra ataques CSRF -->
 
+    <!-- Campo para editar o título do post -->
     <p>
         <label for="{{ form.titulo.id_for_label }}">Título:</label>
         {{ form.titulo }}
     </p>
 
+    <!-- Campo para editar o conteúdo do post -->
     <p>
         <label for="{{ form.conteudo.id_for_label }}">Conteúdo:</label>
         {{ form.conteudo }}
     </p>
 
+    <!-- Campo para editar a categoria do post -->
     <p>
         <label for="{{ form.categoria.id_for_label }}">Categoria:</label>
         {{ form.categoria }}
     </p>
 
+    <!-- Campo para trocar ou visualizar a imagem do post -->
     <p>
         <label>Imagem:</label>
+
+        <!-- Se o post já tem uma imagem, ela é exibida -->
         {% if form.instance.imagem %}
             <div>
                 <img src="{{ form.instance.imagem.url }}" alt="Imagem atual" class="imagem-centralizada">
             </div>
         {% endif %}
+
+        <!-- Botão estilizado para selecionar nova imagem -->
         <label for="id_imagem" class="botao-upload">Escolher imagem</label>
         <input type="file" name="imagem" id="id_imagem" hidden>
+
+        <!-- Nome do arquivo selecionado aparece aqui com JS -->
         <span id="nome-arquivo"></span>
     </p>
 
+    <!-- Botão para enviar o formulário -->
     <button type="submit">Salvar alterações</button>
 </form>
 
-
+<!-- Script para mostrar o nome do arquivo selecionado -->
 <script>
     const input = document.getElementById('id_imagem');
     const nomeArquivo = document.getElementById('nome-arquivo');

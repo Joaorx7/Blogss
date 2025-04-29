@@ -2,14 +2,23 @@
 {% block title %}Editar Comentário{% endblock %}
 
 {% block content %}
+<!-- Título da página de edição de comentário -->
 <h2 class="editarcomentario">Editar Comentário</h2>
+
+<!-- Formulário para edição do comentário -->
 <form method="post">
+    <!-- Proteção contra ataques CSRF (Cross-Site Request Forgery) -->
     {% csrf_token %}
+
+    <!-- Renderiza automaticamente os campos do formulário como parágrafos -->
     {{ form.as_p }}
+
+    <!-- Botão para enviar o formulário e salvar as alterações -->
     <button type="submit">Salvar</button>
+
+    <!-- Botão para cancelar a edição e voltar à página de detalhes do post -->
     <button type="button" onclick="window.location.href='{% url 'detalhes_post' comentario.post.id %}'" class="btn-cancelar">
         Cancelar
-      </button>
+    </button>
 </form>
-
 {% endblock %}

@@ -20,6 +20,9 @@
 # If you're wondering how this is created, it is generated using
 # `scripts/generate.py` in https://github.com/pypa/get-pip.
 
+#é um script oficial da equipe do pip usado para instalar o gerenciador de pacotes pip
+
+
 import sys
 
 this_python = sys.version_info[:2]

@@ -4,7 +4,12 @@
 {% block title %}Acesso negado - 403{% endblock %}
 
 {% block content %}
+    <!-- Título da página exibindo o erro 403 -->
     <h2>🚫 Acesso negado (403)</h2>
+
+    <!-- Mensagem explicando que o usuário não tem permissão -->
     <p>Você não tem permissão para acessar esta página.</p>
+
+    <!-- Link para voltar à página inicial -->
     <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
 {% endblock %}

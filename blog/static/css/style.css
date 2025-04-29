@@ -441,7 +441,7 @@ button, .btn-cancelar {
 
 /* Estilo de botão de edição de comentário */
 .editarcomentario {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 /* Estilo hover para botão cancelar */
@@ -874,6 +874,7 @@ button.seguir-btn:hover {
     max-width: 900px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
 }
 
 /* Cabeçalho da página Sobre */
@@ -931,6 +932,10 @@ button.seguir-btn:hover {
 .redes-sociais li {
     display: inline;
     margin: 0 10px;
+}
+
+.exluircomentario{
+    margin-top: 20px;
 }
 
 /* Links das redes sociais */
@@ -1230,7 +1235,7 @@ button.seguir-btn:hover {
 #notificacoes-title {
   font-size: 24px;
   color: #333333;
-  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 /* Lista de notificações sem marcadores */
@@ -1684,6 +1689,10 @@ button.seguir-btn:hover {
 .post-autor, .post-categoria {
     font-size: 1rem;
     color: #555;
+}
+
+.post-autor{
+    margin-top: 10px;
 }
 
 /* Estilo do conteúdo do post */
@@ -2606,7 +2615,9 @@ form button[type="submit"]:hover {
     height: auto;
 }
 
+/*//////////////////////////////////////////////*/
 /* Tema Escuro - Estilizações para modo noturno */
+/*//////////////////////////////////////////////*/
 
 /* Barra de rolagem em tema escuro */
 body.dark .scrollbase::-webkit-scrollbar {

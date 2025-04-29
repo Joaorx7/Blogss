@@ -3,21 +3,33 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <!-- Define o título da aba do navegador como o título do post -->
     <title>{{ post.titulo }}</title>
 </head>
 <body>
+    <!-- Exibe o título do post como título principal da página -->
     <h1>{{ post.titulo }}</h1>
+
+    <!-- Mostra o nome de usuário do autor do post -->
     <p><strong>Autor:</strong> {{ post.autor.username }}</p>
+
+    <!-- Exibe o conteúdo do post -->
     <p>{{ post.conteudo }}</p>
+
+    <!-- Mostra a data e hora em que o post foi criado, formatada como dia/mês/ano e hora:minuto -->
     <p><small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small></p>
 
+    <!-- Link para voltar à página inicial -->
     <p><a href="/">← Voltar</a></p>
 
     {% if user == post.autor %}
+    <!-- Se o usuário logado for o autor do post, mostra opções para editar ou excluir -->
     <p>
+        <!-- Link para a página de edição do post -->
         <a href="{% url 'editar_post' post.id %}">✏️ Editar</a> |
+        <!-- Link para a página de exclusão do post -->
         <a href="{% url 'deletar_post' post.id %}">🗑️ Excluir</a>
     </p>
-{% endif %}
+    {% endif %}
 </body>
 </html>

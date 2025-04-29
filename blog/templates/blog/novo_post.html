@@ -3,30 +3,45 @@
 {% block title %}Novo Post{% endblock %}
 
 {% block content %}
+<!-- Formulário para criação de um novo post -->
 <form method="POST" enctype="multipart/form-data" id="form-novo-post">
-    {% csrf_token %}
+    {% csrf_token %}  <!-- Token de segurança contra CSRF -->
+
+    <!-- Campo do título do post -->
     <div class="campo-form">
         <label for="{{ form.titulo.id_for_label }}" class="label-form">Título:</label>
         {{ form.titulo }}
     </div>
+
+    <!-- Campo do conteúdo do post -->
     <div class="campo-form">
         <label for="{{ form.conteudo.id_for_label }}" class="label-form">Conteúdo:</label>
         {{ form.conteudo }}
     </div>
+
+    <!-- Campo para selecionar a categoria do post -->
     <div class="campo-form">
         <label for="{{ form.categoria.id_for_label }}" class="label-form">Categoria:</label>
         {{ form.categoria }}
     </div>
+
+    <!-- Campo para upload de imagem -->
     <label for="id_imagem" class="label-form">Imagem:</label>
     <div class="campo-forma">
+        <!-- Input oculto de arquivo para selecionar imagem -->
         <label for="id_imagem" class="label-form"></label>
         <input type="file" id="id_imagem" name="imagem" accept="image/*" style="display: none;">
+        
+        <!-- Label estilizada que simula o botão de upload -->
         <label for="id_imagem" class="custom-file-uploade">Escolher Imagem</label>
     </div>
-    <!-- Pré-visualização -->
+
+    <!-- Pré-visualização da imagem selecionada -->
     <div id="preview-container" class="preview-container">
         <img id="preview-image" src="#" alt="Prévia da imagem" class="preview-image" style="display: none;">
     </div>
+
+    <!-- Botão para submeter o formulário -->
     <button type="submit">Publicar</button>
 </form>
 {% endblock %}

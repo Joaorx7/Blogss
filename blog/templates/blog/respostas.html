@@ -1,23 +1,26 @@
-{% load static %}
-
 {% for resposta in respostas %}
     {% if forloop.first %}
+        <!-- Exibe o botão de "Mostrar respostas" apenas na primeira iteração do loop -->
         <p>
             <a href="#" onclick="alternarRespostas({{ resposta.resposta_a.id }}); return false;" id="btn-toggle-{{ resposta.resposta_a.id }}" class="resposta-toggle-link">
                 <span class="toggle-icon" style="font-weight: 900; font-size: 18px; color: black;">+</span> Mostrar respostas
             </a>
         </p>
+        <!-- Container que agrupa todas as respostas desse nível (escondido inicialmente) -->
         <div id="respostas-do-{{ resposta.resposta_a.id }}" class="respostas-container" style="display: none;">
     {% endif %}
 
+    <!-- Caixa individual de uma resposta com indentação baseada no nível -->
     <div class="resposta-box-x8r29a" style="margin-left: {{ nivel|add:'1' }}0px;">
         <div class="resposta-autor-info">
+            <!-- Mostra a foto de perfil do autor da resposta, ou uma imagem padrão se não houver -->
             {% if resposta.autor.perfil.foto %}
                 <img src="{{ resposta.autor.perfil.foto.url }}" alt="Foto de perfil" class="resposta-avatar-img">
             {% else %}
                 <img src="/media/Icones/account.png" alt="Foto padrão" class="resposta-avatar-img resposta-avatar-padrao">
             {% endif %}
 
+            <!-- Nome do autor da resposta com link para o perfil -->
             <strong>
                 <a href="{% url 'perfil_usuario' resposta.autor.username %}" class="autor-resposta-9hsf8q">
                     {{ resposta.autor.username }}
@@ -26,12 +29,15 @@
             <span class="resposta-texto-label">respondeu:</span>
         </div>
 
+        <!-- Conteúdo da resposta, com quebra de linha preservada -->
         <div class="resposta-conteudo">
             {{ resposta.conteudo|linebreaksbr }}
         </div>
 
+        <!-- Data e hora da criação da resposta -->
         <small class="resposta-data">{{ resposta.criado_em|date:"d/m/Y H:i" }}</small>
 
+        <!-- Exibe links de editar e excluir se o usuário logado for o autor da resposta -->
         {% if user == resposta.autor %}
             <div class="resposta-links">
                 <a href="{% url 'editar_comentario' resposta.id %}" class="resposta-acao">✏️ Editar</a> |
@@ -40,12 +46,14 @@
         {% endif %}
 
         {% if user.is_authenticated %}
+            <!-- Link para abrir o formulário de resposta a essa resposta -->
             <p>
                 <a href="#" onclick="mostrarFormResposta({{ resposta.id }}); return false;" class="resposta-acao">
                     💬 Responder
                 </a>
             </p>
 
+            <!-- Formulário de resposta, escondido por padrão -->
             <div id="resposta-form-{{ resposta.id }}" class="resposta-form-container" style="display:none;">
                 <form method="post" class="form-comentario-horizontal">
                     {% csrf_token %}
@@ -56,14 +64,17 @@
             </div>
         {% endif %}
 
+        <!-- Chamada recursiva para incluir respostas a essa resposta -->
         {% include "blog/respostas.html" with respostas=resposta.respostas.all nivel=nivel|add:"1" form=form %}
     </div>
 
     {% if forloop.last %}
+        <!-- Fecha o container de respostas apenas ao final do loop -->
         </div>
     {% endif %}
 {% endfor %}
 
+<!-- Script para mostrar/ocultar as respostas quando o link "Mostrar respostas" for clicado -->
 <script>
     function alternarRespostas(comentarioId) {
         const container = document.getElementById(`respostas-do-${comentarioId}`);

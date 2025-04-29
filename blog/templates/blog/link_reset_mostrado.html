@@ -1,13 +1,21 @@
 {% extends 'blog/base.html' %}
+
 {% block content %}
+<!-- Container principal da página -->
 <div class="container">
+    
+    <!-- Título da página -->
     <h2>Link de redefinição de senha</h2>
 
+    <!-- Verifica se há um link de redefinição e se ele contém 'http' (para garantir que é válido) -->
     {% if reset_link and 'http' in reset_link %}
+        <!-- Exibe instruções e o link de redefinição da senha -->
         <p>Use o link abaixo para redefinir sua senha:</p>
         <a href="{{ reset_link }}">{{ reset_link }}</a>
     {% else %}
+        <!-- Mensagem de erro caso o link não esteja disponível ou seja inválido -->
         <p>Não foi possível gerar o link de redefinição. Verifique se o e-mail está correto.</p>
     {% endif %}
+    
 </div>
 {% endblock %}

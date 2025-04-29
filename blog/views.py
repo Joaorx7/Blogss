@@ -1,76 +1,69 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.db.models import Count
-from .forms import PostForm
-from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, logout
-from django.shortcuts import redirect, get_object_or_404
-from django.contrib import messages
-from .forms import ComentarioForm
-from django.core.paginator import Paginator
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.contrib.auth.models import User
-from blog.models import Perfil
-from .models import Post, Comentario, Categoria, Notificacao
-from .forms import CadastroForm
-import markdown
-from django.contrib.auth.views import PasswordResetDoneView
+# -------------------- BIBLIOTECAS E IMPORTAÇÕES --------------------
+
+# Bibliotecas padrão
 import random
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.db.models import Q
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.db.models import Count, Sum
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.tokens import default_token_generator
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.views.generic.edit import FormView
-from django.urls import reverse
-from django.shortcuts import render
-from django.contrib.auth.views import PasswordResetDoneView
-from django.contrib.messages import get_messages
-from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordResetView
-from .forms import CustomUserCreationForm
-from django.contrib.auth.models import User
-from django.db.models import Count, Q
-from django.core.paginator import Paginator
-from django.shortcuts import render
-from .models import Post, Categoria, Perfil
-
-from django.shortcuts import render
-from django.db.models import Q, Count
-from django.core.paginator import Paginator
-from django.contrib.auth.models import User
-from .models import Post, Categoria, Perfil  # Ajuste se o import for diferente
-
-from django.core.paginator import Paginator
-from django.db.models import Count
-
-from django.core.paginator import Paginator
-from django.db.models import Count
-from django.shortcuts import render
-
-from django.core.paginator import Paginator
-from django.db.models import Count
-from django.shortcuts import render
-from django.shortcuts import render
-from .models import Post
-
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
 import markdown
-from .models import Post, Comentario, Notificacao
-from .forms import ComentarioForm
-from .models import Categoria
 
+# Django - Autenticação e Usuários
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+)
+from django.contrib.messages import get_messages
+
+# Django - Atalhos e mensagens
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+
+# Django - HTTP, URLs e Views
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from django.views.decorators.http import require_POST
+from django.views.generic.edit import FormView
+
+# Django - Templates e codificação
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+
+# Django - Banco de dados
+from django.db.models import Count, Q, Sum
+
+# Django - Paginação
+from django.core.paginator import Paginator
+
+# Formularios personalizados
+from .forms import (
+    PostForm,
+    ComentarioForm,
+    CadastroForm,
+    CustomUserCreationForm,
+)
+
+# Modelos personalizados
+from .models import (
+    Post,
+    Comentario,
+    Categoria,
+    Notificacao,
+    Perfil,
+)
+
+# Usuário customizado (caso esteja usando)
+from django.contrib.auth import get_user_model
+from PIL import Image
+# -------------------- VIEWS --------------------
+
+#Contém as funções e classes responsáveis por processar requisições e retornar respostas HTML ou JSON. É onde a lógica das páginas fica.
+
+
+# Busca usuários pelo nome de usuário
 @login_required
 def buscar_usuarios(request):
     termo = request.GET.get('q', '')
@@ -80,14 +73,15 @@ def buscar_usuarios(request):
         'termo': termo
     })
 
+# Exibe o perfil de um usuário
 def perfil_usuario(request, username):
     usuario = get_object_or_404(User, username=username)
     perfil = usuario.perfil
     seguidores = perfil.seguidores.all()
     seguindo = perfil.seguindo.all()
     posts = Post.objects.filter(autor=usuario).order_by('-criado_em')
-
-    # Garantir que sempre haja uma foto
+    
+    # Define imagem padrão se o usuário não tiver foto
     foto_url = perfil.foto.url if perfil.foto else '/media/img_resto/Account.png'
 
     context = {
@@ -100,19 +94,21 @@ def perfil_usuario(request, username):
     }
     return render(request, 'blog/perfil_usuario.html', context)
 
+# Remove a foto de perfil do usuário logado
 @login_required
 def remover_foto_perfil(request):
     usuario = request.user
-    usuario.perfil.foto = None  # Remove a foto de perfil
+    usuario.perfil.foto = None  
     usuario.perfil.save()
     return redirect('perfil_usuario', username=usuario.username)
 
+# Cria um novo post
 @login_required
 def novo_post(request):
-    categorias = Categoria.objects.all()  # ← Adicionado aqui
+    categorias = Categoria.objects.all()  
 
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)  # ← request.FILES já está ok
+        form = PostForm(request.POST, request.FILES)  
         if form.is_valid():
             post = form.save(commit=False)
             post.autor = request.user
@@ -123,31 +119,31 @@ def novo_post(request):
 
     return render(request, 'blog/novo_post.html', {'form': form, 'categorias': categorias})
 
+# Feed personalizado com base nos usuários seguidos
 def feed_personalizado(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    # Garante que o usuário tenha um perfil
+    # Garante que o perfil exista
     perfil, created = Perfil.objects.get_or_create(user=request.user)
 
-    # Pega os usuários que o user atual está seguindo
+    # Busca usuários que o atual está seguindo
     seguindo = User.objects.filter(perfil__seguidores=request.user)
 
-    # Filtra os posts dos autores que o usuário segue
+    # Mostra posts desses usuários
     posts = Post.objects.filter(autor__in=seguindo).order_by('-criado_em')
 
     return render(request, 'blog/feed.html', {'posts': posts})
 
-
-
+# Exibe os detalhes de um post e permite comentarios
 def detalhes_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     categorias = Categoria.objects.all()
-    
-    # Comentários principais (sem pai)
+
+    # Comentários que não são respostas (topo da thread)
     comentarios = Comentario.objects.filter(post=post, resposta_a__isnull=True).order_by('-criado_em')
 
-    # Markdown do conteúdo do post
+    # Converte o conteúdo do post para HTML usando markdown
     post_conteudo_html = markdown.markdown(post.conteudo)
 
     if request.method == 'POST':
@@ -158,14 +154,14 @@ def detalhes_post(request, post_id):
                 comentario.post = post
                 comentario.autor = request.user
 
-                # Verifica se é resposta a outro comentário
+                # Caso o comentário seja resposta a outro
                 resposta_a_id = request.POST.get('resposta_a')
                 if resposta_a_id:
                     comentario.resposta_a = Comentario.objects.get(id=resposta_a_id)
 
                 comentario.save()
 
-                # Cria notificação para o autor do post
+                # Cria notificação se não for o próprio autor
                 if post.autor != request.user:
                     Notificacao.objects.create(
                         usuario=post.autor,
@@ -187,6 +183,7 @@ def detalhes_post(request, post_id):
         'post_conteudo_html': post_conteudo_html,
     })
 
+# Cadastro de novo usuário
 def cadastro(request):
     categorias = Categoria.objects.all()
     if request.method == 'POST':
@@ -200,6 +197,7 @@ def cadastro(request):
 
     return render(request, 'blog/cadastro.html', {'form': form, 'categorias': categorias})
 
+# Edição de um post existente
 def editar_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     categorias = Categoria.objects.all()
@@ -209,7 +207,7 @@ def editar_post(request, post_id):
         return redirect('home')
 
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES, instance=post)  # ← Adicionado request.FILES aqui
+        form = PostForm(request.POST, request.FILES, instance=post)  
         if form.is_valid():
             form.save()
             return redirect('detalhes_post', post_id=post.id)
@@ -218,6 +216,7 @@ def editar_post(request, post_id):
 
     return render(request, 'blog/editar_post.html', {'form': form, 'categorias': categorias})
 
+# Deleta um post
 @login_required
 def deletar_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
@@ -233,15 +232,17 @@ def deletar_post(request, post_id):
 
     return render(request, 'blog/deletar_post.html', {'post': post, 'categorias': categorias})
 
+# Logout do sistema
 @login_required
 def sair(request):
     logout(request)
     return redirect('home')
 
-
+# Página estática "Sobre"
 def sobre(request):
     return render(request, 'blog/sobre.html')
 
+# Curtir e descurtir posts (via AJAX)
 @require_POST
 @login_required
 def curtir_post(request, post_id):
@@ -249,21 +250,22 @@ def curtir_post(request, post_id):
     user = request.user
 
     if user in post.curtidas.all():
+        # Se já curtiu, remove
         post.curtidas.remove(user)
         curtido = False
 
-        # Deleta a notificação de curtida se ela existir
+        # Remove notificação se existir
         Notificacao.objects.filter(
             usuario=post.autor,
             texto__icontains=f"{user.username} curtiu seu post",
             link=f"/post/{post.id}/"
         ).delete()
-
     else:
+        # Adiciona curtida
         post.curtidas.add(user)
         curtido = True
 
-        # Cria notificação apenas se não existir ainda
+        # Cria notificação se ainda não existir
         if post.autor != user and not Notificacao.objects.filter(
             usuario=post.autor,
             texto__icontains=f"{user.username} curtiu seu post",
@@ -279,26 +281,28 @@ def curtir_post(request, post_id):
         'curtido': curtido,
         'total_curtidas': post.curtidas.count()
     })
-
-
 @login_required
 def home(request):
+    # Captura filtros da URL: categoria, ordenação e paginação
     categoria_id = request.GET.get('categoria')
     ordenar = request.GET.get('ordenar', 'recentes')
     page = request.GET.get('page', 1)
 
     posts = Post.objects.all()
 
+    # Filtra por categoria, se for passada
     if categoria_id:
         posts = posts.filter(categoria__id=categoria_id)
 
+    # Ordena por número de curtidas ou por data de criação
     if ordenar == 'curtidos':
         posts = posts.annotate(num_curtidas=Count('curtidas')).order_by('-num_curtidas', '-criado_em')
     else:
         posts = posts.order_by('-criado_em')
 
-    pagina = posts  # sem paginação
+    pagina = posts  # Aqui poderia ter paginação
 
+    # AJAX: se for requisição JavaScript, retorna os posts como HTML
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         posts_html = ''
         for post in pagina:
@@ -306,7 +310,7 @@ def home(request):
 
         return JsonResponse({
             'posts_html': posts_html,
-            'tem_mais': False  # sem paginação
+            'tem_mais': False  # Aqui poderia ser dinâmico com paginação
         })
 
     return render(request, 'blog/home.html', {
@@ -317,39 +321,46 @@ def home(request):
 
 
 def posts_por_categoria(request, categoria_id):
+    # Lista posts de uma categoria específica
     categoria = get_object_or_404(Categoria, pk=categoria_id)
     posts = Post.objects.filter(categoria=categoria).order_by('-criado_em')
 
     return render(request, 'blog/posts_por_categoria.html', {
         'posts': posts,
         'categoria': categoria,
-        # Não precisa passar 'categorias_principais' aqui!
     })
+
+
 @login_required
 def seguir_usuario(request, username):
+    # Seguir um usuário e criar notificação
     usuario_para_seguir = get_object_or_404(User, username=username)
 
     if usuario_para_seguir != request.user:
         perfil_alvo = usuario_para_seguir.perfil
         perfil_alvo.seguidores.add(request.user)
 
-        # Criar notificação
         Notificacao.objects.create(
             usuario=usuario_para_seguir,
             texto=f'{request.user.username} começou a te seguir!'
         )
 
     return redirect('perfil_usuario', username=username)
+
+
 @login_required
 def deixar_de_seguir(request, username):
+    # Deixar de seguir um usuário
     usuario_para_parar = get_object_or_404(User, username=username)
     if usuario_para_parar != request.user:
         usuario_para_parar.perfil.seguidores.remove(request.user)
     return redirect('perfil_usuario', username=username)
 
+
 @login_required
 @require_POST
 def seguir_ou_nao(request, username):
+    # Alterna entre seguir e deixar de seguir (usado via AJAX)
     usuario_logado = request.user
     perfil = usuario_logado.perfil
     alvo = get_object_or_404(User, username=username)
@@ -367,6 +378,7 @@ def seguir_ou_nao(request, username):
 
 @login_required
 def editar_comentario(request, comentario_id):
+    # Permite ao autor editar o próprio comentário
     comentario = get_object_or_404(Comentario, id=comentario_id, autor=request.user)
 
     if request.method == 'POST':
@@ -386,6 +398,7 @@ def editar_comentario(request, comentario_id):
 
 @login_required
 def deletar_comentario(request, comentario_id):
+    # Permite ao autor deletar seu comentário
     comentario = get_object_or_404(Comentario, id=comentario_id, autor=request.user)
 
     if request.method == 'POST':
@@ -397,12 +410,14 @@ def deletar_comentario(request, comentario_id):
         'comentario': comentario
     })
 
+
 def ver_post(request, post_id):
+    # Visualização de post com comentários e formulário
     post = get_object_or_404(Post, id=post_id)
     comentarios = Comentario.objects.filter(post=post).order_by('-criado_em')
     form = ComentarioForm()
 
-    # Converte Markdown para HTML
+    # Renderiza o conteúdo com markdown
     post_conteudo_html = markdown.markdown(post.conteudo)
 
     context = {
@@ -414,10 +429,9 @@ def ver_post(request, post_id):
     return render(request, 'blog/ver_post.html', context)
 
 
-from PIL import Image
-
 @login_required
 def editar_perfil(request):
+    # Permite editar bio e foto do perfil (com crop para 1:1)
     perfil = request.user.perfil
 
     if request.method == 'POST':
@@ -434,12 +448,11 @@ def editar_perfil(request):
 
         elif foto:
             perfil.foto = foto
-            perfil.save()  # Salva primeiro para ter o caminho do arquivo
+            perfil.save()
 
-            # Agora corta a imagem
+            # Crop para centralizar e deixar quadrado
             if perfil.foto:
                 img = Image.open(perfil.foto.path)
-
                 width, height = img.size
                 min_dim = min(width, height)
                 left = (width - min_dim) / 2
@@ -448,8 +461,7 @@ def editar_perfil(request):
                 bottom = (height + min_dim) / 2
 
                 img = img.crop((left, top, right, bottom))
-                img = img.resize((300, 300))  # ou o tamanho que quiser
-
+                img = img.resize((300, 300))
                 img.save(perfil.foto.path)
 
             return redirect('perfil_usuario', username=request.user.username)
@@ -461,24 +473,25 @@ def editar_perfil(request):
     return render(request, 'blog/editar_perfil.html', {'perfil': perfil})
 
 
-
 @login_required
 def notificacoes(request):
+    # Lista notificações do usuário e marca como lidas
     notificacoes = request.user.notificacoes.order_by('-criada_em')
-
-    # Marca todas como lidas
     notificacoes.update(lida=True)
-
     return render(request, 'blog/notificacoes.html', {'notificacoes': notificacoes})
+
 
 @login_required
 def deletar_notificacao(request, notificacao_id):
+    # Permite deletar uma notificação
     notificacao = get_object_or_404(Notificacao, id=notificacao_id, usuario=request.user)
     notificacao.delete()
     return redirect('notificacoes')
 
+
 @login_required
 def estatisticas_usuario(request):
+    # Mostra estatísticas do usuário
     user = request.user
     perfil = user.perfil
 
@@ -501,31 +514,8 @@ def estatisticas_usuario(request):
     return render(request, 'blog/estatisticas.html', context)
 
 
-
-
-
-
-# Redefinição por NOME DE USUÁRIO
-from django.urls import reverse_lazy
-
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView
-from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
-from django.contrib import messages
-
-from django.contrib.auth import get_user_model
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView
-from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.forms import PasswordResetForm
-from django.utils.http import urlsafe_base64_decode
-from django.contrib.auth.models import User
-
 class UsernamePasswordResetView(PasswordResetView):
+    # Redefinição de senha via username
     template_name = 'registration/password_reset_username_form.html'
     email_template_name = 'registration/password_reset_emaile.html'
     subject_template_name = 'registration/password_reset_subjecte.txt'
@@ -552,30 +542,12 @@ class UsernamePasswordResetView(PasswordResetView):
 
         return render(request, self.template_name)
 
+
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_donee.html'
 
+
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'registration/password_reset_confirme.html'
-    success_url = reverse_lazy('password_reset_complete')
+    success_url = reverse_lazy('password_reset_completee')
 
-    def dispatch(self, *args, **kwargs):
-        # Verifica se o token é válido antes de mostrar o formulário
-        self.validlink = False
-        uidb64 = kwargs.get('uidb64')
-        token = kwargs.get('token')
-
-        if uidb64 and token:
-            try:
-                uid = urlsafe_base64_decode(uidb64).decode()
-                user = get_user_model().objects.get(pk=uid)
-            except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
-                user = None
-
-            if user is not None and default_token_generator.check_token(user, token):
-                self.validlink = True
-
-        if not self.validlink:
-            return render(self.request, 'registration/password_reset_link_invalid.html')
-
-        return super().dispatch(*args, **kwargs)

@@ -3,21 +3,30 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+  <!-- Título da página de login -->
   <h2 class="logitext">Login</h2>
+
+  <!-- Início do formulário de login -->
   <form method="post">
-    {% csrf_token %}
+    {% csrf_token %}  <!-- Token de segurança para proteção contra CSRF -->
+
+    <!-- Campo para o nome de usuário -->
     <div class="form-campo">
       <label for="{{ form.username.id_for_label }}">Usuário:</label>
       {{ form.username }}
     </div>
+
+    <!-- Campo para a senha -->
     <div class="form-campo">
       <label for="{{ form.password.id_for_label }}">Senha:</label>
       {{ form.password }}
     </div>
+
+    <!-- Botão para enviar o formulário -->
     <button type="submit">Entrar</button>
 
+    <!-- Links auxiliares para cadastro e recuperação de senha -->
     <p>Não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
-  <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
-
+    <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
   </form>
 {% endblock %}

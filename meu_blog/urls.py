@@ -13,6 +13,8 @@ from blog.views import (
     CustomPasswordResetConfirmView,
 )
 
+#Roteamento de URLs do projeto. Inclui os urls.py dos apps e define o que cada endereço (ex: /login/, /post/) faz.
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 

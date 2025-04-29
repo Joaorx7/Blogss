@@ -4,8 +4,13 @@
 
 {% block content %}
     <div class="erro-servidor">
+        <!-- Título da página indicando erro interno do servidor -->
         <h2>💥 Erro no servidor (500)</h2>
+
+        <!-- Mensagem informando que houve uma falha no sistema -->
         <p>Algo deu errado em nosso sistema. Tente novamente mais tarde.</p>
+
+        <!-- Link para voltar à página inicial -->
         <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
     </div>
 {% endblock %}

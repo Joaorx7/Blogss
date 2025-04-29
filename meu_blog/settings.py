@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+#Arquivo de configuração principal do Django: bancos de dados, apps instalados, paths de mídia e estáticos, segurança etc.
+
 from pathlib import Path
 import os
 
@@ -147,6 +149,8 @@ LOGOUT_REDIRECT_URL = 'home'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

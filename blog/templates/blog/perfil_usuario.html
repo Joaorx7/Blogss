@@ -1,21 +1,25 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<!-- Título do perfil com o nome de usuário -->
 <h1 id="perfil-titulo">Perfil de {{ usuario.username }}</h1>
 
+<!-- Verifica se o usuário está autenticado e é o dono do perfil -->
 {% if user.is_authenticated and user == usuario %}
     <p id="perfil-usuario-auth">
+        <!-- Links para o próprio perfil e logout -->
         Olá, <a href="{% url 'perfil_usuario' user.username %}" id="perfil-usuario-link">{{ user.username }}</a> |
         <a href="{% url 'logout' %}" id="perfil-logout">Sair</a> |
     </p>
 {% elif not user.is_authenticated %}
     <p id="perfil-usuario-guest">
+        <!-- Se o visitante não está logado, oferece links de login e cadastro -->
         <a href="{% url 'login' %}" id="perfil-login">Login</a> |
         <a href="{% url 'cadastro' %}" id="perfil-cadastro">Cadastro</a> |
     </p>
 {% endif %}
 
-<!-- Foto do perfil -->
+<!-- Foto de perfil: mostra a foto do usuário ou uma imagem padrão -->
 <div id="perfil-foto-container">
     {% if perfil.foto %}
         <img id="perfil-foto" src="{{ perfil.foto.url }}" alt="Foto de perfil">
@@ -24,21 +28,21 @@
     {% endif %}
 </div>
 
-<!-- Bio do usuário -->
+<!-- Bio do usuário ou mensagem padrão -->
 <p id="perfil-bio"> {{ perfil.bio|default:"Usuário sem bio ainda." }}</p>
 
-<!-- Contagem de seguidores e seguindo -->
+<!-- Contagem de seguidores e de quem o usuário segue -->
 <div id="perfil-seguidores">
     <p><strong>Seguidores:</strong> {{ seguidores.count }}</p>
     <p><strong>Seguindo:</strong> {{ seguindo.count }}</p>
 </div>
 
-<!-- Botão de editar bio (só para o dono do perfil) -->
+<!-- Botão de edição de perfil (só visível para o próprio dono do perfil) -->
 {% if request.user == usuario %}
     <a href="{% url 'editar_perfil' %}" class="botao-editar-perfil">✏️ Editar Perfil</a>
 {% endif %}
 
-<!-- Botão de seguir/deixar de seguir (só para outros usuários) -->
+<!-- Botão de seguir/deixar de seguir (apenas para visitantes logados que não são o dono do perfil) -->
 {% if request.user != usuario %}
     <form method="post" action="{% if request.user in seguidores %}{% url 'deixar_de_seguir' usuario.username %}{% else %}{% url 'seguir_usuario' usuario.username %}{% endif %}" id="perfil-form-seguir">
         {% csrf_token %}
@@ -52,14 +56,17 @@
     </form>
 {% endif %}
 
+<!-- Separador visual -->
 <hr id="perfil-separador">
 
-<!-- Lista de posts do usuário -->
+<!-- Listagem dos posts do usuário -->
 <h2 id="perfil-posts-titulo">Posts de {{ usuario.username }}</h2>
 <div id="perfil-posts-lista">
     {% for post in posts %}
+        <!-- Inclui o resumo do post reutilizando o template 'post_resumo.html' -->
         {% include 'blog/post_resumo.html' with post=post exibir_botao_seguir=False %}
     {% empty %}
+        <!-- Caso o usuário não tenha postado nada -->
         <p id="perfil-sem-posts">Este usuário ainda não publicou nada.</p>
     {% endfor %}
 </div>

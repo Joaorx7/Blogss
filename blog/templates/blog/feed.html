@@ -3,18 +3,31 @@
 {% block title %}Feed - Meu Blog{% endblock %}
 
 {% block content %}
+    <!-- Título principal da página do feed -->
     <h2>Seu Feed</h2>
 
+    <!-- Verifica se há posts disponíveis no feed -->
     {% if posts %}
+        <!-- Loop para exibir cada post individualmente -->
         {% for post in posts %}
             <div class="post-resumo">
+                <!-- Título do post com link para a página de detalhes -->
                 <h3><a href="{% url 'detalhes_post' post.id %}">{{ post.titulo }}</a></h3>
-                <p><strong>Por:</strong> <a href="{% url 'perfil_usuario' post.autor.username %}">{{ post.autor.username }}</a></p>
+
+                <!-- Nome do autor com link para o perfil -->
+                <p><strong>Por:</strong> 
+                    <a href="{% url 'perfil_usuario' post.autor.username %}">{{ post.autor.username }}</a>
+                </p>
+
+                <!-- Trecho do conteúdo do post limitado a 200 caracteres -->
                 <p>{{ post.conteudo|truncatechars:200 }}</p>
+
+                <!-- Data de publicação formatada -->
                 <small>Publicado em {{ post.criado_em|date:"d/m/Y H:i" }}</small>
             </div>
         {% endfor %}
     {% else %}
+        <!-- Mensagem exibida caso o feed esteja vazio -->
         <p>Você ainda não segue ninguém ou não há posts recentes.</p>
     {% endif %}
 {% endblock %}

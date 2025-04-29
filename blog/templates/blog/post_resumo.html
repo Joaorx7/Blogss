@@ -1,49 +1,68 @@
 {% load static %}
 
+<!-- Contêiner do post com data-id para facilitar JS (como curtidas, comentários dinâmicos etc.) -->
 <div class="post-resumo" data-id="{{ post.id }}">
+
+    <!-- Linha superior: foto de perfil, nome do autor e botão seguir -->
     <div style="display: flex; align-items: center; gap: 10px; margin: 5px 0;">
         {% if post.autor.perfil.foto %}
-            <img class="imgper" src="{{ post.autor.perfil.foto.url }}" alt="Foto de perfil" style="width: 50px; height: 50px; border-radius: 50%;">
+            <!-- Foto de perfil do autor -->
+            <img class="imgper" src="{{ post.autor.perfil.foto.url }}" alt="Foto de perfil"
+                 style="width: 50px; height: 50px; border-radius: 50%;">
         {% else %}
-        <div class="user-avatar" style="width: 50px; height: 50px; border-radius: 50%; display: inline-block; background-color: #ddd;">
-            <img src="/media/Icones/account.png" alt="Foto de perfil padrão"
-                 style="width: 100%; height: 100%; object-fit: contain;">
-        </div>
-        
+            <!-- Imagem padrão caso o autor não tenha foto -->
+            <div class="user-avatar" style="width: 50px; height: 50px; border-radius: 50%; display: inline-block; background-color: #ddd;">
+                <img src="/media/Icones/account.png" alt="Foto de perfil padrão"
+                     style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
         {% endif %}
+
+        <!-- Nome do autor com link para o perfil -->
         <strong><a href="{% url 'perfil_usuario' post.autor.username %}">{{ post.autor.username }}</a></strong>
 
-        <!-- Verifica se o usuário está logado e se não é o autor do post -->
+        <!-- Botão "Seguir"/"Seguindo" se aplicável -->
         {% if exibir_botao_seguir != False and user.is_authenticated and post.autor != user %}
-        <div style="display: flex; justify-content: flex-end; overflow: hidden; width: 100%;">
-            <form method="post" class="seguir-form" data-username="{{ post.autor.username }}">
-            {% csrf_token %}
-            <button type="submit" class="seguir-btn" data-username="{{ post.autor.username }}">
-                {% if user in post.autor.perfil.seguidores.all %}
-                    Seguindo
-                {% else %}
-                    Seguir +
-                {% endif %}
-            </button>
-            </form>
-        </div>
+            <div style="display: flex; justify-content: flex-end; overflow: hidden; width: 100%;">
+                <form method="post" class="seguir-form" data-username="{{ post.autor.username }}">
+                    {% csrf_token %}
+                    <button type="submit" class="seguir-btn" data-username="{{ post.autor.username }}">
+                        {% if user in post.autor.perfil.seguidores.all %}
+                            Seguindo
+                        {% else %}
+                            Seguir +
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
         {% endif %}
     </div>
 
-    <!-- Conteúdo clicável -->
+    <!-- Link para o post completo com conteúdo truncado -->
     <a href="{% url 'detalhes_post' post.id %}" style="text-decoration: none; color: inherit;">
         <p class="cont_post">{{ post.conteudo|truncatechars:200 }}</p>
 
+        <!-- Mostra a imagem do post, se houver -->
         {% if post.imagem %}
-            <img src="{{ post.imagem.url }}" alt="Imagem do post" class="img-resumo" style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
+            <img src="{{ post.imagem.url }}" alt="Imagem do post"
+                 class="img-resumo"
+                 style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
         {% endif %}
     </a>
 
     {% if user.is_authenticated %}
+        <!-- Botões de curtir e comentar -->
         <div class="divducomen" style="margin-top: 10px;">
+            <!-- Botão curtir com imagem dinâmica (vermelho se já curtiu) -->
             <button class="curtir-btn" data-id="{{ post.id }}">
-                <img src="{% if user in post.curtidas.all %}{{ media_prefix }}Icones/vermelho.png{% else %}{{ media_prefix }}Icones/like.png{% endif %}" alt="Curtir">
-            </button>            
+                <img src="{% if user in post.curtidas.all %}
+                          {{ media_prefix }}Icones/vermelho.png
+                          {% else %}
+                          {{ media_prefix }}Icones/like.png
+                          {% endif %}"
+                     alt="Curtir">
+            </button>
+
+            <!-- Botão comentar, linkando direto para os comentários do post -->
             <a href="{% url 'detalhes_post' post.id %}#comentarios" style="margin-left: 15px;">
                 <img class="iconc" src="{{ media_prefix }}Icones/comentar.png" alt="Comentar">
             </a>

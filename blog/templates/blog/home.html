@@ -4,21 +4,26 @@
 {% block title %}Início - Meu Blog{% endblock %}
 
 {% block content %}
+<!-- Container que vai armazenar todos os posts listados -->
 <div id="posts-container">
+    <!-- Loop que inclui o template 'post_resumo.html' para cada post -->
     {% for post in posts %}
         {% include 'blog/post_resumo.html' %}
     {% endfor %}
 </div>
 
+<!-- Loader que será exibido durante o carregamento de mais posts (scroll infinito, por exemplo) -->
 <div id="loader" style="text-align: center; display: none; margin-top: 20px;">
     <p>🔄 Carregando mais posts...</p>
 </div>
 {% endblock %}
 
 {% block scripts %}
+<!-- Define um prefixo de caminho para arquivos de mídia, útil para JS -->
 <script>
-    // Define o prefixo estático base (ex: "/static/")
     window.MEDIA_PREFIX = "{% static '' %}";
 </script>
+
+<!-- Importa o script JavaScript principal da aplicação -->
 <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

@@ -7,8 +7,10 @@
 <div class="buscar-usuarios-container">
   <h2 class="buscar-usuarios-titulo">Buscar usuários</h2>
 
+  <!-- Formulário de busca por nome de usuário -->
   <form method="get" action="{% url 'buscar_usuarios' %}" class="buscar-usuarios-form campo-busca-wrapper">
     <div class="campo-busca-wrapper">
+      <!-- Campo de texto com o termo digitado -->
       <input
         type="text"
         name="q"
@@ -16,7 +18,7 @@
         placeholder="Digite um nome de usuário..."
         class="campo-busca"
       >
-      <!-- input type=image usa o src /media direto e faz submit -->
+      <!-- Botão de envio da busca usando imagem -->
       <input
         type="image"
         src="/media/Icones/buscar.png"
@@ -27,17 +29,22 @@
   </form>
 </div>
 
+<!-- Lista de usuários encontrados -->
 <ul id="buscar-usuarios-lista">
   {% for usuario in usuarios %}
     <li class="buscar-usuarios-item">
+      <!-- Foto de perfil, ou imagem padrão se não houver -->
       {% if usuario.perfil.foto %}
         <img src="{{ usuario.perfil.foto.url }}" alt="Foto de perfil" class="buscar-usuarios-foto">
       {% else %}
         <img src="/media/Icones/Account.png" alt="Foto de perfil padrão" class="buscar-usuarios-foto foto-padrao">
       {% endif %}
+
+      <!-- Link para o perfil do usuário -->
       <a href="{% url 'perfil_usuario' usuario.username %}" class="buscar-usuarios-link">{{ usuario.username }}</a>
     </li>
   {% empty %}
+    <!-- Mensagem quando nenhum usuário é encontrado -->
     <li>Nenhum usuário encontrado.</li>
   {% endfor %}
 </ul>
